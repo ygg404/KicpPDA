@@ -1,0 +1,91 @@
+-- Merging decision tree log ---
+manifest
+ADDED from E:\ygg\AndroidProjects\KicpPDA\app\src\main\AndroidManifest.xml:2:1-26:12
+	package
+		ADDED from E:\ygg\AndroidProjects\KicpPDA\app\src\main\AndroidManifest.xml:3:11-38
+		INJECTED from E:\ygg\AndroidProjects\KicpPDA\app\src\main\AndroidManifest.xml
+		INJECTED from E:\ygg\AndroidProjects\KicpPDA\app\src\main\AndroidManifest.xml
+	android:versionName
+		INJECTED from E:\ygg\AndroidProjects\KicpPDA\app\src\main\AndroidManifest.xml
+		INJECTED from E:\ygg\AndroidProjects\KicpPDA\app\src\main\AndroidManifest.xml
+	xmlns:android
+		ADDED from E:\ygg\AndroidProjects\KicpPDA\app\src\main\AndroidManifest.xml:2:11-69
+	android:versionCode
+		INJECTED from E:\ygg\AndroidProjects\KicpPDA\app\src\main\AndroidManifest.xml
+		INJECTED from E:\ygg\AndroidProjects\KicpPDA\app\src\main\AndroidManifest.xml
+uses-permission#android.permission.INTERNET
+ADDED from E:\ygg\AndroidProjects\KicpPDA\app\src\main\AndroidManifest.xml:5:5-66
+	android:name
+		ADDED from E:\ygg\AndroidProjects\KicpPDA\app\src\main\AndroidManifest.xml:5:22-64
+uses-permission#android.permission.READ_EXTERNAL_STORAGE
+ADDED from E:\ygg\AndroidProjects\KicpPDA\app\src\main\AndroidManifest.xml:6:5-79
+	android:name
+		ADDED from E:\ygg\AndroidProjects\KicpPDA\app\src\main\AndroidManifest.xml:6:22-77
+uses-permission#android.permission.WRITE_EXTERNAL_STORAGE
+ADDED from E:\ygg\AndroidProjects\KicpPDA\app\src\main\AndroidManifest.xml:7:5-80
+	android:name
+		ADDED from E:\ygg\AndroidProjects\KicpPDA\app\src\main\AndroidManifest.xml:7:22-78
+application
+ADDED from E:\ygg\AndroidProjects\KicpPDA\app\src\main\AndroidManifest.xml:8:5-24:19
+MERGED from [com.android.support:appcompat-v7:24.2.1] C:\Users\Lenovo\.android\build-cache\b4439afb2c14e37ecb63a89ca2da1b3d93b4351e\output\AndroidManifest.xml:25:5-20
+MERGED from [com.android.support:support-v4:24.2.1] C:\Users\Lenovo\.android\build-cache\72de1e7c098e8ac8237fd801e538bb5f782c26ea\output\AndroidManifest.xml:25:5-20
+MERGED from [com.android.support:support-fragment:24.2.1] C:\Users\Lenovo\.android\build-cache\be8d4f9240751ba1318c87e22dc4333e68c7e0cc\output\AndroidManifest.xml:25:5-20
+MERGED from [com.android.support:support-media-compat:24.2.1] C:\Users\Lenovo\.android\build-cache\af80b80f82b2b0d39e6fd0af1c37a6b2c0eb590f\output\AndroidManifest.xml:25:5-20
+MERGED from [com.android.support:support-core-ui:24.2.1] C:\Users\Lenovo\.android\build-cache\51287a7db89f912dc7ff908582c3db45793ee83d\output\AndroidManifest.xml:25:5-20
+MERGED from [com.android.support:support-core-utils:24.2.1] C:\Users\Lenovo\.android\build-cache\cc297c4bec79d515d7afee49247a7e90236097ba\output\AndroidManifest.xml:25:5-20
+MERGED from [com.android.support:animated-vector-drawable:24.2.1] C:\Users\Lenovo\.android\build-cache\9b2cf09ec949fcf194da3413dc8fa45862dbcc67\output\AndroidManifest.xml:22:5-20
+MERGED from [com.android.support:support-vector-drawable:24.2.1] C:\Users\Lenovo\.android\build-cache\7af441d9cca36c72e485bf0d8aa9e232e20ebb3a\output\AndroidManifest.xml:23:5-20
+MERGED from [com.android.support:support-compat:24.2.1] C:\Users\Lenovo\.android\build-cache\1c56119077212b9efdd80bda677e70fa66903488\output\AndroidManifest.xml:25:5-20
+MERGED from [com.android.support.constraint:constraint-layout:1.0.2] C:\Users\Lenovo\.android\build-cache\df57bb4bdfc1d9857405d2970343dae94ccc7906\output\AndroidManifest.xml:9:5-20
+	android:label
+		ADDED from E:\ygg\AndroidProjects\KicpPDA\app\src\main\AndroidManifest.xml:11:9-41
+	android:supportsRtl
+		ADDED from E:\ygg\AndroidProjects\KicpPDA\app\src\main\AndroidManifest.xml:12:9-35
+	android:allowBackup
+		ADDED from E:\ygg\AndroidProjects\KicpPDA\app\src\main\AndroidManifest.xml:9:9-35
+	android:icon
+		ADDED from E:\ygg\AndroidProjects\KicpPDA\app\src\main\AndroidManifest.xml:10:9-43
+	android:theme
+		ADDED from E:\ygg\AndroidProjects\KicpPDA\app\src\main\AndroidManifest.xml:13:9-40
+activity#com.kinde.kicppda.LoginActivity
+ADDED from E:\ygg\AndroidProjects\KicpPDA\app\src\main\AndroidManifest.xml:14:9-20:20
+	android:screenOrientation
+		ADDED from E:\ygg\AndroidProjects\KicpPDA\app\src\main\AndroidManifest.xml:14:49-85
+	android:name
+		ADDED from E:\ygg\AndroidProjects\KicpPDA\app\src\main\AndroidManifest.xml:14:19-48
+intent-filter#android.intent.action.MAIN+android.intent.category.LAUNCHER
+ADDED from E:\ygg\AndroidProjects\KicpPDA\app\src\main\AndroidManifest.xml:15:13-19:29
+action#android.intent.action.MAIN
+ADDED from E:\ygg\AndroidProjects\KicpPDA\app\src\main\AndroidManifest.xml:16:17-68
+	android:name
+		ADDED from E:\ygg\AndroidProjects\KicpPDA\app\src\main\AndroidManifest.xml:16:25-66
+category#android.intent.category.LAUNCHER
+ADDED from E:\ygg\AndroidProjects\KicpPDA\app\src\main\AndroidManifest.xml:18:17-76
+	android:name
+		ADDED from E:\ygg\AndroidProjects\KicpPDA\app\src\main\AndroidManifest.xml:18:27-74
+activity#com.kinde.kicppda.MainActivity
+ADDED from E:\ygg\AndroidProjects\KicpPDA\app\src\main\AndroidManifest.xml:22:9-23:20
+	android:screenOrientation
+		ADDED from E:\ygg\AndroidProjects\KicpPDA\app\src\main\AndroidManifest.xml:22:48-84
+	android:name
+		ADDED from E:\ygg\AndroidProjects\KicpPDA\app\src\main\AndroidManifest.xml:22:19-47
+uses-sdk
+INJECTED from E:\ygg\AndroidProjects\KicpPDA\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
+MERGED from [com.android.support:appcompat-v7:24.2.1] C:\Users\Lenovo\.android\build-cache\b4439afb2c14e37ecb63a89ca2da1b3d93b4351e\output\AndroidManifest.xml:21:5-23:78
+MERGED from [com.android.support:support-v4:24.2.1] C:\Users\Lenovo\.android\build-cache\72de1e7c098e8ac8237fd801e538bb5f782c26ea\output\AndroidManifest.xml:21:5-23:54
+MERGED from [com.android.support:support-fragment:24.2.1] C:\Users\Lenovo\.android\build-cache\be8d4f9240751ba1318c87e22dc4333e68c7e0cc\output\AndroidManifest.xml:21:5-23:60
+MERGED from [com.android.support:support-media-compat:24.2.1] C:\Users\Lenovo\.android\build-cache\af80b80f82b2b0d39e6fd0af1c37a6b2c0eb590f\output\AndroidManifest.xml:21:5-23:63
+MERGED from [com.android.support:support-core-ui:24.2.1] C:\Users\Lenovo\.android\build-cache\51287a7db89f912dc7ff908582c3db45793ee83d\output\AndroidManifest.xml:21:5-23:58
+MERGED from [com.android.support:support-core-utils:24.2.1] C:\Users\Lenovo\.android\build-cache\cc297c4bec79d515d7afee49247a7e90236097ba\output\AndroidManifest.xml:21:5-23:61
+MERGED from [com.android.support:animated-vector-drawable:24.2.1] C:\Users\Lenovo\.android\build-cache\9b2cf09ec949fcf194da3413dc8fa45862dbcc67\output\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-vector-drawable:24.2.1] C:\Users\Lenovo\.android\build-cache\7af441d9cca36c72e485bf0d8aa9e232e20ebb3a\output\AndroidManifest.xml:21:5-43
+MERGED from [com.android.support:support-compat:24.2.1] C:\Users\Lenovo\.android\build-cache\1c56119077212b9efdd80bda677e70fa66903488\output\AndroidManifest.xml:21:5-23:58
+MERGED from [com.android.support.constraint:constraint-layout:1.0.2] C:\Users\Lenovo\.android\build-cache\df57bb4bdfc1d9857405d2970343dae94ccc7906\output\AndroidManifest.xml:5:5-7:41
+	tools:overrideLibrary
+		ADDED from [com.android.support:appcompat-v7:24.2.1] C:\Users\Lenovo\.android\build-cache\b4439afb2c14e37ecb63a89ca2da1b3d93b4351e\output\AndroidManifest.xml:23:9-75
+	android:targetSdkVersion
+		INJECTED from E:\ygg\AndroidProjects\KicpPDA\app\src\main\AndroidManifest.xml
+		INJECTED from E:\ygg\AndroidProjects\KicpPDA\app\src\main\AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from E:\ygg\AndroidProjects\KicpPDA\app\src\main\AndroidManifest.xml
+		INJECTED from E:\ygg\AndroidProjects\KicpPDA\app\src\main\AndroidManifest.xml

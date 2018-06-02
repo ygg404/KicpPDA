@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="false"
+        jar="E:\ygg\AndroidProjects\KicpPDA\app\libs\fastjson-1.1.33.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="43b49a6933e68564ddc291d941db1bd1bd4166fc">
+        <dex dex="E:\ygg\AndroidProjects\KicpPDA\app\build\intermediates\pre-dexed\debug\fastjson-1.1.33_a09522044858ea630929b4d9c2a300e00327da2d.jar" />
+    </item>
+
+</items>
