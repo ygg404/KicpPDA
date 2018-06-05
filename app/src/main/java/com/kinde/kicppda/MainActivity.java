@@ -7,7 +7,6 @@ import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.pm.ActivityInfo;
-import android.content.pm.FeatureGroupInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
@@ -18,7 +17,8 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-
+import com.kinde.kicppda.Billing.GetBillDialog;
+import com.kinde.kicppda.ScanDialog.InScanDialog;
 
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -173,10 +173,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             //单据
             case R.id.billbtn:
                 fTransaction.show(fg);
+                new GetBillDialog( MainActivity.this , 1 );
                 break;
-            //扫码
+            //采集
             case R.id.scanbtn:
                 fTransaction.show(fg);
+                new InScanDialog(MainActivity.this );
                 break;
             //查询
             case R.id.querybtn:

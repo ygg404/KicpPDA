@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.kinde.kicppda.Utils.ApiHelper;
@@ -153,6 +152,8 @@ public class LoginActivity extends AppCompatActivity {
     private void bindViews() {
         LimitsEditEnter(id_login);
         LimitsEditEnter(password_login);
+
+
         mProgersssDialog = null;
         button_login.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -169,13 +170,16 @@ public class LoginActivity extends AppCompatActivity {
      * 限制回车换行
      * @param et
      */
-    private void LimitsEditEnter(EditText et) {
-        et.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+    private void LimitsEditEnter(EditText et){
+        et.setOnKeyListener(new View.OnKeyListener() {
             @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                return (event.getKeyCode() == KeyEvent.KEYCODE_ENTER);
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (keyCode == KeyEvent.KEYCODE_NUMPAD_ENTER) {
+                    //TODO:回车键按下时要执行的操作
+                    return true;
+                }
+                return false;
             }
         });
     }
-
 }
