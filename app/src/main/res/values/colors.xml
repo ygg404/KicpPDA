@@ -5,6 +5,7 @@
     <color name="colorAccent">#FF4081</color>
     <color name="colorRed">#F00000</color>
     <color name="colorWhite">#FFFFFF</color>
+    <color name="colorGreen">#56b765</color>
     <color name="colorBlack">#000000</color>
     <color name="colorLoginEditText">#EFEFEF</color>
     <color name="colorlogin_button">#64b6f7</color>

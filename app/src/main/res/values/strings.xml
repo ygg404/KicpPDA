@@ -12,9 +12,12 @@
     <string name="exit">退出</string>
 
     <string name="progressbar_dialog_txt">登录中</string>
-    
+
+    <string name="main_title">主菜单</string>
+    <!--主界面导航栏-->
     <string name="data_text">数据管理</string>
     <string name="sys_text">系统设置</string>
+    <string name="prod_text">生产管理</string>
     <string name="quit_text">退出</string>
 
     <string name="inmenu">入库</string>

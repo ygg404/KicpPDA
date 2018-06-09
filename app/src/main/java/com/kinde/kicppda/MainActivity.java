@@ -1,14 +1,15 @@
 package com.kinde.kicppda;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,15 +18,15 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.kinde.kicppda.Billing.GetBillDialog;
+import com.kinde.kicppda.Billing.GetBillActivity;
 import com.kinde.kicppda.ScanDialog.InScanDialog;
 
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends Activity implements View.OnClickListener {
 
     private TextView datachannel;
     private TextView syschannel;
-    private  TextView quitchannel;
+    private  TextView prodchannel;
 
     //Fragment Object
     private FragmentManager fManager;
@@ -48,14 +49,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
-
         fManager = getFragmentManager();
         datachannel = (TextView)findViewById(R.id.data_channel);
         syschannel = (TextView)findViewById(R.id.sys_channel);
-        quitchannel = (TextView)findViewById(R.id.quit_channel);
+        prodchannel = (TextView)findViewById(R.id.prod_channel);
         datachannel.setOnClickListener(this);
         syschannel.setOnClickListener(this);
-        quitchannel.setOnClickListener(this);
+        prodchannel.setOnClickListener(this);
     }
 
     //隐藏所有Fragment
@@ -69,7 +69,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void setSelected(){
         datachannel.setSelected(false);
         syschannel.setSelected(false);
-        quitchannel.setSelected(false);
+        prodchannel.setSelected(false);
+
     }
 
     /**
@@ -104,7 +105,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 .setNegativeButton("取消", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        setSelected();
+                        ;
                     }
                 })
                 .setPositiveButton("确定", new DialogInterface.OnClickListener() {
@@ -121,6 +122,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         FragmentTransaction fTransaction = fManager.beginTransaction();
         hideAllFragment(fTransaction);
         switch (v.getId()) {
+            //数据管理
             case R.id.data_channel:
                 setSelected();
                 datachannel.setSelected(true);
@@ -131,14 +133,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     fTransaction.show(fg);
                 }
                 break;
+            //系统管理
             case R.id.sys_channel:
                 setSelected();
                 syschannel.setSelected(true);
                 break;
-            case  R.id.quit_channel:
+            //生产管理
+            case  R.id.prod_channel:
                 setSelected();
-                quitchannel.setSelected(true);
-                onBackPressed();
+                prodchannel.setSelected(true);
                 break;
             case R.id.inmenu:
                 setMenus();
@@ -173,7 +176,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             //单据
             case R.id.billbtn:
                 fTransaction.show(fg);
-                new GetBillDialog( MainActivity.this , 1 );
+                //新建一个显式意图，第一个参数为当前Activity类对象，第二个参数为你要打开的Activity类
+                Intent intent =new Intent(MainActivity.this,GetBillActivity.class);
+                //用Bundle携带数据
+                Bundle bundle=new Bundle();
+                //传递参数为billType
+                bundle.putString("billType", "1");
+                intent.putExtras(bundle);
+                startActivity(intent);
                 break;
             //采集
             case R.id.scanbtn:

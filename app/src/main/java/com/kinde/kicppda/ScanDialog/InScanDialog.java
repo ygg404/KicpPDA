@@ -42,6 +42,7 @@ public class InScanDialog extends Dialog implements  View.OnClickListener {
     public InScanDialog(Context context) {
         super(context , R.style.AppTheme);
         mContext = context;
+
         //加载布局文件
         LayoutInflater inflater=(LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view=inflater.inflate(R.layout.scan_in, null);
@@ -110,7 +111,7 @@ public class InScanDialog extends Dialog implements  View.OnClickListener {
         et.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
-                if (keyCode == KeyEvent.KEYCODE_ENTER) {
+                if (keyCode == KeyEvent.KEYCODE_ENTER && event.getAction()==KeyEvent.ACTION_DOWN) {
                     //TODO:回车键按下时要执行的操作
 
 
@@ -124,7 +125,7 @@ public class InScanDialog extends Dialog implements  View.OnClickListener {
                     mHorizontalScrollView.setVisibility(View.VISIBLE);
                     return true;
                 }
-                if(keyCode == KeyEvent.KEYCODE_BACK ){
+                if(keyCode == KeyEvent.KEYCODE_BACK && event.getAction()==KeyEvent.ACTION_DOWN){
                     //TODO:返回键按下时要执行的操作
                     mHorizontalScrollView.setVisibility(View.INVISIBLE);
                     return true;
