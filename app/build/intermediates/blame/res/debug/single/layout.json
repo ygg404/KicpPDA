@@ -12,6 +12,10 @@
         "source": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\src\\main\\res\\layout\\activity_login.xml"
     },
     {
+        "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\get_bill.xml",
+        "source": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\src\\main\\res\\layout\\get_bill.xml"
+    },
+    {
         "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_action_mode_close_item_material.xml",
         "source": "C:\\Users\\Lenovo\\.android\\build-cache\\b4439afb2c14e37ecb63a89ca2da1b3d93b4351e\\output\\res\\layout\\abc_action_mode_close_item_material.xml"
     },
@@ -30,6 +34,10 @@
     {
         "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_search_view.xml",
         "source": "C:\\Users\\Lenovo\\.android\\build-cache\\b4439afb2c14e37ecb63a89ca2da1b3d93b4351e\\output\\res\\layout\\abc_search_view.xml"
+    },
+    {
+        "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\item_inlist.xml",
+        "source": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\src\\main\\res\\layout\\item_inlist.xml"
     },
     {
         "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\notification_template_media.xml",
@@ -104,8 +112,8 @@
         "source": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\src\\main\\res\\layout\\fg_datacontent.xml"
     },
     {
-        "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\getbill.xml",
-        "source": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\src\\main\\res\\layout\\getbill.xml"
+        "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\scan_in.xml",
+        "source": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\src\\main\\res\\layout\\scan_in.xml"
     },
     {
         "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_dialog_title_material.xml",

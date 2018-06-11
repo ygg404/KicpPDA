@@ -2,6 +2,8 @@ package com.kinde.kicppda.Billing;
 
 import android.app.Activity;
 import android.content.pm.ActivityInfo;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -21,6 +23,7 @@ import com.imscs.barcodemanager.Constants;
 import com.imscs.barcodemanager.ScanTouchManager;
 import com.kinde.kicppda.R;
 import com.kinde.kicppda.Utils.Enum.BillTypeEnum;
+import com.kinde.kicppda.Utils.SQLiteHelper.DBOpenHelper;
 import com.kinde.kicppda.decodeLib.DecodeSampleApplication;
 
 import java.io.IOException;
@@ -31,6 +34,9 @@ import java.util.Date;
  */
 
 public class GetBillActivity extends Activity implements OnEngineStatus{
+
+    public SQLiteDatabase db;
+    public DBOpenHelper DBHelper;
 
     public BarcodeManager mBarcodeManager = null;
     public final int SCANKEY_LEFT = 301;
@@ -92,6 +98,8 @@ public class GetBillActivity extends Activity implements OnEngineStatus{
             }
         });
 
+        DBHelper = new DBOpenHelper(this );
+
         //新页面接收数据
         Bundle bundle = this.getIntent().getExtras();
         //接收billType值
@@ -145,7 +153,13 @@ public class GetBillActivity extends Activity implements OnEngineStatus{
         getbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ;
+                db = DBHelper.getReadableDatabase();
+                Cursor cursor = db.rawQuery("select name from sqlite_master where type='table' order by name", null);
+                while(cursor.moveToNext()){
+                    //遍历出表名
+                    String name = cursor.getString(0);
+
+                }
             }
         });
     }

@@ -16,16 +16,20 @@ import android.widget.Toast;
 import com.kinde.kicppda.Utils.ApiHelper;
 import com.kinde.kicppda.Utils.Config;
 import com.kinde.kicppda.Utils.Models.HttpResponseMsg;
+import com.kinde.kicppda.Utils.Models.Token;
 import com.kinde.kicppda.Utils.Models.TokenResultMsg;
 import com.kinde.kicppda.Utils.ProgersssDialog;
 
 import java.util.HashMap;
 
 /**
- * Created by Lenovo on 2018/5/25.
+ * Created by YGG on 2018/5/25.
  */
 
 public class LoginActivity extends AppCompatActivity {
+
+    public static String currentStaffId = ""; //当前的用户id
+    public static Token TokenResult = null;    //令牌
 
     private EditText id_login;
     private EditText password_login;
@@ -64,60 +68,43 @@ public class LoginActivity extends AppCompatActivity {
             //String msg = ApiHelper.GetHttp( Config.WebApiUrl + "PdaLogin?", query, Config.StaffId ,"" ,false);
             HttpResponseMsg msgc = ApiHelper.GetHttp(HttpResponseMsg.class, Config.WebApiUrl + "PdaLogin?", query, Config.StaffId ,"" ,false);
 
-/*
-            if(msg!=null)
+
+            if(msgc!=null)
             {
-                try {
-                    JSONObject json_msg = new JSONObject(msg);
-                    if ((Integer)json_msg.get("StatusCode") != 200) {
-                        message.obj = json_msg.get("Info");
-                        mHandler .sendMessage(message);
-                        return;
-                    }
-                }catch (Exception ex){
-                    message.obj = ex.toString();
+                if(msgc.StatusCode != 200)
+                {
+                    message.obj = msgc.Info;
                     mHandler .sendMessage(message);
                     return;
                 }
+
             }
             else {
                 message.obj = "网络异常！";
                 mHandler .sendMessage(message);
                 return;
             }
-            */
+
 
             //登录获取token
             TokenResultMsg tokenmsg = ApiHelper.GetSignToken( Config.StaffId , Config.AppSecret);
-            /*
-            if(tokenmsg != null)
+            if(tokenmsg!=null)
             {
-                try {
-                    JSONObject json_token = new JSONObject(tokenmsg);
-
-                   // Token person = JSON.parseObject(json_token.get("Data").toString(), Token.class);
-
-                    TokenResultMsg p = JSON.parseObject(tokenmsg, TokenResultMsg.class);
-                    //(TokenResultMsg)JSON.parse(result)
-                    p.setResult();
-                    if ((Integer)json_token.get("StatusCode") != 200) {
-                        message.obj = json_token.get("Info");
-                        mHandler .sendMessage(message);
-                        return;
-                    }
-
-                }catch (Exception ex){
-                    message.obj = ex.toString();
+                if(tokenmsg.StatusCode!= 200){
+                    message.obj = tokenmsg.Info;
                     mHandler .sendMessage(message);
                     return;
                 }
+                tokenmsg.setResult();
+                TokenResult = tokenmsg.getResult();
+                currentStaffId = id_login.getText().toString().trim();
             }
             else {
                 message.obj = "网络异常！";
-                mHandler .sendMessage(message);
+                mHandler.sendMessage(message);
                 return;
             }
-            */
+
             //登录加载dialog关闭
             mProgersssDialog.cancel();
 

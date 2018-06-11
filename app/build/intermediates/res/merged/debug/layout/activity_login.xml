@@ -24,6 +24,7 @@
         android:paddingLeft="8sp"
         android:maxLines="1"
         android:background="@color/colorLoginEditText"
+        android:imeOptions="actionDone"
         android:hint="@string/user"/>
     <EditText
         android:id="@+id/login_password"
@@ -35,6 +36,7 @@
         android:maxLines="1"
         android:background="@color/colorLoginEditText"
         android:inputType="numberPassword"
+        android:imeOptions="actionNone"
         android:hint="@string/password"/>
 
     <Button

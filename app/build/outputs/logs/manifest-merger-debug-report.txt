@@ -1,6 +1,6 @@
 -- Merging decision tree log ---
 manifest
-ADDED from E:\ygg\AndroidProjects\KicpPDA\app\src\main\AndroidManifest.xml:2:1-26:12
+ADDED from E:\ygg\AndroidProjects\KicpPDA\app\src\main\AndroidManifest.xml:2:1-32:12
 	package
 		ADDED from E:\ygg\AndroidProjects\KicpPDA\app\src\main\AndroidManifest.xml:3:11-38
 		INJECTED from E:\ygg\AndroidProjects\KicpPDA\app\src\main\AndroidManifest.xml
@@ -25,8 +25,24 @@ uses-permission#android.permission.WRITE_EXTERNAL_STORAGE
 ADDED from E:\ygg\AndroidProjects\KicpPDA\app\src\main\AndroidManifest.xml:7:5-80
 	android:name
 		ADDED from E:\ygg\AndroidProjects\KicpPDA\app\src\main\AndroidManifest.xml:7:22-78
+uses-permission#android.permission.VIBRATE
+ADDED from E:\ygg\AndroidProjects\KicpPDA\app\src\main\AndroidManifest.xml:8:5-65
+	android:name
+		ADDED from E:\ygg\AndroidProjects\KicpPDA\app\src\main\AndroidManifest.xml:8:22-63
+uses-permission#android.permission.MOUNT_UNMOUNT_FILESYSTEMS
+ADDED from E:\ygg\AndroidProjects\KicpPDA\app\src\main\AndroidManifest.xml:9:5-84
+	android:name
+		ADDED from E:\ygg\AndroidProjects\KicpPDA\app\src\main\AndroidManifest.xml:9:22-81
+uses-permission#android.permission.ACCESS_NETWORK_STATE
+ADDED from E:\ygg\AndroidProjects\KicpPDA\app\src\main\AndroidManifest.xml:11:5-78
+	android:name
+		ADDED from E:\ygg\AndroidProjects\KicpPDA\app\src\main\AndroidManifest.xml:11:22-76
+uses-permission#android.permission.SYSTEM_ALERT_WINDOW
+ADDED from E:\ygg\AndroidProjects\KicpPDA\app\src\main\AndroidManifest.xml:12:5-78
+	android:name
+		ADDED from E:\ygg\AndroidProjects\KicpPDA\app\src\main\AndroidManifest.xml:12:22-75
 application
-ADDED from E:\ygg\AndroidProjects\KicpPDA\app\src\main\AndroidManifest.xml:8:5-24:19
+ADDED from E:\ygg\AndroidProjects\KicpPDA\app\src\main\AndroidManifest.xml:13:5-30:19
 MERGED from [com.android.support:appcompat-v7:24.2.1] C:\Users\Lenovo\.android\build-cache\b4439afb2c14e37ecb63a89ca2da1b3d93b4351e\output\AndroidManifest.xml:25:5-20
 MERGED from [com.android.support:support-v4:24.2.1] C:\Users\Lenovo\.android\build-cache\72de1e7c098e8ac8237fd801e538bb5f782c26ea\output\AndroidManifest.xml:25:5-20
 MERGED from [com.android.support:support-fragment:24.2.1] C:\Users\Lenovo\.android\build-cache\be8d4f9240751ba1318c87e22dc4333e68c7e0cc\output\AndroidManifest.xml:25:5-20
@@ -38,37 +54,45 @@ MERGED from [com.android.support:support-vector-drawable:24.2.1] C:\Users\Lenovo
 MERGED from [com.android.support:support-compat:24.2.1] C:\Users\Lenovo\.android\build-cache\1c56119077212b9efdd80bda677e70fa66903488\output\AndroidManifest.xml:25:5-20
 MERGED from [com.android.support.constraint:constraint-layout:1.0.2] C:\Users\Lenovo\.android\build-cache\df57bb4bdfc1d9857405d2970343dae94ccc7906\output\AndroidManifest.xml:9:5-20
 	android:label
-		ADDED from E:\ygg\AndroidProjects\KicpPDA\app\src\main\AndroidManifest.xml:11:9-41
+		ADDED from E:\ygg\AndroidProjects\KicpPDA\app\src\main\AndroidManifest.xml:17:9-41
 	android:supportsRtl
-		ADDED from E:\ygg\AndroidProjects\KicpPDA\app\src\main\AndroidManifest.xml:12:9-35
+		ADDED from E:\ygg\AndroidProjects\KicpPDA\app\src\main\AndroidManifest.xml:18:9-35
 	android:allowBackup
-		ADDED from E:\ygg\AndroidProjects\KicpPDA\app\src\main\AndroidManifest.xml:9:9-35
+		ADDED from E:\ygg\AndroidProjects\KicpPDA\app\src\main\AndroidManifest.xml:15:9-35
 	android:icon
-		ADDED from E:\ygg\AndroidProjects\KicpPDA\app\src\main\AndroidManifest.xml:10:9-43
+		ADDED from E:\ygg\AndroidProjects\KicpPDA\app\src\main\AndroidManifest.xml:16:9-39
 	android:theme
-		ADDED from E:\ygg\AndroidProjects\KicpPDA\app\src\main\AndroidManifest.xml:13:9-40
+		ADDED from E:\ygg\AndroidProjects\KicpPDA\app\src\main\AndroidManifest.xml:19:9-40
+	android:name
+		ADDED from E:\ygg\AndroidProjects\KicpPDA\app\src\main\AndroidManifest.xml:14:9-58
 activity#com.kinde.kicppda.LoginActivity
-ADDED from E:\ygg\AndroidProjects\KicpPDA\app\src\main\AndroidManifest.xml:14:9-20:20
+ADDED from E:\ygg\AndroidProjects\KicpPDA\app\src\main\AndroidManifest.xml:20:9-26:20
 	android:screenOrientation
-		ADDED from E:\ygg\AndroidProjects\KicpPDA\app\src\main\AndroidManifest.xml:14:49-85
+		ADDED from E:\ygg\AndroidProjects\KicpPDA\app\src\main\AndroidManifest.xml:20:49-85
 	android:name
-		ADDED from E:\ygg\AndroidProjects\KicpPDA\app\src\main\AndroidManifest.xml:14:19-48
+		ADDED from E:\ygg\AndroidProjects\KicpPDA\app\src\main\AndroidManifest.xml:20:19-48
 intent-filter#android.intent.action.MAIN+android.intent.category.LAUNCHER
-ADDED from E:\ygg\AndroidProjects\KicpPDA\app\src\main\AndroidManifest.xml:15:13-19:29
+ADDED from E:\ygg\AndroidProjects\KicpPDA\app\src\main\AndroidManifest.xml:21:13-25:29
 action#android.intent.action.MAIN
-ADDED from E:\ygg\AndroidProjects\KicpPDA\app\src\main\AndroidManifest.xml:16:17-68
+ADDED from E:\ygg\AndroidProjects\KicpPDA\app\src\main\AndroidManifest.xml:22:17-68
 	android:name
-		ADDED from E:\ygg\AndroidProjects\KicpPDA\app\src\main\AndroidManifest.xml:16:25-66
+		ADDED from E:\ygg\AndroidProjects\KicpPDA\app\src\main\AndroidManifest.xml:22:25-66
 category#android.intent.category.LAUNCHER
-ADDED from E:\ygg\AndroidProjects\KicpPDA\app\src\main\AndroidManifest.xml:18:17-76
+ADDED from E:\ygg\AndroidProjects\KicpPDA\app\src\main\AndroidManifest.xml:24:17-76
 	android:name
-		ADDED from E:\ygg\AndroidProjects\KicpPDA\app\src\main\AndroidManifest.xml:18:27-74
+		ADDED from E:\ygg\AndroidProjects\KicpPDA\app\src\main\AndroidManifest.xml:24:27-74
 activity#com.kinde.kicppda.MainActivity
-ADDED from E:\ygg\AndroidProjects\KicpPDA\app\src\main\AndroidManifest.xml:22:9-23:20
+ADDED from E:\ygg\AndroidProjects\KicpPDA\app\src\main\AndroidManifest.xml:28:9-96
 	android:screenOrientation
-		ADDED from E:\ygg\AndroidProjects\KicpPDA\app\src\main\AndroidManifest.xml:22:48-84
+		ADDED from E:\ygg\AndroidProjects\KicpPDA\app\src\main\AndroidManifest.xml:28:48-84
 	android:name
-		ADDED from E:\ygg\AndroidProjects\KicpPDA\app\src\main\AndroidManifest.xml:22:19-47
+		ADDED from E:\ygg\AndroidProjects\KicpPDA\app\src\main\AndroidManifest.xml:28:19-47
+activity#com.kinde.kicppda.Billing.GetBillActivity
+ADDED from E:\ygg\AndroidProjects\KicpPDA\app\src\main\AndroidManifest.xml:29:9-107
+	android:screenOrientation
+		ADDED from E:\ygg\AndroidProjects\KicpPDA\app\src\main\AndroidManifest.xml:29:59-95
+	android:name
+		ADDED from E:\ygg\AndroidProjects\KicpPDA\app\src\main\AndroidManifest.xml:29:19-58
 uses-sdk
 INJECTED from E:\ygg\AndroidProjects\KicpPDA\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
 MERGED from [com.android.support:appcompat-v7:24.2.1] C:\Users\Lenovo\.android\build-cache\b4439afb2c14e37ecb63a89ca2da1b3d93b4351e\output\AndroidManifest.xml:21:5-23:78

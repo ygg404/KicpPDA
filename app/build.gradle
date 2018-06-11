@@ -26,8 +26,7 @@ dependencies {
     })
     compile 'com.android.support:appcompat-v7:24.2.1'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
-
     testCompile 'junit:junit:4.12'
     compile files('libs/fastjson-1.1.33.jar')
-
+    compile files('libs/imscsmanager_1.5.jar')
 }
