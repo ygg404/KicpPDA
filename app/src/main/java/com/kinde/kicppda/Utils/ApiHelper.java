@@ -5,14 +5,18 @@ package com.kinde.kicppda.Utils;
  */
 
 import com.alibaba.fastjson.JSON;
+import com.kinde.kicppda.LoginActivity;
 import com.kinde.kicppda.Utils.Models.TokenResultMsg;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.math.BigInteger;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.security.MessageDigest;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -45,6 +49,39 @@ public class ApiHelper {
         return String.valueOf(i);
     }
 
+    /**
+     * 计算机签名
+      * @param timeStamp
+     * @param nonce
+     * @param staffId
+     * @param data
+     * @param appSecret
+     * @return
+     */
+    public static String GetSignature(String timeStamp, String nonce, int staffId, String data,String appSecret) throws Exception
+    {
+        MessageDigest md5;
+        if (LoginActivity.TokenResult == null)
+        {
+            throw new Exception("获取令牌失败！");
+        }
+        try {
+            // 生成一个MD5加密计算摘要
+            md5 = MessageDigest.getInstance("MD5");
+            //拼接签名数据
+            String signStr = timeStamp + nonce + staffId + LoginActivity.TokenResult.SignToken.toString() + data + appSecret;
+
+            // 计算md5函数
+            md5.update(signStr.getBytes());
+
+        }catch (Exception ex){
+            throw new Exception("MD5加密失败！");
+        }
+        // digest()最后确定返回md5 hash值，返回值为8为字符串。因为md5 hash值是16位的hex值，实际上就是8位的字符
+        // BigInteger函数则将8位的字符串转换成16位hex值，用字符串来表示；得到字符串形式的hash值
+        String md5Encode = (new BigInteger(1, md5.digest()).toString(16)).toUpperCase();
+        return md5Encode;
+    }
 
 
     public static <T> void writeExact(List<T> list, T item) {
@@ -67,25 +104,43 @@ public class ApiHelper {
         T msgClass = null;
 
         try {
+            //签名字符串
+            String query = "";
+            //queryMapKeySort 以key按字母大小排列
+            HashMap<String, String> queryMapKeySort = new HashMap<String, String>();
+            Object[] key_arr = querymap.keySet().toArray();
+            Arrays.sort(key_arr);
+            for  (Object key : key_arr) {
+                Object value = querymap.get(key);
+                query += ( key.toString() + value.toString() );
+                queryMapKeySort.put( key.toString() , value.toString() );
+            }
+
             //请求的数据
-            String dataGet = "";
-            for (String key : querymap.keySet()) {
-                dataGet += "&" + key + "=" + URLEncoder.encode(querymap.get(key), "UTF-8");
+            String queryStr = "";
+            for (String key : queryMapKeySort.keySet()) {
+                queryStr += "&" + key + "=" + URLEncoder.encode(queryMapKeySort.get(key), "UTF-8");
                 //System.out.println("key= "+ key + " and value= " + map.get(key));
             }
-            dataGet = dataGet.substring(1, dataGet.length());
+            queryStr = queryStr.substring(1, queryStr.length());
+
             //get请求的url
-            URL url=new URL( webApi + dataGet);
+            URL url=new URL( webApi + queryStr);
             HttpURLConnection conn = (HttpURLConnection)url.openConnection();
             //设置请求方式,请求超时信息
             conn.setRequestMethod("GET");
-            conn.setReadTimeout(5000);
-            conn.setConnectTimeout(5000);
+            conn.setReadTimeout(9000);
+            conn.setConnectTimeout(9000);
             // 设置请求的头
+            String timestamp = ApiHelper.GetTimeStamp();
+            String nonce = ApiHelper.GetRandom();
             conn.setRequestProperty("staffid", String.valueOf(staffId) );
-            conn.setRequestProperty("timestamp", ApiHelper.GetTimeStamp()); //发起请求时的时间戳（单位：毫秒）
-            conn.setRequestProperty("nonce", ApiHelper.GetRandom()); //发起请求时的随机数
-          //  conn.setRequestProperty("query", query);
+            conn.setRequestProperty("timestamp",timestamp); //发起请求时的时间戳（单位：毫秒）
+            conn.setRequestProperty("nonce", nonce); //发起请求时的随机数
+            conn.setRequestProperty("query", query);
+            if(sign){
+                conn.setRequestProperty("signature", GetSignature(timestamp , nonce , staffId, query, appSecret)); //当前请求内容的数字签名
+            }
             //开启连接
             conn.connect();
             InputStream inputStream=null;

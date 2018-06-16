@@ -2,8 +2,6 @@ package com.kinde.kicppda.Billing;
 
 import android.app.Activity;
 import android.content.pm.ActivityInfo;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -16,27 +14,32 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.imscs.barcodemanager.BarcodeManager;
 import com.imscs.barcodemanager.BarcodeManager.OnEngineStatus;
 import com.imscs.barcodemanager.Constants;
 import com.imscs.barcodemanager.ScanTouchManager;
 import com.kinde.kicppda.R;
+import com.kinde.kicppda.Utils.ApiHelper;
+import com.kinde.kicppda.Utils.Config;
 import com.kinde.kicppda.Utils.Enum.BillTypeEnum;
-import com.kinde.kicppda.Utils.SQLiteHelper.DBOpenHelper;
+import com.kinde.kicppda.Utils.Models.GodownListResultMsg;
+import com.kinde.kicppda.Utils.ProgersssDialog;
 import com.kinde.kicppda.decodeLib.DecodeSampleApplication;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+
 /**
  * Created by YGG on 2018/6/1.
  */
 
 public class GetBillActivity extends Activity implements OnEngineStatus{
 
-    public SQLiteDatabase db;
-    public DBOpenHelper DBHelper;
+    public GetBillHelper gBillHelper;
 
     public BarcodeManager mBarcodeManager = null;
     public final int SCANKEY_LEFT = 301;
@@ -57,18 +60,32 @@ public class GetBillActivity extends Activity implements OnEngineStatus{
     private Button getbtn;
     private Button quitbtn;
     private EditText billBarcode;
-
+    private ProgersssDialog mProgersssDialog;
    
     public class DoDecodeThread extends Thread {
         public void run() {
             Looper.prepare();
-
             mDoDecodeHandler = new Handler();
-
             Looper.loop();
         }
     }
 
+    Handler eHandler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what) {
+                case 0:
+                    //do something,refresh UI;
+                    Toast.makeText(GetBillActivity.this , msg.obj.toString() ,Toast.LENGTH_LONG).show();
+                    //登录加载dialog关闭
+                    mProgersssDialog.cancel();
+                    break;
+                default:
+                    break;
+            }
+        }
+    };
 
     private DoDecodeThread mDoDecodeThread;
 	
@@ -98,7 +115,7 @@ public class GetBillActivity extends Activity implements OnEngineStatus{
             }
         });
 
-        DBHelper = new DBOpenHelper(this );
+       // DBHelper = new DBOpenHelper(this );
 
         //新页面接收数据
         Bundle bundle = this.getIntent().getExtras();
@@ -111,6 +128,45 @@ public class GetBillActivity extends Activity implements OnEngineStatus{
         mDoDecodeThread = new DoDecodeThread();
         mDoDecodeThread.start();
     }
+
+    /**
+     * 获取单据线程
+     */
+    Runnable GetBillingRun = new Runnable(){
+        @Override
+        public void run() {
+
+            // TODO Auto-generated method stub
+            Message message = new Message();
+
+            //获取主单
+            HashMap<String,String> query = new HashMap<String, String>();
+            query.put("godownCode",billBarcode.getText().toString());
+            query.put("beginDate", datebegin.getText().toString());
+            query.put("endDate", dateend.getText().toString());
+            query.put("status", "1");
+            GodownListResultMsg godListc = ApiHelper.GetHttp(GodownListResultMsg.class, Config.WebApiUrl + "GetGodownList?", query, Config.StaffId , Config.AppSecret ,true);
+            godListc.setResult();
+            if(godListc!=null)
+            {
+                if(godListc.StatusCode != 200)
+                {
+                    message.obj = godListc.Info;
+                    eHandler.sendMessage(message);
+                    return;
+                }
+
+            }
+            else {
+                message.obj = "网络异常！";
+                eHandler.sendMessage(message);
+                return;
+            }
+            //保存入库主单
+            gBillHelper.SaveGoDownDataFile(godListc.Result);
+            mProgersssDialog.cancel();
+        }
+    };
 
     /**
      * 初始化对单据话框
@@ -128,10 +184,10 @@ public class GetBillActivity extends Activity implements OnEngineStatus{
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
         datebegin.setText(sdf.format(dnow));
         dateend.setText(sdf.format(dnow));
-
+        //数据库操作初始化
+        gBillHelper = new GetBillHelper(this);
 
         String Title = "";
-
         if( billType == BillTypeEnum.intype.getValue() )
         {
             Title = "获取" + BillTypeEnum.intype.getTypeName()+"单据";
@@ -142,24 +198,25 @@ public class GetBillActivity extends Activity implements OnEngineStatus{
         }
         //设置标题
         billtitle.setText(Title.toString());
-
         quitbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         });
-
         getbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                db = DBHelper.getReadableDatabase();
-                Cursor cursor = db.rawQuery("select name from sqlite_master where type='table' order by name", null);
-                while(cursor.moveToNext()){
-                    //遍历出表名
-                    String name = cursor.getString(0);
-
-                }
+                new Thread(GetBillingRun).start();
+                mProgersssDialog = new ProgersssDialog(GetBillActivity.this);
+                mProgersssDialog.setMsg("获取单据中");
+//                db = DBHelper.getReadableDatabase();
+//                Cursor cursor = db.rawQuery("select name from sqlite_master where type='table' order by name", null);
+//                while(cursor.moveToNext()){
+//                    //遍历出表名
+//                    String name = cursor.getString(0);
+//
+//                }
             }
         });
     }
