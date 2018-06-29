@@ -18,7 +18,7 @@ public class SqlTableCreate {
             + "Description text, "
             + "CreateDate text, "
             + "CreateUserId text, "
-            + "Status text)";
+            + "Status smallint)";
     //出库主单表
     public static final String CREATE_ORDER_MAIN_TABLE = "create table orderMainBill ("
             + "id integer primary key autoincrement,"
@@ -30,7 +30,7 @@ public class SqlTableCreate {
             + "Description text, "
             + "CreateDate text, "
             + "CreateUserId text, "
-            + "Status text)";
+            + "Status smallint)";
     //退货主单表
     public static final String CREATE_RETURN_MAIN_TABLE = "create table returnMainBill ("
             + "id integer primary key autoincrement,"
@@ -42,7 +42,7 @@ public class SqlTableCreate {
             + "Description text, "
             + "CreateDate text, "
             + "CreateUserId text, "
-            + "Status text)";
+            + "Status smallint)";
     //调拨主单表
     public static final String CREATE_ALLOT_MAIN_TABLE = "create table allotMainBill ("
             + "id integer primary key autoincrement,"
@@ -56,7 +56,7 @@ public class SqlTableCreate {
             + "Description text, "
             + "CreateDate text, "
             + "CreateUserId text, "
-            + "Status text)";
+            + "Status smallint)";
     //盘点主单表
     public static final String CREATE_CHECK_MAIN_TABLE = "create table checkMainBill ("
             + "id integer primary key autoincrement,"
@@ -68,13 +68,12 @@ public class SqlTableCreate {
             + "Description text, "
             + "CreateDate text, "
             + "CreateUserId text, "
-            + "Status text)";
+            + "Status smallint)";
 
     //创建入库明细表
-    public static Boolean In_Billing_Create(SQLiteDatabase db , String billNo){
+    public static Boolean In_Billing_Create(SQLiteDatabase db , String billNo) throws Exception{
         String EntryFileName = billNo + "-Billing";
-        String CREATE_IN_BILL_TABLE = "drop table if exists " + EntryFileName + ";"
-            +"create table " + EntryFileName + "("
+        String CREATE_IN_BILL_TABLE = "create table '" + EntryFileName + "'("
                 + "id integer primary key autoincrement,"
                 + "GodownBillingId text, "
                 + "GodownId text, "
@@ -87,15 +86,96 @@ public class SqlTableCreate {
                 + "QtyFact text, "
                 + "SinglePerBox text, "
                 + "SingleBoxPerBigBox text, "
-                + "CreateDate text, "
                 + "CreateUserId text, "
-                + "CreateUserName text, "
-                + "Status text)";
+                + "CreateUserName text)";
 
         try {
+            db.execSQL("drop table if exists '" + EntryFileName + "'");
             db.execSQL(CREATE_IN_BILL_TABLE);
         }catch (Exception ex){
-            return false;
+            throw ex;
+
+        }
+        return true;
+    }
+
+    //创建出库明细表
+    public static Boolean Order_Billing_Create(SQLiteDatabase db , String billNo) throws Exception{
+        String EntryFileName = billNo + "-Billing";
+        String CREATE_ORDER_BILL_TABLE = "create table '" + EntryFileName + "'("
+                + "id integer primary key autoincrement,"
+                + "OrderBillingId text, "
+                + "OrderId text, "
+                + "ProductId text, "
+                + "ProductName text, "
+                + "EnCode text, "
+                + "Qty text, "
+                + "QtyFact text, "
+                + "SingleBoxPerBigBox text, "
+                + "SinglePerBox text, "
+                + "CreateUserId text, "
+                + "CreateUserName text)";
+
+        try {
+            db.execSQL("drop table if exists '" + EntryFileName + "'");
+            db.execSQL(CREATE_ORDER_BILL_TABLE);
+        }catch (Exception ex){
+            throw ex;
+
+        }
+        return true;
+    }
+
+    //创建退货明细表
+    public static Boolean Return_Billing_Create(SQLiteDatabase db , String billNo) throws Exception{
+        String EntryFileName = billNo + "-Billing";
+        String CREATE_RETURN_BILL_TABLE = "create table '" + EntryFileName + "'("
+                + "id integer primary key autoincrement,"
+                + "ReturnBillingId text, "
+                + "ReturnId text, "
+                + "ProductId text, "
+                + "ProductName text, "
+                + "EnCode text, "
+                + "Qty text, "
+                + "QtyFact text, "
+                + "SingleBoxPerBigBox text, "
+                + "SinglePerBox text, "
+                + "CreateUserId text, "
+                + "CreateUserName text)";
+
+        try {
+            db.execSQL("drop table if exists '" + EntryFileName + "'");
+            db.execSQL(CREATE_RETURN_BILL_TABLE);
+        }catch (Exception ex){
+            throw ex;
+
+        }
+        return true;
+    }
+
+    //创建调拨明细表
+    public static Boolean Allot_Billing_Create(SQLiteDatabase db , String billNo) throws Exception{
+        String EntryFileName = billNo + "-Billing";
+        String CREATE_ALLOT_BILL_TABLE = "create table '" + EntryFileName + "'("
+                + "id integer primary key autoincrement,"
+                + "AllotBillingId text, "
+                + "AllotId text, "
+                + "ProductId text, "
+                + "ProductName text, "
+                + "EnCode text, "
+                + "Qty text, "
+                + "QtyFact text, "
+                + "SingleBoxPerBigBox text, "
+                + "SinglePerBox text, "
+                + "CreateUserId text, "
+                + "CreateUserName text)";
+
+        try {
+            db.execSQL("drop table if exists '" + EntryFileName + "'");
+            db.execSQL(CREATE_ALLOT_BILL_TABLE);
+        }catch (Exception ex){
+            throw ex;
+
         }
         return true;
     }

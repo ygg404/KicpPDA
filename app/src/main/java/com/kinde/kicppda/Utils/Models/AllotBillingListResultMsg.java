@@ -1,25 +1,25 @@
 package com.kinde.kicppda.Utils.Models;
 
 import com.alibaba.fastjson.JSON;
-import com.kinde.kicppda.Models.GodownBillingEntity;
+import com.kinde.kicppda.Models.AllotBillingEntity;
 import com.kinde.kicppda.Utils.Enum.StatusCodeEnum;
 
 import java.util.List;
 
 /**
- * Created by YGG on 2018/6/11.
+ * Created by Lenovo on 2018/6/29.
  */
 
-public class GodownBillingListResultMsg extends HttpResponseMsg{
-    public List<GodownBillingEntity> Result;
+public class AllotBillingListResultMsg extends HttpResponseMsg{
+    public List<AllotBillingEntity> Result;
 
-    public List<GodownBillingEntity> getResult(){
+    public List<AllotBillingEntity> getResult(){
         return Result;
     }
 
     public void setResult(){
         if(StatusCode == StatusCodeEnum.Success.getValue() && !(Data == null || Data=="")){
-            Result =  JSON.parseArray(Data.toString(), GodownBillingEntity.class);
+            Result =  JSON.parseArray(Data.toString(), AllotBillingEntity.class);
         }
         else{
             Result = null;

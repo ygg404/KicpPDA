@@ -20,9 +20,13 @@ import android.widget.TextView;
 
 import com.kinde.kicppda.Billing.GetBillActivity;
 import com.kinde.kicppda.ScanDialog.InScanDialog;
+import com.kinde.kicppda.Utils.Enum.BillTypeEnum;
 
 
 public class MainActivity extends Activity implements View.OnClickListener {
+
+    //单据类型
+    private int BillType;
 
     private TextView datachannel;
     private TextView syschannel;
@@ -36,6 +40,13 @@ public class MainActivity extends Activity implements View.OnClickListener {
     private TextView return_content;
     private TextView allot_content;
     private TextView check_content;
+
+    private LinearLayout inBtnView;
+    private LinearLayout orderBtnView;
+    private LinearLayout returnBtnView;
+    private LinearLayout allotBtnView;
+    private LinearLayout checkBtnView;
+
     private Button bill_btn;
     private Button scan_btn;
     private Button query_btn;
@@ -77,11 +88,23 @@ public class MainActivity extends Activity implements View.OnClickListener {
      * 重置所有订单入库等选中状态
      */
     protected  void setMenus(){
-        in_content.setBackgroundResource(R.drawable.textview_border);
-        order_content.setBackgroundResource(R.drawable.textview_border);
-        return_content.setBackgroundResource(R.drawable.textview_border);
-        allot_content.setBackgroundResource(R.drawable.textview_border);
-        check_content.setBackgroundResource(R.drawable.textview_border);
+        in_content.setSelected(false);
+        order_content.setSelected(false);
+        return_content.setSelected(false);
+        allot_content.setSelected(false);
+        check_content.setSelected(false);
+
+        inBtnView.setSelected(false);
+        orderBtnView.setSelected(false);
+        returnBtnView.setSelected(false);
+        allotBtnView.setSelected(false);
+        checkBtnView.setSelected(false);
+
+        inBtnView.removeAllViews();
+        orderBtnView.removeAllViews();
+        returnBtnView.removeAllViews();
+        allotBtnView.removeAllViews();
+        checkBtnView.removeAllViews();
     }
 
     /**
@@ -121,6 +144,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
     public void onClick(View v) {
         FragmentTransaction fTransaction = fManager.beginTransaction();
         hideAllFragment(fTransaction);
+        LayoutInflater inflater = LayoutInflater.from(this);
+        LinearLayout sub = (LinearLayout) inflater.inflate(R.layout.fg_data_btn, null);
         switch (v.getId()) {
             //数据管理
             case R.id.data_channel:
@@ -143,55 +168,70 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 setSelected();
                 prodchannel.setSelected(true);
                 break;
-            case R.id.inmenu:
+            case R.id.in_channel:
                 setMenus();
                 fTransaction.show(fg);
-               in_content.setBackgroundResource(R.drawable.textview_sborder);
-                menu_content.setVisibility(View.VISIBLE);
+                in_content.setSelected(true);
+                inBtnView.setSelected(true);
+                inBtnView.addView(sub);
+                btnViewInit();
+                BillType = 1;
                 break;
-            case R.id.ordermenu:
+            case R.id.order_channel:
                 setMenus();
                 fTransaction.show(fg);
-                order_content.setBackgroundResource(R.drawable.textview_sborder);
-                menu_content.setVisibility(View.VISIBLE);
+                order_content.setSelected(true);
+                orderBtnView.setSelected(true);
+                orderBtnView.addView(sub);
+                btnViewInit();
+                BillType = 2;
                 break;
-            case R.id.returnmenu:
+            case R.id.return_channel:
                 setMenus();
                 fTransaction.show(fg);
-                return_content.setBackgroundResource(R.drawable.textview_sborder);
-                menu_content.setVisibility(View.VISIBLE);
+                return_content.setSelected(true);
+                returnBtnView.setSelected(true);
+                returnBtnView.addView(sub);
+                btnViewInit();
+                BillType = 3;
                 break;
-            case R.id.allotmenu:
+            case R.id.allot_channel:
                 setMenus();
                 fTransaction.show(fg);
-                allot_content.setBackgroundResource(R.drawable.textview_sborder);
-                menu_content.setVisibility(View.VISIBLE);
+                allot_content.setSelected(true);
+                allotBtnView.setSelected(true);
+                allotBtnView.addView(sub);
+                btnViewInit();
+                BillType = 4;
                 break;
-            case R.id.checkmenu:
+            case R.id.check_channel:
                 setMenus();
                 fTransaction.show(fg);
-                check_content.setBackgroundResource(R.drawable.textview_sborder);
-                menu_content.setVisibility(View.VISIBLE);
+                check_content.setSelected(true);
+                checkBtnView.setSelected(true);
+                checkBtnView.addView(sub);
+                btnViewInit();
+                BillType = 5;
                 break;
             //单据
-            case R.id.billbtn:
+            case R.id.bill_btn:
                 fTransaction.show(fg);
                 //新建一个显式意图，第一个参数为当前Activity类对象，第二个参数为你要打开的Activity类
                 Intent intent =new Intent(MainActivity.this,GetBillActivity.class);
                 //用Bundle携带数据
                 Bundle bundle=new Bundle();
                 //传递参数为billType
-                bundle.putString("billType", "1");
+                bundle.putString("billType", String.valueOf(BillType));
                 intent.putExtras(bundle);
                 startActivity(intent);
                 break;
             //采集
-            case R.id.scanbtn:
+            case R.id.scan_btn:
                 fTransaction.show(fg);
                 new InScanDialog(MainActivity.this );
                 break;
             //查询
-            case R.id.querybtn:
+            case R.id.query_btn:
                 fTransaction.show(fg);
                 break;
             default:
@@ -207,7 +247,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-            View view = inflater.inflate(R.layout.fg_datacontent,container,false);
+            View view = inflater.inflate(R.layout.fg_datamanager,container,false);
             FragmentBind(view);
             return view;
         }
@@ -218,24 +258,37 @@ public class MainActivity extends Activity implements View.OnClickListener {
       * @param view
      */
     public void FragmentBind(View view){
-        in_content = (TextView)view.findViewById(R.id.inmenu);
-        order_content =(TextView)view.findViewById(R.id.ordermenu);
-        return_content = (TextView)view.findViewById(R.id.returnmenu);
-        allot_content = (TextView)view.findViewById(R.id.allotmenu);
-        check_content = (TextView)view.findViewById(R.id.checkmenu);
-        bill_btn  = (Button)view.findViewById(R.id.billbtn);
-        scan_btn  = (Button)view.findViewById(R.id.scanbtn);
-        query_btn = (Button)view.findViewById(R.id.querybtn);
-        menu_content =(LinearLayout)view.findViewById(R.id.menucontent);
+        in_content = (TextView)view.findViewById(R.id.in_channel);
+        order_content = (TextView)view.findViewById(R.id.order_channel);
+        return_content = (TextView)view.findViewById(R.id.return_channel);
+        allot_content = (TextView)view.findViewById(R.id.allot_channel);
+        check_content = (TextView)view.findViewById(R.id.check_channel);
 
-        bill_btn.setOnClickListener(this);
-        scan_btn.setOnClickListener(this);
-        query_btn.setOnClickListener(this);
+        inBtnView = (LinearLayout)view.findViewById(R.id.in_btn_view);
+        orderBtnView = (LinearLayout)view.findViewById(R.id.order_btn_view);;
+        returnBtnView = (LinearLayout)view.findViewById(R.id.return_btn_view);;
+        allotBtnView = (LinearLayout)view.findViewById(R.id.allot_btn_view);;
+        checkBtnView = (LinearLayout)view.findViewById(R.id.check_btn_view);;
+
         in_content.setOnClickListener(this);
         order_content.setOnClickListener(this);
         return_content.setOnClickListener(this);
         allot_content.setOnClickListener(this);
         check_content.setOnClickListener(this);
+
+    }
+
+    /**
+     * 按钮初始化
+     */
+    public void btnViewInit(){
+        bill_btn  = (Button)findViewById(R.id.bill_btn);
+        scan_btn  = (Button)findViewById(R.id.scan_btn);
+        query_btn = (Button)findViewById(R.id.query_btn);
+
+        bill_btn.setOnClickListener(this);
+        scan_btn.setOnClickListener(this);
+        query_btn.setOnClickListener(this);
     }
 
 }

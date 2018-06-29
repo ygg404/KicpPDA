@@ -185,4 +185,5 @@ public class ApiHelper {
         TokenResultMsg tokenResultMsg = GetHttp(TokenResultMsg.class ,tokenApi,query , Config.StaffId, Config.AppSecret,false);
         return tokenResultMsg;
     }
+
 }

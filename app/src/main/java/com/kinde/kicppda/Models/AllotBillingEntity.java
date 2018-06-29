@@ -3,19 +3,16 @@ package com.kinde.kicppda.Models;
 import java.util.Date;
 
 /**
- * Created by YGG on 2018/6/11.
+ * Created by Lenovo on 2018/6/29.
  */
 
-/**
- * 入库明细单
- */
-public class GodownBillingEntity {
+public class AllotBillingEntity {
 
-    /// 入库单开单表主键
-    public String GodownBillingId;
+    /// 调拨单开单表主键
+    public String AllotBillingId;
 
-    /// 入库单主键
-    public String GodownId;
+    /// 调拨单主键
+    public String AllotId;
 
     /// 产品Id
     public String ProductId;
@@ -35,9 +32,8 @@ public class GodownBillingEntity {
     /// 数量
     public int Qty;
 
-    /// 实际数量
+    /// 数量
     public int QtyFact;
-
 
     /// 中盒多少瓶
     public int SinglePerBox;
@@ -45,10 +41,12 @@ public class GodownBillingEntity {
     /// 大箱多少盒
     public int SingleBoxPerBigBox;
 
+    /// 创建日期
+    public Date CreateDate;
+
     /// 创建用户
     public String CreateUserId;
 
     /// 用户名
     public String CreateUserName;
-
 }

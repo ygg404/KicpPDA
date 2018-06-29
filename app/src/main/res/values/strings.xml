@@ -20,11 +20,11 @@
     <string name="prod_text">生产管理</string>
     <string name="quit_text">退出</string>
 
-    <string name="inmenu">入库</string>
-    <string name="ordermenu">发货</string>
-    <string name="returnmenu">退货</string>
-    <string name="allotmenu">调拨</string>
-    <string name="checkmenu">盘点</string>
+    <string name="inmenu">入库管理</string>
+    <string name="ordermenu">发货管理</string>
+    <string name="returnmenu">退货管理</string>
+    <string name="allotmenu">调拨管理</string>
+    <string name="checkmenu">盘点管理</string>
 
     <string name="bill">单据</string>
     <string name="scan">采集</string>

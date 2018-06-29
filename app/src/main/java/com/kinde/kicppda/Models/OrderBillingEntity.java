@@ -1,43 +1,28 @@
 package com.kinde.kicppda.Models;
 
-import java.util.Date;
-
 /**
- * Created by YGG on 2018/6/11.
+ * Created by YGG on 2018/6/29.
  */
 
-/**
- * 入库明细单
- */
-public class GodownBillingEntity {
+public class OrderBillingEntity {
 
-    /// 入库单开单表主键
-    public String GodownBillingId;
+    /// 主键
+    public String OrderBillingId;
 
-    /// 入库单主键
-    public String GodownId;
+    /// 单主键
+    public String OrderId;
 
     /// 产品Id
     public String ProductId;
 
-    /// 产品名称
+    ///产品名称
     public String ProductName;
 
     /// 产品编码
     public String EnCode;
 
-    /// 生产批次
-    public String LN;
-
-    /// 生产日期
-    public Date PR;
-
     /// 数量
     public int Qty;
-
-    /// 实际数量
-    public int QtyFact;
-
 
     /// 中盒多少瓶
     public int SinglePerBox;
@@ -50,5 +35,4 @@ public class GodownBillingEntity {
 
     /// 用户名
     public String CreateUserName;
-
 }

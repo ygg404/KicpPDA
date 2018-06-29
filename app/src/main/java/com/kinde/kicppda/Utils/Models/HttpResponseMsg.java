@@ -3,7 +3,7 @@ package com.kinde.kicppda.Utils.Models;
 import java.io.Serializable;
 
 /**
- * Created by Lenovo on 2018/5/30.
+ * Created by YGG on 2018/5/30.
  */
 
 public class HttpResponseMsg implements Serializable{
