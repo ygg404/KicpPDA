@@ -29,7 +29,10 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import static com.kinde.kicppda.Billing.DownLoadBillHelper.downLoadINBill;
+import static com.kinde.kicppda.Billing.DownLoadBillHelper.downLoadAllotBill;
+import static com.kinde.kicppda.Billing.DownLoadBillHelper.downLoadGodownBill;
+import static com.kinde.kicppda.Billing.DownLoadBillHelper.downLoadOrderBill;
+import static com.kinde.kicppda.Billing.DownLoadBillHelper.downLoadReturnBill;
 
 /**
  * Created by YGG on 2018/6/1.
@@ -135,117 +138,36 @@ public class GetBillActivity extends Activity implements OnEngineStatus{
         public void run() {
 
             // TODO Auto-generated method stub
+            String dateBeginValue = datebegin.getText().toString().trim();
+            String dateEndValue = dateend.getText().toString().trim();
+            String billBarValue = billBarcode.getText().toString().trim();
             Message message = new Message();
 
-            downLoadINBill( eHandler ,message,gBillHelper,
-                    datebegin.getText().toString().trim(),dateend.getText().toString().trim(),
-                    billBarcode.getText().toString().trim() );
+            switch (billType){
+                case 1:
+                    message.obj = downLoadGodownBill( gBillHelper, dateBeginValue,dateEndValue ,billBarValue );
+                    eHandler.sendMessage(message);
+                    break;
+                case 2:
+                    message.obj = downLoadOrderBill( gBillHelper, dateBeginValue,dateEndValue ,billBarValue );
+                    eHandler.sendMessage(message);
+                    break;
+                case 3:
+                    message.obj = downLoadReturnBill( gBillHelper, dateBeginValue,dateEndValue ,billBarValue );
+                    eHandler.sendMessage(message);
+                    break;
+                case 4:
+                    message.obj = downLoadAllotBill( gBillHelper, dateBeginValue,dateEndValue ,billBarValue );
+                    eHandler.sendMessage(message);
+                    break;
 
-//            //获取主单
-//            HashMap<String,String> query = new HashMap<String, String>();
-//            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-//
-//            try {
-//                Date dateBegin = checkDateValid(datebegin.getText().toString().trim());
-//                Date dateEnd = checkDateValid(dateend.getText().toString().trim());
-//                query.put("godownCode",billBarcode.getText().toString().trim());
-//                query.put("beginDate", dateBegin==null?"":formatter.format(dateBegin) );
-//                query.put("endDate", dateEnd==null?"":formatter.format(dateEnd));
-//                query.put("status", "1");
-//            }catch (Exception ex){
-//                message.obj = ex.getMessage();
-//                eHandler.sendMessage(message);
-//                return;
-//            }
-//
-//            GodownListResultMsg godListc = ApiHelper.GetHttp(GodownListResultMsg.class,
-//                    Config.WebApiUrl + "GetGodownList?", query, Config.StaffId , Config.AppSecret ,true);
-//            godListc.setResult();
-//
-//            if(godListc!=null)
-//            {
-//                if(godListc.StatusCode != 200)
-//                {
-//                    message.obj = godListc.Info;
-//                    eHandler.sendMessage(message);
-//                    return;
-//                }
-//                if( godListc.Result == null || godListc.Result.isEmpty())
-//                {
-//                    message.obj = "无相关数据！";
-//                    eHandler.sendMessage(message);
-//                    return;
-//                }
-//
-//            }
-//            else {
-//                message.obj = "网络异常！";
-//                eHandler.sendMessage(message);
-//                return;
-//            }
-//            //保存入库主单
-//            gBillHelper.SaveGoDownDataFile(godListc.Result);
-//
-//
-//            //获取主单明细，并保存
-//            for( GodownEntity godEntity : godListc.Result)
-//            {
-//                query.clear();
-//                query.put("godownId" , godEntity.GodownId);
-//                GodownBillingListResultMsg godBillListc = ApiHelper.GetHttp(GodownBillingListResultMsg.class,
-//                        Config.WebApiUrl + "GetGodownBillingListByGodownId?", query, Config.StaffId , Config.AppSecret ,true);
-//                godBillListc.setResult();
-//                if(godBillListc!=null)
-//                {
-//                    if(godBillListc.StatusCode != 200)
-//                    {
-//                        message.obj = godListc.Info;
-//                        eHandler.sendMessage(message);
-//                        return;
-//                    }
-//                    if( godBillListc.Result == null || godBillListc.Result.isEmpty())
-//                    {
-//                        message.obj = "无相关数据！";
-//                        eHandler.sendMessage(message);
-//                        return;
-//                    }
-//
-//                }
-//                else {
-//                    message.obj = "网络异常！";
-//                    eHandler.sendMessage(message);
-//                    return;
-//                }
-//                gBillHelper.SaveGoDownBillingDataFile(godEntity.GodownCode , godBillListc.Result);
-//            }
-           // mProgersssDialog.cancel();
+                default:
+                    break;
+            }
 
         }
     };
 
-    /**
-     * 日期格式 是否有效
-     * @param dateValue
-     * @return
-     */
-//    private Date checkDateValid(String dateValue) throws Exception{
-//        StringBuffer sb = new StringBuffer();
-//        if (dateValue == null || dateValue.isEmpty()) {
-//            return null;
-//        }
-//        else {
-//            try {
-//                SimpleDateFormat fdate = new SimpleDateFormat("yyyy-MM-dd");
-//                sb.append(dateValue.trim()).insert(4, "-");
-//                sb.insert(7, "-");
-//               // fdate.parse( sb.toString() );
-//                return fdate.parse( sb.toString() );
-//            } catch(Exception ex)
-//            {
-//                throw new Exception("日期格式必须是yyyyMMdd");
-//            }
-//        }
-//    }
     /**
      * 初始化对单据话框
      */
@@ -273,6 +195,18 @@ public class GetBillActivity extends Activity implements OnEngineStatus{
         else if( billType == BillTypeEnum.ordertype.getValue() )
         {
             Title = "获取" + BillTypeEnum.ordertype.getTypeName()+"单据";
+        }
+        else if( billType == BillTypeEnum.returntype.getValue() )
+        {
+            Title = "获取" + BillTypeEnum.returntype.getTypeName()+"单据";
+        }
+        else if( billType == BillTypeEnum.allottype.getValue() )
+        {
+            Title = "获取" + BillTypeEnum.allottype.getTypeName()+"单据";
+        }
+        else if( billType == BillTypeEnum.checktype.getValue() )
+        {
+            Title = "获取" + BillTypeEnum.checktype.getTypeName()+"单据";
         }
         //设置标题
         billtitle.setText(Title.toString());

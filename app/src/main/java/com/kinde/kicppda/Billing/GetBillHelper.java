@@ -138,7 +138,7 @@ public class GetBillHelper {
                         +"Qty,QtyFact,SinglePerBox,SingleBoxPerBigBox,"
                         +"CreateUserId,CreateUserName)" +"values('"+
                         attr.OrderBillingId+"','"+ attr.OrderId+"','"+ attr.ProductId+"','"+attr.ProductName+"','"
-                        +attr.EnCode+"','" +attr.Qty+"','"+attr.SinglePerBox+"','"+attr.SingleBoxPerBigBox+"','"
+                        +attr.EnCode+"','" +attr.Qty+"','"+attr.QtyFact+"','"+attr.SinglePerBox+"','"+attr.SingleBoxPerBigBox+"','"
                         +attr.CreateUserId+"','"+attr.CreateUserName+"')"
                 );
             }
@@ -167,8 +167,8 @@ public class GetBillHelper {
                         attr.WarehouseId+"','"+attr.WarehouseName+"','"+ attr.Description+"','"+
                         (attr.CreateDate==null?"":sdf.format(attr.CreateDate))+"','"+attr.CreateUserId+"',"+String.valueOf(attr.Status)+")"
                 );
-                //创建出库明细表
-                SqlTableCreate.Order_Billing_Create(db , attr.ReturnCode);
+                //创建退货明细表
+                SqlTableCreate.Return_Billing_Create(db , attr.ReturnCode);
             }
         }catch (Exception ex){
             return false;
@@ -214,7 +214,7 @@ public class GetBillHelper {
         try {
             for (AllotEntity attr : aEntity) {
                 db = DBHelper.getWritableDatabase();
-                db.execSQL("DELETE FROM "+ ALLOT_MAIN_TABLE  +" WHERE ReturnCode= '" + attr.AllotCode+"'");
+                db.execSQL("DELETE FROM "+ ALLOT_MAIN_TABLE  +" WHERE AllotCode= '" + attr.AllotCode+"'");
                 //保存主单之前删除相同单据号的主单据
                 db.execSQL("insert into "+ ALLOT_MAIN_TABLE+
                         "(AllotId ,AllotCode,AllotDate,WarehouseIdOut,WarehouseIdIn,WarehouseNameOut,WarehouseNameIn," +
@@ -223,8 +223,8 @@ public class GetBillHelper {
                         attr.WarehouseIdOut+"','"+attr.WarehouseIdIn+"','"+attr.WarehouseNameOut+"','"+attr.WarehouseNameIn+"','"+ attr.Description+"','"+
                         (attr.CreateDate==null?"":sdf.format(attr.CreateDate))+"','"+attr.CreateUserId+"',"+String.valueOf(attr.Status)+")"
                 );
-                //创建出库明细表
-                SqlTableCreate.Order_Billing_Create(db , attr.AllotCode);
+                //创建调拨明细表
+                SqlTableCreate.Allot_Billing_Create(db , attr.AllotCode);
             }
         }catch (Exception ex){
             return false;

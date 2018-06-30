@@ -167,6 +167,8 @@ public class SqlTableCreate {
                 + "QtyFact text, "
                 + "SingleBoxPerBigBox text, "
                 + "SinglePerBox text, "
+                + "LN text, "
+                + "PR text, "
                 + "CreateUserId text, "
                 + "CreateUserName text)";
 

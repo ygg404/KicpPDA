@@ -41,9 +41,6 @@ public class AllotBillingEntity {
     /// 大箱多少盒
     public int SingleBoxPerBigBox;
 
-    /// 创建日期
-    public Date CreateDate;
-
     /// 创建用户
     public String CreateUserId;
 

@@ -1,13 +1,19 @@
 package com.kinde.kicppda.Billing;
 
-import android.os.Handler;
-import android.os.Message;
-
+import com.kinde.kicppda.Models.AllotEntity;
 import com.kinde.kicppda.Models.GodownEntity;
+import com.kinde.kicppda.Models.OrderEntity;
+import com.kinde.kicppda.Models.ReturnEntity;
 import com.kinde.kicppda.Utils.ApiHelper;
 import com.kinde.kicppda.Utils.Config;
+import com.kinde.kicppda.Utils.Models.AllotBillingListResultMsg;
+import com.kinde.kicppda.Utils.Models.AllotListResultMsg;
 import com.kinde.kicppda.Utils.Models.GodownBillingListResultMsg;
 import com.kinde.kicppda.Utils.Models.GodownListResultMsg;
+import com.kinde.kicppda.Utils.Models.OrderBillingListResultMsg;
+import com.kinde.kicppda.Utils.Models.OrderListResultMsg;
+import com.kinde.kicppda.Utils.Models.ReturnBillingListResultMsg;
+import com.kinde.kicppda.Utils.Models.ReturnListResultMsg;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -20,7 +26,7 @@ import java.util.HashMap;
 public class DownLoadBillHelper {
 
     //获取入库主单和明细
-    public static void downLoadINBill(Handler eHandler,Message message,GetBillHelper gBillHelper, String datebegin,String dateend ,String billBarcode)
+    public static String downLoadGodownBill(GetBillHelper gBillHelper, String datebegin,String dateend ,String billBarcode)
     {
         //获取主单
         HashMap<String,String> query = new HashMap<String, String>();
@@ -34,9 +40,7 @@ public class DownLoadBillHelper {
             query.put("endDate", dateEnd==null?"":formatter.format(dateEnd));
             query.put("status", "1");
         }catch (Exception ex){
-            message.obj = ex.getMessage();
-            eHandler.sendMessage(message);
-            return;
+            return ex.getMessage();
         }
 
         GodownListResultMsg godListc = ApiHelper.GetHttp(GodownListResultMsg.class,
@@ -47,22 +51,18 @@ public class DownLoadBillHelper {
         {
             if(godListc.StatusCode != 200)
             {
-                message.obj = godListc.Info;
-                eHandler.sendMessage(message);
-                return;
+                return godListc.Info;
             }
             if( godListc.Result == null || godListc.Result.isEmpty())
             {
-                message.obj = "无相关数据！";
-                eHandler.sendMessage(message);
-                return;
+                return  "无相关数据！";
+//                eHandler.sendMessage(message);
+//                return;
             }
 
         }
         else {
-            message.obj = "网络异常！";
-            eHandler.sendMessage(message);
-            return;
+            return "网络异常！";
         }
         //保存入库主单
         gBillHelper.SaveGoDownDataFile(godListc.Result);
@@ -80,25 +80,239 @@ public class DownLoadBillHelper {
             {
                 if(godBillListc.StatusCode != 200)
                 {
-                    message.obj = godListc.Info;
-                    eHandler.sendMessage(message);
-                    return;
+                    return godListc.Info;
+
                 }
                 if( godBillListc.Result == null || godBillListc.Result.isEmpty())
                 {
-                    message.obj = "无相关数据！";
-                    eHandler.sendMessage(message);
-                    return;
+                    return "无相关数据！";
                 }
 
             }
             else {
-                message.obj = "网络异常！";
-                eHandler.sendMessage(message);
-                return;
+                return "网络异常！";
             }
             gBillHelper.SaveGoDownBillingDataFile(godEntity.GodownCode , godBillListc.Result);
+
         }
+        return "单据获取成功！";
+    }
+
+    //获取出库主单和明细
+    public static String downLoadOrderBill(GetBillHelper gBillHelper, String datebegin,String dateend ,String billBarcode)
+    {
+        //获取主单
+        HashMap<String,String> query = new HashMap<String, String>();
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+
+        try {
+            Date dateBegin = checkDateValid(datebegin);
+            Date dateEnd = checkDateValid(dateend);
+            query.put("orderCode",billBarcode);
+            query.put("beginDate", dateBegin==null?"":formatter.format(dateBegin) );
+            query.put("endDate", dateEnd==null?"":formatter.format(dateEnd));
+            query.put("status", "1");
+            query.put("parentAgentId", "0");
+        }catch (Exception ex){
+            return ex.getMessage();
+        }
+
+        OrderListResultMsg orderListc = ApiHelper.GetHttp(OrderListResultMsg.class,
+                Config.WebApiUrl + "GetOrderList?", query, Config.StaffId , Config.AppSecret ,true);
+
+        if(orderListc!=null)
+        {
+            orderListc.setResult();
+            if(orderListc.StatusCode != 200)
+            {
+                return orderListc.Info;
+            }
+            if( orderListc.Result == null || orderListc.Result.isEmpty())
+            {
+                return  "无相关数据！";
+            }
+
+        }
+        else {
+            return "网络异常！";
+        }
+        //保存入库主单
+        gBillHelper.SaveOrderDataFile(orderListc.Result);
+
+
+        //获取主单明细，并保存
+        for( OrderEntity orderEntity : orderListc.Result)
+        {
+            query.clear();
+            query.put("orderId" , orderEntity.OrderId);
+            OrderBillingListResultMsg ordBillListc = ApiHelper.GetHttp(OrderBillingListResultMsg.class,
+                    Config.WebApiUrl + "GetOrderBillingListByOrderId?", query, Config.StaffId , Config.AppSecret ,true);
+
+            if(ordBillListc!=null)
+            {
+                ordBillListc.setResult();
+                if(ordBillListc.StatusCode != 200)
+                {
+                    return ordBillListc.Info;
+
+                }
+                if( ordBillListc.Result == null || ordBillListc.Result.isEmpty())
+                {
+                    return "无相关数据！";
+                }
+
+            }
+            else {
+                return "网络异常！";
+            }
+            gBillHelper.SaveOrderBillingDataFile(orderEntity.OrderCode , ordBillListc.Result);
+
+        }
+        return "单据获取成功！";
+    }
+
+    //获取退货主单和明细
+    public static String downLoadReturnBill(GetBillHelper gBillHelper, String datebegin,String dateend ,String billBarcode)
+    {
+        //获取主单
+        HashMap<String,String> query = new HashMap<String, String>();
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+
+        try {
+            Date dateBegin = checkDateValid(datebegin);
+            Date dateEnd = checkDateValid(dateend);
+            query.put("returnCode",billBarcode);
+            query.put("beginDate", dateBegin==null?"":formatter.format(dateBegin) );
+            query.put("endDate", dateEnd==null?"":formatter.format(dateEnd));
+            query.put("status", "1");
+        }catch (Exception ex){
+            return ex.getMessage();
+        }
+
+        ReturnListResultMsg returnListc = ApiHelper.GetHttp(ReturnListResultMsg.class,
+                Config.WebApiUrl + "GetReturnList?", query, Config.StaffId , Config.AppSecret ,true);
+
+        if(returnListc!=null)
+        {
+            returnListc.setResult();
+
+            if(returnListc.StatusCode != 200)
+            {
+                return returnListc.Info;
+            }
+            if( returnListc.Result == null || returnListc.Result.isEmpty())
+            {
+                return  "无相关数据！";
+            }
+
+        }
+        else {
+            return "网络异常！";
+        }
+        //保存退货主单
+        gBillHelper.SaveReturnDataFile(returnListc.Result);
+
+
+        //获取退货明细，并保存
+        for( ReturnEntity returnEntity : returnListc.Result)
+        {
+            query.clear();
+            query.put("returnId" , returnEntity.ReturnId);
+            ReturnBillingListResultMsg returnBillListc = ApiHelper.GetHttp(ReturnBillingListResultMsg.class,
+                    Config.WebApiUrl + "GetReturnBillingListByReturnId?", query, Config.StaffId , Config.AppSecret ,true);
+            returnBillListc.setResult();
+            if(returnBillListc!=null)
+            {
+                if(returnBillListc.StatusCode != 200)
+                {
+                    return returnBillListc.Info;
+
+                }
+                if( returnBillListc.Result == null || returnBillListc.Result.isEmpty())
+                {
+                    return "无相关数据！";
+                }
+
+            }
+            else {
+                return "网络异常！";
+            }
+            gBillHelper.SaveReturnBillingDataFile(returnEntity.ReturnCode , returnBillListc.Result);
+
+        }
+        return "单据获取成功！";
+    }
+
+    //获取调拨主单和明细
+    public static String downLoadAllotBill(GetBillHelper gBillHelper, String datebegin,String dateend ,String billBarcode)
+    {
+        //获取主单
+        HashMap<String,String> query = new HashMap<String, String>();
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+
+        try {
+            Date dateBegin = checkDateValid(datebegin);
+            Date dateEnd = checkDateValid(dateend);
+            query.put("allotCode",billBarcode);
+            query.put("beginDate", dateBegin==null?"":formatter.format(dateBegin) );
+            query.put("endDate", dateEnd==null?"":formatter.format(dateEnd));
+            query.put("status", "1");
+        }catch (Exception ex){
+            return ex.getMessage();
+        }
+
+        AllotListResultMsg allotListc = ApiHelper.GetHttp(AllotListResultMsg.class,
+                Config.WebApiUrl + "GetAllotList?", query, Config.StaffId , Config.AppSecret ,true);
+
+        if(allotListc!=null)
+        {
+            allotListc.setResult();
+
+            if(allotListc.StatusCode != 200)
+            {
+                return allotListc.Info;
+            }
+            if( allotListc.Result == null || allotListc.Result.isEmpty())
+            {
+                return  "无相关数据！";
+            }
+
+        }
+        else {
+            return "网络异常！";
+        }
+        //保存调拨主单
+        gBillHelper.SaveAllotDataFile(allotListc.Result);
+
+
+        //获取调拨明细，并保存
+        for( AllotEntity allotEntity : allotListc.Result)
+        {
+            query.clear();
+            query.put("allotId" , allotEntity.AllotId);
+            AllotBillingListResultMsg allotBillListc = ApiHelper.GetHttp(AllotBillingListResultMsg.class,
+                    Config.WebApiUrl + "GetAllotBillingListByAllotId?", query, Config.StaffId , Config.AppSecret ,true);
+            allotBillListc.setResult();
+            if(allotBillListc!=null)
+            {
+                if(allotBillListc.StatusCode != 200)
+                {
+                    return allotBillListc.Info;
+
+                }
+                if( allotBillListc.Result == null || allotBillListc.Result.isEmpty())
+                {
+                    return "无相关数据！";
+                }
+
+            }
+            else {
+                return "网络异常！";
+            }
+            gBillHelper.SaveAllotBillingDataFile(allotEntity.AllotCode , allotBillListc.Result);
+
+        }
+        return "单据获取成功！";
     }
 
     /**

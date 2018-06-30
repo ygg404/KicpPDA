@@ -24,6 +24,9 @@ public class OrderBillingEntity {
     /// 数量
     public int Qty;
 
+    /// 实际数量
+    public int QtyFact;
+
     /// 中盒多少瓶
     public int SinglePerBox;
 
