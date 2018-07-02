@@ -1,4 +1,4 @@
-package com.kinde.kicppda.Billing;
+package com.kinde.kicppda.BillingActivity;
 
 import android.app.Activity;
 import android.content.pm.ActivityInfo;
@@ -29,10 +29,10 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import static com.kinde.kicppda.Billing.DownLoadBillHelper.downLoadAllotBill;
-import static com.kinde.kicppda.Billing.DownLoadBillHelper.downLoadGodownBill;
-import static com.kinde.kicppda.Billing.DownLoadBillHelper.downLoadOrderBill;
-import static com.kinde.kicppda.Billing.DownLoadBillHelper.downLoadReturnBill;
+import static com.kinde.kicppda.BillingActivity.DownLoadBillHelper.downLoadAllotBill;
+import static com.kinde.kicppda.BillingActivity.DownLoadBillHelper.downLoadGodownBill;
+import static com.kinde.kicppda.BillingActivity.DownLoadBillHelper.downLoadOrderBill;
+import static com.kinde.kicppda.BillingActivity.DownLoadBillHelper.downLoadReturnBill;
 
 /**
  * Created by YGG on 2018/6/1.
@@ -409,7 +409,6 @@ public class GetBillActivity extends Activity implements OnEngineStatus{
 
         if (mBarcodeManager != null) {
             try {
-
                 mBarcodeManager.release();
                 mBarcodeManager = null;
             } catch (IOException e) {

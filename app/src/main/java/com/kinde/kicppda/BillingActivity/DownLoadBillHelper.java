@@ -1,4 +1,4 @@
-package com.kinde.kicppda.Billing;
+package com.kinde.kicppda.BillingActivity;
 
 import com.kinde.kicppda.Models.AllotEntity;
 import com.kinde.kicppda.Models.GodownEntity;
@@ -56,8 +56,6 @@ public class DownLoadBillHelper {
             if( godListc.Result == null || godListc.Result.isEmpty())
             {
                 return  "无相关数据！";
-//                eHandler.sendMessage(message);
-//                return;
             }
 
         }

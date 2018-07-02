@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/delete_all_channel"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:drawablePadding="1dp"
+            android:drawableTop="@drawable/fg_delete_channel"
+            android:gravity="center"
+            android:paddingTop="8dp"
+            android:text="@string/delete_txt"
+            android:textColor="@drawable/fg_text_channel"
+            android:textSize="18sp"
+            />
+        </LinearLayout>
+</LinearLayout>

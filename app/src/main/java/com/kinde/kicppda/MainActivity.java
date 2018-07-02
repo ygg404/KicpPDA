@@ -18,13 +18,16 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.kinde.kicppda.Billing.GetBillActivity;
-import com.kinde.kicppda.ScanDialog.InScanDialog;
-import com.kinde.kicppda.Utils.Enum.BillTypeEnum;
+import com.kinde.kicppda.BillingActivity.DeleteBillHelper;
+import com.kinde.kicppda.BillingActivity.GetBillActivity;
+import com.kinde.kicppda.ScanActivity.Scan_Godown_Activity;
+import com.kinde.kicppda.Utils.Adialog;
 
 
 public class MainActivity extends Activity implements View.OnClickListener {
 
+    //提示窗口
+    private Adialog aDialog;
     //单据类型
     private int BillType;
 
@@ -34,7 +37,10 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
     //Fragment Object
     private FragmentManager fManager;
-    private MyFragment fg;
+    private DataFragment fg_data;
+    private SysFragment fg_sys;
+
+    //数据管理项
     private TextView in_content;
     private TextView order_content;
     private TextView return_content;
@@ -50,9 +56,10 @@ public class MainActivity extends Activity implements View.OnClickListener {
     private Button bill_btn;
     private Button scan_btn;
     private Button query_btn;
-    private LinearLayout menu_content;
 
-
+    //系统管理项
+    private TextView deleteBtn;
+    private DeleteBillHelper dBillHelper;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -67,11 +74,14 @@ public class MainActivity extends Activity implements View.OnClickListener {
         datachannel.setOnClickListener(this);
         syschannel.setOnClickListener(this);
         prodchannel.setOnClickListener(this);
+
+        aDialog = new Adialog(MainActivity.this);
     }
 
     //隐藏所有Fragment
     private void hideAllFragment(FragmentTransaction fragmentTransaction) {
-        if (fg != null) fragmentTransaction.hide(fg);
+        if (fg_data != null) fragmentTransaction.hide(fg_data);
+        if (fg_sys != null) fragmentTransaction.hide(fg_sys);
     }
 
     /**
@@ -151,26 +161,32 @@ public class MainActivity extends Activity implements View.OnClickListener {
             case R.id.data_channel:
                 setSelected();
                 datachannel.setSelected(true);
-                if(fg == null){
-                    fg = new MyFragment();
-                    fTransaction.add(R.id.ly_content,fg);
+                if(fg_data == null){
+                    fg_data = new DataFragment();
+                    fTransaction.add(R.id.ly_content,fg_data);
                 }else{
-                    fTransaction.show(fg);
+                    fTransaction.show(fg_data);
                 }
-                break;
-            //系统管理
-            case R.id.sys_channel:
-                setSelected();
-                syschannel.setSelected(true);
                 break;
             //生产管理
             case  R.id.prod_channel:
                 setSelected();
                 prodchannel.setSelected(true);
                 break;
+            //系统管理
+            case R.id.sys_channel:
+                setSelected();
+                syschannel.setSelected(true);
+                if(fg_sys == null){
+                    fg_sys = new SysFragment();
+                    fTransaction.add(R.id.ly_content,fg_sys);
+                }else{
+                    fTransaction.show(fg_sys);
+                }
+                break;
             case R.id.in_channel:
                 setMenus();
-                fTransaction.show(fg);
+                fTransaction.show(fg_data);
                 in_content.setSelected(true);
                 inBtnView.setSelected(true);
                 inBtnView.addView(sub);
@@ -179,7 +195,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 break;
             case R.id.order_channel:
                 setMenus();
-                fTransaction.show(fg);
+                fTransaction.show(fg_data);
                 order_content.setSelected(true);
                 orderBtnView.setSelected(true);
                 orderBtnView.addView(sub);
@@ -188,7 +204,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 break;
             case R.id.return_channel:
                 setMenus();
-                fTransaction.show(fg);
+                fTransaction.show(fg_data);
                 return_content.setSelected(true);
                 returnBtnView.setSelected(true);
                 returnBtnView.addView(sub);
@@ -197,7 +213,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 break;
             case R.id.allot_channel:
                 setMenus();
-                fTransaction.show(fg);
+                fTransaction.show(fg_data);
                 allot_content.setSelected(true);
                 allotBtnView.setSelected(true);
                 allotBtnView.addView(sub);
@@ -206,7 +222,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 break;
             case R.id.check_channel:
                 setMenus();
-                fTransaction.show(fg);
+                fTransaction.show(fg_data);
                 check_content.setSelected(true);
                 checkBtnView.setSelected(true);
                 checkBtnView.addView(sub);
@@ -215,7 +231,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 break;
             //单据
             case R.id.bill_btn:
-                fTransaction.show(fg);
+                fTransaction.show(fg_data);
                 //新建一个显式意图，第一个参数为当前Activity类对象，第二个参数为你要打开的Activity类
                 Intent intent =new Intent(MainActivity.this,GetBillActivity.class);
                 //用Bundle携带数据
@@ -227,13 +243,23 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 break;
             //采集
             case R.id.scan_btn:
-                fTransaction.show(fg);
-                new InScanDialog(MainActivity.this );
+                fTransaction.show(fg_data);
+                Intent scanIntent = new Intent(MainActivity.this, Scan_Godown_Activity.class);
+                startActivity(scanIntent);//打开新的activity
                 break;
             //查询
             case R.id.query_btn:
-                fTransaction.show(fg);
+                fTransaction.show(fg_data);
                 break;
+
+            case R.id.delete_all_channel:
+                fTransaction.show(fg_sys);
+                if(dBillHelper.DeleteAllDataFile())
+                {
+                    aDialog.deleteOkDialog();
+                }else{
+                    aDialog.deleteFailDialog();
+                }
             default:
                 break;
         }
@@ -241,23 +267,44 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
     }
 
-    public class MyFragment extends Fragment {
+    public class DataFragment extends Fragment {
 
         private String content;
 
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
             View view = inflater.inflate(R.layout.fg_datamanager,container,false);
-            FragmentBind(view);
+            dataFragmentBind(view);
+            return view;
+        }
+    }
+
+    public class SysFragment extends Fragment {
+
+        private String content;
+
+        @Override
+        public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+            View view = inflater.inflate(R.layout.fg_sys,container,false);
+            sysFragmentBind(view);
             return view;
         }
     }
 
     /**
-     * 初始化 Fragment
-      * @param view
+     * 初始化 系统管理 Fragment
+     * @param view
      */
-    public void FragmentBind(View view){
+    public void sysFragmentBind(View view){
+        deleteBtn = (TextView)view.findViewById(R.id.delete_all_channel);
+        deleteBtn.setOnClickListener(this);
+        dBillHelper = new DeleteBillHelper(this);
+    }
+    /**
+     * 初始化 数据管理 Fragment
+     * @param view
+     */
+    public void dataFragmentBind(View view){
         in_content = (TextView)view.findViewById(R.id.in_channel);
         order_content = (TextView)view.findViewById(R.id.order_channel);
         return_content = (TextView)view.findViewById(R.id.return_channel);

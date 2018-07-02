@@ -6,6 +6,8 @@ package com.kinde.kicppda.Utils.SQLiteHelper;
 
 import android.database.sqlite.SQLiteDatabase;
 
+import com.kinde.kicppda.Utils.Public;
+
 public class SqlTableCreate {
     //入库主单表
     public static final String CREATE_IN_MAIN_TABLE = "create table inMainBill ("
@@ -72,7 +74,7 @@ public class SqlTableCreate {
 
     //创建入库明细表
     public static Boolean In_Billing_Create(SQLiteDatabase db , String billNo) throws Exception{
-        String EntryFileName = billNo + "-Billing";
+        String EntryFileName = billNo + Public.GodownBillingType;
         String CREATE_IN_BILL_TABLE = "create table '" + EntryFileName + "'("
                 + "id integer primary key autoincrement,"
                 + "GodownBillingId text, "
@@ -101,7 +103,7 @@ public class SqlTableCreate {
 
     //创建出库明细表
     public static Boolean Order_Billing_Create(SQLiteDatabase db , String billNo) throws Exception{
-        String EntryFileName = billNo + "-Billing";
+        String EntryFileName = billNo + Public.OrderBillingType;
         String CREATE_ORDER_BILL_TABLE = "create table '" + EntryFileName + "'("
                 + "id integer primary key autoincrement,"
                 + "OrderBillingId text, "
@@ -128,7 +130,7 @@ public class SqlTableCreate {
 
     //创建退货明细表
     public static Boolean Return_Billing_Create(SQLiteDatabase db , String billNo) throws Exception{
-        String EntryFileName = billNo + "-Billing";
+        String EntryFileName = billNo + Public.ReturnBillingType;
         String CREATE_RETURN_BILL_TABLE = "create table '" + EntryFileName + "'("
                 + "id integer primary key autoincrement,"
                 + "ReturnBillingId text, "
@@ -155,7 +157,7 @@ public class SqlTableCreate {
 
     //创建调拨明细表
     public static Boolean Allot_Billing_Create(SQLiteDatabase db , String billNo) throws Exception{
-        String EntryFileName = billNo + "-Billing";
+        String EntryFileName = billNo + Public.AllotBillingType;
         String CREATE_ALLOT_BILL_TABLE = "create table '" + EntryFileName + "'("
                 + "id integer primary key autoincrement,"
                 + "AllotBillingId text, "
@@ -190,8 +192,8 @@ public class SqlTableCreate {
                 + "id integer primary key autoincrement,"
                 + "barcode text, "
                 + "productId text, "
-                + "ln text, "
-                + "pr text, "
+                + "LN text, "
+                + "PR text, "
                 + "Qty text, "
                 + "CreateDate text, "
                 + "CreateUserId text )";

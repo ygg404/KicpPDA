@@ -140,7 +140,6 @@ public class LoginActivity extends AppCompatActivity {
         LimitsEditEnter(id_login);
         LimitsEditEnter(password_login);
 
-
         mProgersssDialog = null;
         button_login.setOnClickListener(new View.OnClickListener() {
             @Override
