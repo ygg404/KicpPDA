@@ -48,4 +48,20 @@ public class ScanHelper {
         }
         return keyValue;
     }
+
+    public List<String[]> getProductInfo(String TableName ,String value){
+        List<String[]> BillingInfoList = new ArrayList();
+        String Sqlstr = "select EnCode,ProductName,LN,PR from '"+ TableName +"' Where EnCode like '%"+ value +"%'";
+        Cursor cursor = db.rawQuery(Sqlstr , null);
+        while(cursor.moveToNext()) {
+            //遍历出键值
+            String[] keyValue = new String[4];
+            keyValue[0] = cursor.getString(0);
+            keyValue[1] = cursor.getString(1);
+            keyValue[2] = cursor.getString(2);
+            keyValue[3] = cursor.getString(3);
+            BillingInfoList.add(keyValue);
+        }
+        return BillingInfoList;
+    }
 }

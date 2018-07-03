@@ -38,7 +38,10 @@
             android:name="com.kinde.kicppda.MainActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.kinde.kicppda.Billing.GetBillActivity"
+            android:name="com.kinde.kicppda.BillingActivity.GetBillActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.kinde.kicppda.ScanActivity.Scan_Godown_Activity"
             android:screenOrientation="portrait" />
     </application>
 

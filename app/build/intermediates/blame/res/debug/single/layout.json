@@ -1,11 +1,11 @@
 [
     {
-        "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_screen_simple_overlay_action_mode.xml",
-        "source": "C:\\Users\\Lenovo\\.android\\build-cache\\b4439afb2c14e37ecb63a89ca2da1b3d93b4351e\\output\\res\\layout\\abc_screen_simple_overlay_action_mode.xml"
-    },
-    {
         "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\notification_media_cancel_action.xml",
         "source": "C:\\Users\\Lenovo\\.android\\build-cache\\b4439afb2c14e37ecb63a89ca2da1b3d93b4351e\\output\\res\\layout\\notification_media_cancel_action.xml"
+    },
+    {
+        "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_screen_simple_overlay_action_mode.xml",
+        "source": "C:\\Users\\Lenovo\\.android\\build-cache\\b4439afb2c14e37ecb63a89ca2da1b3d93b4351e\\output\\res\\layout\\abc_screen_simple_overlay_action_mode.xml"
     },
     {
         "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\activity_login.xml",
@@ -14,6 +14,10 @@
     {
         "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\get_bill.xml",
         "source": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\src\\main\\res\\layout\\get_bill.xml"
+    },
+    {
+        "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\fg_data_btn.xml",
+        "source": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\src\\main\\res\\layout\\fg_data_btn.xml"
     },
     {
         "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_action_mode_close_item_material.xml",
@@ -44,6 +48,10 @@
         "source": "C:\\Users\\Lenovo\\.android\\build-cache\\b4439afb2c14e37ecb63a89ca2da1b3d93b4351e\\output\\res\\layout\\notification_template_media.xml"
     },
     {
+        "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\fg_datamanager.xml",
+        "source": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\src\\main\\res\\layout\\fg_datamanager.xml"
+    },
+    {
         "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_action_menu_layout.xml",
         "source": "C:\\Users\\Lenovo\\.android\\build-cache\\b4439afb2c14e37ecb63a89ca2da1b3d93b4351e\\output\\res\\layout\\abc_action_menu_layout.xml"
     },
@@ -66,6 +74,10 @@
     {
         "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\progress_dialog.xml",
         "source": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\src\\main\\res\\layout\\progress_dialog.xml"
+    },
+    {
+        "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\fg_sys.xml",
+        "source": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\src\\main\\res\\layout\\fg_sys.xml"
     },
     {
         "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\notification_template_big_media_narrow.xml",
@@ -106,14 +118,6 @@
     {
         "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_list_menu_item_icon.xml",
         "source": "C:\\Users\\Lenovo\\.android\\build-cache\\b4439afb2c14e37ecb63a89ca2da1b3d93b4351e\\output\\res\\layout\\abc_list_menu_item_icon.xml"
-    },
-    {
-        "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\fg_datacontent.xml",
-        "source": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\src\\main\\res\\layout\\fg_datacontent.xml"
-    },
-    {
-        "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\scan_in.xml",
-        "source": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\src\\main\\res\\layout\\scan_in.xml"
     },
     {
         "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_dialog_title_material.xml",
@@ -178,5 +182,9 @@
     {
         "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_screen_simple.xml",
         "source": "C:\\Users\\Lenovo\\.android\\build-cache\\b4439afb2c14e37ecb63a89ca2da1b3d93b4351e\\output\\res\\layout\\abc_screen_simple.xml"
+    },
+    {
+        "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\scan_godown.xml",
+        "source": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\src\\main\\res\\layout\\scan_godown.xml"
     }
 ]

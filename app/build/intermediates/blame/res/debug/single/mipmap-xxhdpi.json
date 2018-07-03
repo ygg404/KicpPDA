@@ -1,13 +1,5 @@
 [
     {
-        "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxhdpi\\prod_selected.png",
-        "source": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\src\\main\\res\\mipmap-xxhdpi\\prod_selected.png"
-    },
-    {
-        "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxhdpi\\prod.png",
-        "source": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\src\\main\\res\\mipmap-xxhdpi\\prod.png"
-    },
-    {
         "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxhdpi\\sys_selected.png",
         "source": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\src\\main\\res\\mipmap-xxhdpi\\sys_selected.png"
     },
@@ -16,8 +8,64 @@
         "source": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\src\\main\\res\\mipmap-xxhdpi\\goback.png"
     },
     {
+        "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxhdpi\\in_selected.png",
+        "source": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\src\\main\\res\\mipmap-xxhdpi\\in_selected.png"
+    },
+    {
+        "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxhdpi\\check_selected.png",
+        "source": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\src\\main\\res\\mipmap-xxhdpi\\check_selected.png"
+    },
+    {
+        "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxhdpi\\quit.png",
+        "source": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\src\\main\\res\\mipmap-xxhdpi\\quit.png"
+    },
+    {
+        "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxhdpi\\data_selected.png",
+        "source": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\src\\main\\res\\mipmap-xxhdpi\\data_selected.png"
+    },
+    {
+        "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxhdpi\\check_no.png",
+        "source": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\src\\main\\res\\mipmap-xxhdpi\\check_no.png"
+    },
+    {
+        "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxhdpi\\data_noselected.png",
+        "source": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\src\\main\\res\\mipmap-xxhdpi\\data_noselected.png"
+    },
+    {
+        "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxhdpi\\prod_selected.png",
+        "source": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\src\\main\\res\\mipmap-xxhdpi\\prod_selected.png"
+    },
+    {
+        "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxhdpi\\prod.png",
+        "source": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\src\\main\\res\\mipmap-xxhdpi\\prod.png"
+    },
+    {
+        "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxhdpi\\allot_selected.png",
+        "source": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\src\\main\\res\\mipmap-xxhdpi\\allot_selected.png"
+    },
+    {
         "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxhdpi\\prod_noselected.png",
         "source": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\src\\main\\res\\mipmap-xxhdpi\\prod_noselected.png"
+    },
+    {
+        "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxhdpi\\delete_pressed.png",
+        "source": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\src\\main\\res\\mipmap-xxhdpi\\delete_pressed.png"
+    },
+    {
+        "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxhdpi\\return_no.png",
+        "source": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\src\\main\\res\\mipmap-xxhdpi\\return_no.png"
+    },
+    {
+        "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxhdpi\\in_no.png",
+        "source": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\src\\main\\res\\mipmap-xxhdpi\\in_no.png"
+    },
+    {
+        "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxhdpi\\order_selected.png",
+        "source": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\src\\main\\res\\mipmap-xxhdpi\\order_selected.png"
+    },
+    {
+        "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxhdpi\\allot_no.png",
+        "source": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\src\\main\\res\\mipmap-xxhdpi\\allot_no.png"
     },
     {
         "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxhdpi\\ic_launcher.png",
@@ -32,19 +80,23 @@
         "source": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\src\\main\\res\\mipmap-xxhdpi\\sys_noselected.png"
     },
     {
+        "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxhdpi\\delete.png",
+        "source": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\src\\main\\res\\mipmap-xxhdpi\\delete.png"
+    },
+    {
+        "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxhdpi\\return_selected.png",
+        "source": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\src\\main\\res\\mipmap-xxhdpi\\return_selected.png"
+    },
+    {
         "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxhdpi\\logo_32.png",
         "source": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\src\\main\\res\\mipmap-xxhdpi\\logo_32.png"
     },
     {
-        "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxhdpi\\quit.png",
-        "source": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\src\\main\\res\\mipmap-xxhdpi\\quit.png"
+        "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxhdpi\\fail.png",
+        "source": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\src\\main\\res\\mipmap-xxhdpi\\fail.png"
     },
     {
-        "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxhdpi\\data_selected.png",
-        "source": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\src\\main\\res\\mipmap-xxhdpi\\data_selected.png"
-    },
-    {
-        "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxhdpi\\data_noselected.png",
-        "source": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\src\\main\\res\\mipmap-xxhdpi\\data_noselected.png"
+        "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxhdpi\\order_no.png",
+        "source": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\src\\main\\res\\mipmap-xxhdpi\\order_no.png"
     }
 ]

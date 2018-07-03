@@ -55,4 +55,14 @@
     <string name="pln">产品批次</string>
     <string name="pr">产品日期</string>
 
+    <string name="lbCurPreset">当前预设:</string>
+    <string name="lbBillPreset">本单预设:</string>
+    <string name="lbCurCount">当前数量:</string>
+    <string name="lbBillCount">本单数量:</string>
+    <string name="btnLock">锁定扫描</string>
+    <string name="btnUnLock">解除扫描</string>
+    <string name="btnUpload">整单上传</string>
+    <string name="btnDelBill">删除单据</string>
+    <!--系统设置-->
+    <string name="delete_txt">清空所有表</string>
 </resources>

@@ -15,12 +15,20 @@
         android:textColor="#000099"
         android:textSize="30sp" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:padding="10sp"
+        android:text="@string/good_collect_system"
+        android:maxLines="1"
+        android:textSize="20sp" />
     <EditText
         android:id="@+id/login_id"
         android:layout_width="280dp"
         android:layout_height="48dp"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="30dp"
         android:paddingLeft="8sp"
         android:maxLines="1"
         android:background="@color/colorLoginEditText"

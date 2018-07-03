@@ -30,16 +30,16 @@ public class Scan_Godown_Activity extends Activity implements  View.OnClickListe
 
     private Spinner numSpinner;             //单据号选择项
     private EditText billDate;              //单据日期
-    private EditText inWarehouse;           //入库仓库
-    private EditText inProduct;             //入库产品
-    private EditText inPr;                  //生产日期
-    private EditText inLn;                  //生产批次
+    private EditText Warehouse;           //入库仓库
+    private EditText Product;             //入库产品
+    private EditText Pr;                  //生产日期
+    private EditText Ln;                  //生产批次
     private ListView mListView;             //产品选择列表
     private ImageView mGoback;              //返回键
     private HorizontalScrollView mHorizontalScrollView;
     private ArrayAdapter<String> spinAdapter;       //单据号spinner的适配器
     private SimpleAdapter digAdapter;
-    private  List<HashMap<String, Object>> data = new ArrayList<HashMap<String,Object>>();
+    private  List<HashMap<String, Object>> ProductInfo = new ArrayList<HashMap<String,Object>>();   //产品信息
 
     private ScanHelper mScanHelper;         //单据号获取帮助类
     private List<String> godownNumList;         //入库单据编号列表
@@ -57,10 +57,10 @@ public class Scan_Godown_Activity extends Activity implements  View.OnClickListe
     private void initView(){
         numSpinner = (Spinner)findViewById(R.id.num_spinner);
         billDate = (EditText)findViewById(R.id.bill_date);
-        inWarehouse = (EditText)findViewById(R.id.in_warehouse);
-        inProduct = (EditText)findViewById(R.id.in_product);
-        inPr = (EditText)findViewById(R.id.in_pr);
-        inLn = (EditText)findViewById(R.id.in_ln);
+        Warehouse = (EditText)findViewById(R.id.in_warehouse);
+        Product = (EditText)findViewById(R.id.in_product);
+        Pr = (EditText)findViewById(R.id.in_pr);
+        Ln = (EditText)findViewById(R.id.in_ln);
         mListView = (ListView)findViewById(R.id.in_list_view);
         mGoback = (ImageView)findViewById(R.id.go_back);
         mHorizontalScrollView =(HorizontalScrollView)findViewById(R.id.HorizontalScrollView);
@@ -79,7 +79,7 @@ public class Scan_Godown_Activity extends Activity implements  View.OnClickListe
                     public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
 
                         billDate.setText(   mScanHelper.getKeyValue("GodownDate", numSpinner.getSelectedItem().toString() ) );
-                        inWarehouse.setText(  mScanHelper.getKeyValue("WarehouseName", numSpinner.getSelectedItem().toString() )  );
+                        Warehouse.setText(  mScanHelper.getKeyValue("WarehouseName", numSpinner.getSelectedItem().toString() )  );
                     }
 
                     @Override
@@ -87,15 +87,15 @@ public class Scan_Godown_Activity extends Activity implements  View.OnClickListe
                                                  }
                 });
 
-            //创建SimpleAdapter适配器将数据绑定到item显示控件上
-//        digAdapter = new SimpleAdapter(mContext, data, R.layout.item_inlist,
-//                new String[]{"pcode", "pname", "pln","pr"}, new int[]{R.id.pcode, R.id.pname, R.id.pln,R.id.pr});
-
-//        EnterListShow(inProduct);
-//        //实现列表的显示
-//        mListView.setAdapter(digAdapter);
-//        //条目点击事件
-//        mListView.setOnItemClickListener(new ItemClickListener());
+        mListView.bringToFront();
+        //创建SimpleAdapter适配器将数据绑定到item显示控件上
+        digAdapter = new SimpleAdapter(Scan_Godown_Activity.this, ProductInfo, R.layout.item_inlist,
+                new String[]{"pcode", "pname", "pln","pr"}, new int[]{R.id.pcode, R.id.pname, R.id.pln,R.id.pr});
+        EnterListShow(Product);
+        //实现列表的显示
+        mListView.setAdapter(digAdapter);
+        //条目点击事件
+        mListView.setOnItemClickListener(new ItemClickListener());
     }
 
     @Override
@@ -132,14 +132,19 @@ public class Scan_Godown_Activity extends Activity implements  View.OnClickListe
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 if (keyCode == KeyEvent.KEYCODE_ENTER && event.getAction()==KeyEvent.ACTION_DOWN) {
                     //TODO:回车键按下时要执行的操作
+                    ProductInfo.clear();
+                    String tableName = numSpinner.getSelectedItem().toString() + Public.GodownBillingType;
+                    String keyValue = Product.getText().toString();
+                    List<String[]> BillInfoList = mScanHelper.getProductInfo( tableName , keyValue);
 
-
-                    HashMap<String, Object> item = new HashMap<String, Object>();
-                    item.put("pcode", "1");
-                    item.put("pname", "1");
-                    item.put("pln", "1");
-                    item.put("pr", "1");
-                    data.add(item);
+                    for( String[] billInfo : BillInfoList){
+                        HashMap<String, Object> item = new HashMap<String, Object>();
+                        item.put("pcode", billInfo[0]);
+                        item.put("pname", billInfo[1]);
+                        item.put("pln", billInfo[2]);
+                        item.put("pr", billInfo[3]);
+                        ProductInfo.add(item);
+                    }
                     digAdapter.notifyDataSetChanged();
                     mHorizontalScrollView.setVisibility(View.VISIBLE);
                     return true;

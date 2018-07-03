@@ -11,25 +11,32 @@
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:id="@+id/pcode"
-
+        android:textSize="20dp"
+        android:gravity="center"
         />
     <!-- 产品名称 -->
     <TextView
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:id="@+id/pname"
+        android:textSize="20dp"
+        android:gravity="center"
         />
     <!-- 批次 -->
     <TextView
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:id="@+id/pln"
+        android:textSize="20dp"
+        android:gravity="center"
         />
     <!-- 产品日期 -->
     <TextView
-        android:layout_width="100dp"
+        android:layout_width="120dp"
         android:layout_height="wrap_content"
         android:id="@+id/pr"
+        android:textSize="20dp"
+        android:gravity="center"
         />
 
 </LinearLayout>

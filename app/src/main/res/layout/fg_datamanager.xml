@@ -34,12 +34,7 @@
             android:orientation="vertical"
             android:background="@drawable/textview_border"
             ></LinearLayout>
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="0.5"
-            android:gravity="center"
-            android:padding="5dp"/>
+
         <TextView
             android:id="@+id/order_channel"
             android:layout_width="0dp"
@@ -93,12 +88,7 @@
             android:gravity="center"
             android:orientation="vertical"
             android:background="@drawable/textview_border"/>
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="0.5"
-            android:gravity="center"
-            android:padding="5dp"/>
+
         <TextView
             android:id="@+id/allot_channel"
             android:layout_width="0dp"
@@ -155,7 +145,7 @@
         <TextView
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="4"
+            android:layout_weight="3.5"
             android:gravity="center"
             android:padding="5dp"/>
 

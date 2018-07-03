@@ -26,7 +26,9 @@
         </activity>
 
         <activity android:name=".MainActivity" android:screenOrientation="portrait"></activity>
-        <activity android:name=".Billing.GetBillActivity" android:screenOrientation="portrait"></activity>
+        <activity android:name=".BillingActivity.GetBillActivity" android:screenOrientation="portrait"></activity>
+
+        <activity android:name=".ScanActivity.Scan_Godown_Activity" android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>
