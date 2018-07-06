@@ -18,7 +18,10 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.kinde.kicppda.BillingActivity.DeleteBillHelper;
+import com.kinde.kicppda.ScanActivity.Scan_Allot_Activity;
+import com.kinde.kicppda.ScanActivity.Scan_Order_Activity;
+import com.kinde.kicppda.ScanActivity.Scan_Return_Activity;
+import com.kinde.kicppda.Utils.SQLiteHelper.DeleteBillHelper;
 import com.kinde.kicppda.BillingActivity.GetBillActivity;
 import com.kinde.kicppda.ScanActivity.Scan_Godown_Activity;
 import com.kinde.kicppda.Utils.Adialog;
@@ -244,7 +247,24 @@ public class MainActivity extends Activity implements View.OnClickListener {
             //采集
             case R.id.scan_btn:
                 fTransaction.show(fg_data);
-                Intent scanIntent = new Intent(MainActivity.this, Scan_Godown_Activity.class);
+                Intent scanIntent;
+                switch (BillType){
+                    case 1:
+                        scanIntent = new Intent(MainActivity.this, Scan_Godown_Activity.class);
+                        break;
+                    case 2:
+                        scanIntent = new Intent(MainActivity.this , Scan_Order_Activity.class);
+                        break;
+                    case 3:
+                        scanIntent = new Intent(MainActivity.this, Scan_Return_Activity.class);
+                        break;
+                    case 4:
+                        scanIntent = new Intent(MainActivity.this , Scan_Allot_Activity.class);
+                        break;
+                    default:
+                        scanIntent = new Intent(MainActivity.this, Scan_Godown_Activity.class);
+                }
+
                 startActivity(scanIntent);//打开新的activity
                 break;
             //查询

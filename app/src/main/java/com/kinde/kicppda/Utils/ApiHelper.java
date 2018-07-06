@@ -19,7 +19,6 @@ import java.security.MessageDigest;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Random;
 
 /**
@@ -83,11 +82,6 @@ public class ApiHelper {
         return md5Encode;
     }
 
-
-    public static <T> void writeExact(List<T> list, T item) {
-        list.add(item);
-    }
-
     /**
      * GET 接口
      * @param clazz
@@ -141,6 +135,7 @@ public class ApiHelper {
             if(sign){
                 conn.setRequestProperty("signature", GetSignature(timestamp , nonce , staffId, query, appSecret)); //当前请求内容的数字签名
             }
+            conn.setUseCaches(false);
             //开启连接
             conn.connect();
             InputStream inputStream=null;

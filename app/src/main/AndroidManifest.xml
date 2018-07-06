@@ -29,6 +29,9 @@
         <activity android:name=".BillingActivity.GetBillActivity" android:screenOrientation="portrait"></activity>
 
         <activity android:name=".ScanActivity.Scan_Godown_Activity" android:screenOrientation="portrait"></activity>
+        <activity android:name=".ScanActivity.Scan_Order_Activity" android:screenOrientation="portrait"></activity>
+        <activity android:name=".ScanActivity.Scan_Return_Activity" android:screenOrientation="portrait"></activity>
+        <activity android:name=".ScanActivity.Scan_Allot_Activity" android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>

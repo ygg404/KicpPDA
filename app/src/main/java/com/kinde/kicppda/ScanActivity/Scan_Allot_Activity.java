@@ -26,7 +26,7 @@ import com.imscs.barcodemanager.BarcodeManager;
 import com.imscs.barcodemanager.BarcodeManager.OnEngineStatus;
 import com.imscs.barcodemanager.Constants;
 import com.imscs.barcodemanager.ScanTouchManager;
-import com.kinde.kicppda.Models.GodownBillingEntity;
+import com.kinde.kicppda.Models.AllotBillingEntity;
 import com.kinde.kicppda.R;
 import com.kinde.kicppda.Utils.Adialog;
 import com.kinde.kicppda.Utils.Public;
@@ -39,19 +39,19 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
 /**
- * Created by YGG on 2018/6/4.
+ * Created by YGG on 2018/7/6.
  */
 
-public class Scan_Godown_Activity extends Activity implements  View.OnClickListener,OnEngineStatus {
+public class Scan_Allot_Activity extends Activity implements  View.OnClickListener,OnEngineStatus {
 
     private Adialog aDialog;            //警告提示窗口
     private Spinner cmb_plist;             //单据号选择项
     private EditText tbBillDate;              //单据日期
-    private EditText tbWarehouse;           //入库仓库
-    private EditText tbProduct;             //入库产品
-    private EditText tbPR;                  //生产日期
-    private EditText tbLN;                  //生产批次
+    private EditText tbWarehouseIn;         //调入仓
+    private EditText tbWarehouseOut;        //调出仓
+    private EditText tbProduct;             //发货产品
     private EditText barCode;               //当前条码
     private ListView mListView;             //产品选择列表
     private ImageView mGoback;              //返回键
@@ -63,8 +63,8 @@ public class Scan_Godown_Activity extends Activity implements  View.OnClickListe
     private Button btnUpload;               //上传按钮
     private Button btnDelBill;              //删除按钮
     private boolean bLockMode = false;         //锁定模式
-    private String productId = "";      //入库产品ID
-    private List<GodownBillingEntity> godownbillingList = new ArrayList<GodownBillingEntity>();//入库单据明细
+    private String productId = "";      //调拨产品ID
+    private List<AllotBillingEntity> allotbillingList = new ArrayList<AllotBillingEntity>();//出库单据明细
 
     private int curPreSet = 0;          //当前预设
     private int curCount = 0;           //当前数量
@@ -79,7 +79,7 @@ public class Scan_Godown_Activity extends Activity implements  View.OnClickListe
     private DeleteBillHelper mDelBill;      //删除单据
     private TableCreateHelper mCreateBill;   //创建单据
     private TableQueryHelper mQueryBill;     //查询单据
-    private List<String> godownNumList;         //入库单据编号列表
+    private List<String> allotNumList;         //调拨单据编号列表
 
     //扫码
     public BarcodeManager mBarcodeManager = null;
@@ -107,7 +107,7 @@ public class Scan_Godown_Activity extends Activity implements  View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.scan_godown);
+        setContentView(R.layout.scan_allot);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         windowManagerParams = ((DecodeSampleApplication) getApplication()).getWindowParams();
@@ -123,10 +123,9 @@ public class Scan_Godown_Activity extends Activity implements  View.OnClickListe
         });
         mScanTouchManager.setVisibility(View.INVISIBLE);
 
-
-        mDelBill = new DeleteBillHelper(Scan_Godown_Activity.this);
-        mCreateBill = new TableCreateHelper(Scan_Godown_Activity.this);
-        mQueryBill = new TableQueryHelper(Scan_Godown_Activity.this);
+        mDelBill = new DeleteBillHelper(Scan_Allot_Activity.this);
+        mCreateBill = new TableCreateHelper(Scan_Allot_Activity.this);
+        mQueryBill = new TableQueryHelper(Scan_Allot_Activity.this);
         initView();
 
         mDoDecodeThread = new DoDecodeThread();
@@ -134,7 +133,7 @@ public class Scan_Godown_Activity extends Activity implements  View.OnClickListe
     }
 
     private void initView(){
-        aDialog = new Adialog(Scan_Godown_Activity.this);
+        aDialog = new Adialog(Scan_Allot_Activity.this);
 
         bLockMode = false;
         btnLock = (Button)findViewById(R.id.btn_Lock);
@@ -143,10 +142,9 @@ public class Scan_Godown_Activity extends Activity implements  View.OnClickListe
 
         cmb_plist = (Spinner)findViewById(R.id.num_spinner);
         tbBillDate = (EditText)findViewById(R.id.bill_date);
-        tbWarehouse = (EditText)findViewById(R.id.in_warehouse);
-        tbProduct = (EditText)findViewById(R.id.in_product);
-        tbPR = (EditText)findViewById(R.id.in_pr);
-        tbLN = (EditText)findViewById(R.id.in_ln);
+        tbWarehouseIn = (EditText)findViewById(R.id.tbWarehouseIn);
+        tbWarehouseOut = (EditText)findViewById(R.id.tbWarehouseOut);
+        tbProduct = (EditText)findViewById(R.id.tbProduct);
         mListView = (ListView)findViewById(R.id.in_list_view);
         mGoback = (ImageView)findViewById(R.id.go_back);
         mHorizontalScrollView =(HorizontalScrollView)findViewById(R.id.HorizontalScrollView);
@@ -163,8 +161,8 @@ public class Scan_Godown_Activity extends Activity implements  View.OnClickListe
         ViewClear();
 
         //初始化单据选项列表
-        godownNumList = mQueryBill.getBillNum(Public.IN_MAIN_TABLE , "GodownCode");
-        spinAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item, godownNumList);
+        allotNumList = mQueryBill.getBillNum(Public.ALLOT_MAIN_TABLE , "AllotCode");
+        spinAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item, allotNumList);
         spinAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         cmb_plist.setAdapter(spinAdapter);
         cmb_plist.setOnItemSelectedListener(
@@ -172,22 +170,24 @@ public class Scan_Godown_Activity extends Activity implements  View.OnClickListe
                     @Override
                     public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
                         ViewClear();
-                        BillingLoad( cmb_plist.getSelectedItem().toString() + Public.GodownBillingType );
-                        mCreateBill.Godown_Scan_Create( cmb_plist.getSelectedItem().toString() );  //创建扫码表
-                        tbBillDate.setText(   mQueryBill.getKeyValue("GodownDate", Public.IN_MAIN_TABLE ,
-                                            "GodownCode",cmb_plist.getSelectedItem().toString() ) );
-                        tbWarehouse.setText(  mQueryBill.getKeyValue("WarehouseName", Public.IN_MAIN_TABLE ,
-                                            "GodownCode",cmb_plist.getSelectedItem().toString() )  );
+                        BillingLoad( cmb_plist.getSelectedItem().toString() + Public.AllotBillingType );
+                        mCreateBill.Allot_Scan_Create( cmb_plist.getSelectedItem().toString() );  //创建扫码表
+                        tbBillDate.setText(   mQueryBill.getKeyValue("AllotDate", Public.ALLOT_MAIN_TABLE ,
+                                "AllotCode",cmb_plist.getSelectedItem().toString() ) );
+                        tbWarehouseIn.setText(  mQueryBill.getKeyValue("WarehouseNameIn", Public.ALLOT_MAIN_TABLE ,
+                                "AllotCode",cmb_plist.getSelectedItem().toString() )  );
+                        tbWarehouseOut.setText(  mQueryBill.getKeyValue("WarehouseNameOut", Public.ALLOT_MAIN_TABLE ,
+                                "AllotCode",cmb_plist.getSelectedItem().toString() )  );
                     }
 
                     @Override
                     public void onNothingSelected(AdapterView<?> arg0) {
-                                                 }
+                    }
                 });
 
         mListView.bringToFront();
         //创建SimpleAdapter适配器将数据绑定到item显示控件上
-        digAdapter = new SimpleAdapter(Scan_Godown_Activity.this, ProductInfo, R.layout.item_inlist,
+        digAdapter = new SimpleAdapter(Scan_Allot_Activity.this, ProductInfo, R.layout.item_inlist,
                 new String[]{"pcode", "pname", "pln","pr"}, new int[]{R.id.pcode, R.id.pname, R.id.pln,R.id.pr});
         EnterListShow(tbProduct);
         //实现列表的显示
@@ -196,16 +196,7 @@ public class Scan_Godown_Activity extends Activity implements  View.OnClickListe
         mListView.setOnItemClickListener(new ItemClickListener());
 
 
-        tbPR.setOnKeyListener(new View.OnKeyListener(){
-            @Override
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
-                if (keyCode == KeyEvent.KEYCODE_ENTER && event.getAction() == KeyEvent.ACTION_DOWN) {
-                    //TODO:回车键按下时要执行的操作
-                    return true;
-                }
-                return false;
-            }
-        });
+
     }
 
     //重写与ContextMenu相关方法
@@ -221,11 +212,10 @@ public class Scan_Godown_Activity extends Activity implements  View.OnClickListe
 
 
     private void ViewClear(){
-        tbWarehouse.setText("");
+        tbWarehouseIn.setText("");
+        tbWarehouseOut.setText("");
         tbBillDate.setText("");
         tbProduct.setText("");
-        tbPR.setText("");
-        tbLN.setText("");
         lbCurPreset.setText("0");
         lbBillPreset.setText("0");
         lbCurCount.setText("0");
@@ -237,8 +227,8 @@ public class Scan_Godown_Activity extends Activity implements  View.OnClickListe
     private void BillingLoad(String EntryFileName){
         billPreset = 0;
         billCount = 0;
-        godownbillingList = mQueryBill.queryGodownBilling(EntryFileName);
-        for( GodownBillingEntity entity : godownbillingList)
+        allotbillingList = mQueryBill.queryAllotBilling(EntryFileName);
+        for( AllotBillingEntity entity : allotbillingList)
         {
             billPreset += entity.Qty;
             //本单数量
@@ -258,11 +248,10 @@ public class Scan_Godown_Activity extends Activity implements  View.OnClickListe
     private void Unlock()
     {
         cmb_plist.setEnabled(true);
-        tbWarehouse.setEnabled(true);
+        tbWarehouseIn.setEnabled(true);
+        tbWarehouseOut.setEnabled(true);
         tbBillDate.setEnabled(true);
         tbProduct.setEnabled(true);
-        tbPR.setEnabled(true);
-        tbLN.setEnabled(true);
         btnDelBill.setEnabled(true);
         btnUpload.setEnabled(true);
 
@@ -271,18 +260,17 @@ public class Scan_Godown_Activity extends Activity implements  View.OnClickListe
         barcode_exit.clear();
 
         mScanTouchManager.setVisibility(View.INVISIBLE);
-       // OpenScan(false);
+        // OpenScan(false);
     }
 
     //锁定扫描
     private void Lock()
     {
         cmb_plist.setEnabled(false);
-        tbWarehouse.setEnabled(false);
+        tbWarehouseIn.setEnabled(true);
+        tbWarehouseOut.setEnabled(true);
         tbBillDate.setEnabled(false);
         tbProduct.setEnabled(false);
-        tbPR.setEnabled(false);
-        tbLN.setEnabled(false);
         btnDelBill.setEnabled(false);
         btnUpload.setEnabled(false);
 
@@ -290,7 +278,7 @@ public class Scan_Godown_Activity extends Activity implements  View.OnClickListe
         bLockMode = true;
         barcode_exit.clear();
         mScanTouchManager.setVisibility(View.VISIBLE);
-       // OpenScan(true);
+        // OpenScan(true);
     }
 
     //锁定扫描事件
@@ -311,15 +299,19 @@ public class Scan_Godown_Activity extends Activity implements  View.OnClickListe
                 aDialog.warnDialog( "单据日期不能为空，请重新选择单据！" );
                 return;
             }
-            if (tbWarehouse.getText().toString().isEmpty())
+            if (tbWarehouseIn.getText().toString().isEmpty())
             {
-                aDialog.warnDialog( "入库仓库不能为空，请重新选择单据！" );
+                aDialog.warnDialog( "调入仓库不能为空，请重新选择单据！" );
                 return;
             }
-
+            if (tbWarehouseOut.getText().toString().isEmpty())
+            {
+                aDialog.warnDialog( "调出仓库不能为空，请重新选择单据！" );
+                return;
+            }
             if (tbProduct.getText().toString().isEmpty())
             {
-                aDialog.warnDialog("请选择入库产品！");
+                aDialog.warnDialog("请选择调拨产品！");
                 return;
             }
 
@@ -354,8 +346,8 @@ public class Scan_Godown_Activity extends Activity implements  View.OnClickListe
         for(String[] scanInfo : scanInfoList){
             barcode_exit.add(scanInfo[0]);
             curProductId = scanInfo[1];
-            Qty = Integer.parseInt(scanInfo[4]);
-            if (curProductId.equals(productId) )
+            Qty = Integer.parseInt(scanInfo[2]);
+            if ( curProductId.equals( productId ) )
             {
                 curCount += Qty;
             }
@@ -375,9 +367,9 @@ public class Scan_Godown_Activity extends Activity implements  View.OnClickListe
             //删除单据
             case R.id.btn_DelBill:
                 String BillNum = cmb_plist.getSelectedItem().toString();      //单据号
-                boolean ok = mDelBill.DeleteTheData( Public.IN_MAIN_TABLE , "GodownCode" , BillNum )
-                        && mDelBill.DeleteFile(BillNum + Public.GodownBillingType)
-                        && mDelBill.DeleteFile(BillNum + Public.GodownScanType);
+                boolean ok = mDelBill.DeleteTheData( Public.ALLOT_MAIN_TABLE , "AllotCode" , BillNum )
+                        && mDelBill.DeleteFile(BillNum + Public.AllotBillingType)
+                        && mDelBill.DeleteFile(BillNum + Public.AllotScanType);
                 if(ok){
                     aDialog.okDialog("删除单据成功！");
                 }else{
@@ -400,12 +392,11 @@ public class Scan_Godown_Activity extends Activity implements  View.OnClickListe
 
             productId = productData.get("pid").toString();
             tbProduct.setText( productData.get("pname").toString() );
-            tbLN.setText( productData.get("pln").toString() );
-            tbPR.setText( productData.get("pr").toString() );
-            for( GodownBillingEntity gEntity : godownbillingList)
+
+            for( AllotBillingEntity aEntity : allotbillingList)
             {
-                if(gEntity.ProductId.equals(productId)){
-                    curPreSet = gEntity.Qty;
+                if(aEntity.ProductId.equals(productId)){
+                    curPreSet = aEntity.Qty;
                     lbCurPreset.setText( String.valueOf( curPreSet ) ); //当前预设
                     break;
                 }
@@ -427,17 +418,15 @@ public class Scan_Godown_Activity extends Activity implements  View.OnClickListe
                 if (keyCode == KeyEvent.KEYCODE_ENTER && event.getAction()==KeyEvent.ACTION_DOWN) {
                     //TODO:回车键按下时要执行的操作
                     ProductInfo.clear();
-                    String tableName = cmb_plist.getSelectedItem().toString() + Public.GodownBillingType;
+                    String tableName = cmb_plist.getSelectedItem().toString() + Public.OrderBillingType;
                     String keyValue = tbProduct.getText().toString();
-                    List<String[]> BillInfoList = mQueryBill.getProductInfo( tableName , keyValue);
+                    List<String[]> BillInfoList = mQueryBill.getProductMessage( tableName , keyValue);
 
                     for( String[] billInfo : BillInfoList){
                         HashMap<String, Object> item = new HashMap<String, Object>();
                         item.put("pid", billInfo[0]);
                         item.put("pcode", billInfo[1]);
                         item.put("pname", billInfo[2]);
-                        item.put("pln", billInfo[3]);
-                        item.put("pr", billInfo[4]);
                         ProductInfo.add(item);
                     }
                     digAdapter.notifyDataSetChanged();
@@ -644,3 +633,5 @@ public class Scan_Godown_Activity extends Activity implements  View.OnClickListe
     }
 
 }
+
+

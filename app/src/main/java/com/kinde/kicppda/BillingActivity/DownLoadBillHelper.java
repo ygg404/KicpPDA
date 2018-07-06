@@ -8,6 +8,7 @@ import com.kinde.kicppda.Utils.ApiHelper;
 import com.kinde.kicppda.Utils.Config;
 import com.kinde.kicppda.Utils.Models.AllotBillingListResultMsg;
 import com.kinde.kicppda.Utils.Models.AllotListResultMsg;
+import com.kinde.kicppda.Utils.Models.CheckListResultMsg;
 import com.kinde.kicppda.Utils.Models.GodownBillingListResultMsg;
 import com.kinde.kicppda.Utils.Models.GodownListResultMsg;
 import com.kinde.kicppda.Utils.Models.OrderBillingListResultMsg;
@@ -313,6 +314,49 @@ public class DownLoadBillHelper {
         return "单据获取成功！";
     }
 
+    //获取盘点主单和明细
+    public static String downLoadCheckBill(GetBillHelper gBillHelper, String datebegin,String dateend ,String billBarcode)
+    {
+        //获取主单
+        HashMap<String,String> query = new HashMap<String, String>();
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+
+        try {
+            Date dateBegin = checkDateValid(datebegin);
+            Date dateEnd = checkDateValid(dateend);
+            query.put("checkCode",billBarcode);
+            query.put("beginDate", dateBegin==null?"":formatter.format(dateBegin) );
+            query.put("endDate", dateEnd==null?"":formatter.format(dateEnd));
+            query.put("status", "1");
+        }catch (Exception ex){
+            return ex.getMessage();
+        }
+
+        CheckListResultMsg checkListc = ApiHelper.GetHttp(CheckListResultMsg.class,
+                Config.WebApiUrl + "GetCheckList?", query, Config.StaffId , Config.AppSecret ,true);
+
+        if(checkListc!=null)
+        {
+            checkListc.setResult();
+
+            if(checkListc.StatusCode != 200)
+            {
+                return checkListc.Info;
+            }
+            if( checkListc.Result == null || checkListc.Result.isEmpty())
+            {
+                return  "无相关数据！";
+            }
+
+        }
+        else {
+            return "网络异常！";
+        }
+        //保存调拨主单
+        gBillHelper.SaveCheckDataFile(checkListc.Result);
+
+        return "单据获取成功！";
+    }
     /**
      * 日期格式 是否有效
      * @param dateValue

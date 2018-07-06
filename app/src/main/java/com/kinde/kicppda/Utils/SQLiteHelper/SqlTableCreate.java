@@ -11,8 +11,7 @@ import com.kinde.kicppda.Utils.Public;
 public class SqlTableCreate {
     //入库主单表
     public static final String CREATE_IN_MAIN_TABLE = "create table inMainBill ("
-            + "id integer primary key autoincrement,"
-            + "GodownId text, "
+            + "GodownId text primary key, "
             + "GodownCode text, "
             + "GodownDate text, "
             + "WarehouseId text, "
@@ -23,8 +22,7 @@ public class SqlTableCreate {
             + "Status smallint)";
     //出库主单表
     public static final String CREATE_ORDER_MAIN_TABLE = "create table orderMainBill ("
-            + "id integer primary key autoincrement,"
-            + "OrderId text, "
+            + "OrderId text primary key, "
             + "OrderCode text, "
             + "OrderDate text, "
             + "AgentId text, "
@@ -35,8 +33,7 @@ public class SqlTableCreate {
             + "Status smallint)";
     //退货主单表
     public static final String CREATE_RETURN_MAIN_TABLE = "create table returnMainBill ("
-            + "id integer primary key autoincrement,"
-            + "ReturnId text, "
+            + "ReturnId text primary key, "
             + "ReturnCode text, "
             + "ReturnDate text, "
             + "WarehouseId text, "
@@ -47,8 +44,7 @@ public class SqlTableCreate {
             + "Status smallint)";
     //调拨主单表
     public static final String CREATE_ALLOT_MAIN_TABLE = "create table allotMainBill ("
-            + "id integer primary key autoincrement,"
-            + "AllotId text, "
+            + "AllotId text primary key, "
             + "AllotCode text, "
             + "AllotDate text, "
             + "WarehouseIdOut text, "
@@ -61,8 +57,7 @@ public class SqlTableCreate {
             + "Status smallint)";
     //盘点主单表
     public static final String CREATE_CHECK_MAIN_TABLE = "create table checkMainBill ("
-            + "id integer primary key autoincrement,"
-            + "CheckId text, "
+            + "CheckId text primary key, "
             + "CheckCode text, "
             + "CheckDate text, "
             + "WarehouseId text, "
@@ -184,24 +179,5 @@ public class SqlTableCreate {
         return true;
     }
 
-    //创建入库采集表
-    public static Boolean In_Scan_Create(SQLiteDatabase db , String billNo) {
-        String ScanFileName = billNo + "-Scan";
-        //判断这张表是否存在，若存在，则跳过创建表操作
-        String CREATE_IN_SCAN_TABLE = "CREATE TABLE IF NOT EXISTS " + ScanFileName + "("
-                + "id integer primary key autoincrement,"
-                + "barcode text, "
-                + "productId text, "
-                + "LN text, "
-                + "PR text, "
-                + "Qty text, "
-                + "CreateDate text, "
-                + "CreateUserId text )";
-        try {
-            db.execSQL(CREATE_IN_SCAN_TABLE);
-        } catch (Exception ex) {
-            return false;
-        }
-        return true;
-    }
+
 }

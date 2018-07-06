@@ -30,6 +30,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import static com.kinde.kicppda.BillingActivity.DownLoadBillHelper.downLoadAllotBill;
+import static com.kinde.kicppda.BillingActivity.DownLoadBillHelper.downLoadCheckBill;
 import static com.kinde.kicppda.BillingActivity.DownLoadBillHelper.downLoadGodownBill;
 import static com.kinde.kicppda.BillingActivity.DownLoadBillHelper.downLoadOrderBill;
 import static com.kinde.kicppda.BillingActivity.DownLoadBillHelper.downLoadReturnBill;
@@ -160,7 +161,10 @@ public class GetBillActivity extends Activity implements OnEngineStatus{
                     message.obj = downLoadAllotBill( gBillHelper, dateBeginValue,dateEndValue ,billBarValue );
                     eHandler.sendMessage(message);
                     break;
-
+                case 5:
+                    message.obj = downLoadCheckBill( gBillHelper, dateBeginValue,dateEndValue ,billBarValue );
+                    eHandler.sendMessage(message);
+                    break;
                 default:
                     break;
             }

@@ -20,7 +20,7 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 
 /**
- * Created by Lenovo on 2018/6/12.
+ * Created by YGG on 2018/6/12.
  */
 
 public class GetBillHelper {
@@ -276,7 +276,7 @@ public class GetBillHelper {
                         (attr.CreateDate==null?"":sdf.format(attr.CreateDate))+"','"+attr.CreateUserId+"',"
                         +attr.CreateUserName+"',"+String.valueOf(attr.Status)+")"
                 );
-                //创建出库明细表
+                //创建盘点明细表
                // SqlTableCreate.Order_Billing_Create(db , attr.OrderCode);
             }
         }catch (Exception ex){

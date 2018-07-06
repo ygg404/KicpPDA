@@ -40,21 +40,10 @@
     <string name="allot_scantext">调拨采集</string>
     <string name="check_scantext">盘点采集</string>
 
-
+    <!--采集通用-->
     <string name="bill_num">选择单号:</string>
     <string name="bill_date">单据日期:</string>
     <string name="barcode">当前条码:</string>
-    <!--入库采集-->
-    <string name="in_warehouse">入库仓库:</string>
-    <string name="in_product">入库产品:</string>
-    <string name="in_pr">生产日期:</string>
-    <string name="in_ln">生产批次:</string>
-
-    <string name="pcode">编号</string>
-    <string name="pname">产品名称</string>
-    <string name="pln">产品批次</string>
-    <string name="pr">产品日期</string>
-
     <string name="lbCurPreset">当前预设:</string>
     <string name="lbBillPreset">本单预设:</string>
     <string name="lbCurCount">当前数量:</string>
@@ -63,6 +52,29 @@
     <string name="btnUnLock">解除扫描</string>
     <string name="btnUpload">整单上传</string>
     <string name="btnDelBill">删除单据</string>
+
+    <!--入库采集-->
+    <string name="in_warehouse">入库仓库:</string>
+    <string name="in_product">入库产品:</string>
+    <string name="in_pr">生产日期:</string>
+    <string name="in_ln">生产批次:</string>
+    <!--发货采集-->
+    <string name="agent_name">客户名称:</string>
+    <string name="order_product">发货产品:</string>
+    <!--退货采集-->
+    <string name="warehouse_name">仓库名称:</string>
+    <string name="return_product">退货产品:</string>
+    <!--调拨采集-->
+    <string name="inWarehouse">调 入 仓 :</string>
+    <string name="outWarehouse">调 出 仓 :</string>
+    <string name="allot_product">调拨产品:</string>
+
+    <string name="pcode">编号</string>
+    <string name="pname">产品名称</string>
+    <string name="pln">产品批次</string>
+    <string name="pr">产品日期</string>
+
+
     <!--系统设置-->
     <string name="delete_txt">清空所有表</string>
 </resources>
