@@ -25,6 +25,7 @@
     <string name="returnmenu">退货管理</string>
     <string name="allotmenu">调拨管理</string>
     <string name="checkmenu">盘点管理</string>
+    <string name="groupxmenu">生产关联箱</string>
 
     <string name="bill">单据</string>
     <string name="scan">采集</string>
@@ -68,6 +69,9 @@
     <string name="inWarehouse">调 入 仓 :</string>
     <string name="outWarehouse">调 出 仓 :</string>
     <string name="allot_product">调拨产品:</string>
+    <!--盘点采集-->
+    <string name="checkWarehouse">盘点仓库:</string>
+    <string name="check_product">盘点产品:</string>
 
     <string name="pcode">编号</string>
     <string name="pname">产品名称</string>

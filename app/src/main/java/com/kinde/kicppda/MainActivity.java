@@ -18,13 +18,14 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.kinde.kicppda.BillingActivity.GetBillActivity;
 import com.kinde.kicppda.ScanActivity.Scan_Allot_Activity;
+import com.kinde.kicppda.ScanActivity.Scan_Check_Activity;
+import com.kinde.kicppda.ScanActivity.Scan_Godown_Activity;
 import com.kinde.kicppda.ScanActivity.Scan_Order_Activity;
 import com.kinde.kicppda.ScanActivity.Scan_Return_Activity;
-import com.kinde.kicppda.Utils.SQLiteHelper.DeleteBillHelper;
-import com.kinde.kicppda.BillingActivity.GetBillActivity;
-import com.kinde.kicppda.ScanActivity.Scan_Godown_Activity;
 import com.kinde.kicppda.Utils.Adialog;
+import com.kinde.kicppda.Utils.SQLiteHelper.DeleteBillHelper;
 
 
 public class MainActivity extends Activity implements View.OnClickListener {
@@ -32,7 +33,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
     //提示窗口
     private Adialog aDialog;
     //单据类型
-    private int BillType;
+    private int BillType = 0;
 
     private TextView datachannel;
     private TextView syschannel;
@@ -42,6 +43,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
     private FragmentManager fManager;
     private DataFragment fg_data;
     private SysFragment fg_sys;
+    private PMFragment fg_pm;
 
     //数据管理项
     private TextView in_content;
@@ -49,12 +51,14 @@ public class MainActivity extends Activity implements View.OnClickListener {
     private TextView return_content;
     private TextView allot_content;
     private TextView check_content;
+    private TextView groupx_content;
 
     private LinearLayout inBtnView;
     private LinearLayout orderBtnView;
     private LinearLayout returnBtnView;
     private LinearLayout allotBtnView;
     private LinearLayout checkBtnView;
+    private LinearLayout gxBtnView;
 
     private Button bill_btn;
     private Button scan_btn;
@@ -85,6 +89,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
     private void hideAllFragment(FragmentTransaction fragmentTransaction) {
         if (fg_data != null) fragmentTransaction.hide(fg_data);
         if (fg_sys != null) fragmentTransaction.hide(fg_sys);
+        if (fg_pm != null) fragmentTransaction.hide(fg_pm);
     }
 
     /**
@@ -100,24 +105,31 @@ public class MainActivity extends Activity implements View.OnClickListener {
     /**
      * 重置所有订单入库等选中状态
      */
-    protected  void setMenus(){
-        in_content.setSelected(false);
-        order_content.setSelected(false);
-        return_content.setSelected(false);
-        allot_content.setSelected(false);
-        check_content.setSelected(false);
+    protected  void MenusReset(){
+        if (fg_data != null) {
+            in_content.setSelected(false);
+            order_content.setSelected(false);
+            return_content.setSelected(false);
+            allot_content.setSelected(false);
+            check_content.setSelected(false);
 
-        inBtnView.setSelected(false);
-        orderBtnView.setSelected(false);
-        returnBtnView.setSelected(false);
-        allotBtnView.setSelected(false);
-        checkBtnView.setSelected(false);
+            inBtnView.setSelected(false);
+            orderBtnView.setSelected(false);
+            returnBtnView.setSelected(false);
+            allotBtnView.setSelected(false);
+            checkBtnView.setSelected(false);
 
-        inBtnView.removeAllViews();
-        orderBtnView.removeAllViews();
-        returnBtnView.removeAllViews();
-        allotBtnView.removeAllViews();
-        checkBtnView.removeAllViews();
+            inBtnView.removeAllViews();
+            orderBtnView.removeAllViews();
+            returnBtnView.removeAllViews();
+            allotBtnView.removeAllViews();
+            checkBtnView.removeAllViews();
+        }
+        if(fg_pm != null){
+            groupx_content.setSelected(false);
+            gxBtnView.setSelected(false);
+            gxBtnView.removeAllViews();
+        }
     }
 
     /**
@@ -175,6 +187,12 @@ public class MainActivity extends Activity implements View.OnClickListener {
             case  R.id.prod_channel:
                 setSelected();
                 prodchannel.setSelected(true);
+                if(fg_pm == null){
+                    fg_pm = new PMFragment();
+                    fTransaction.add(R.id.ly_content,fg_pm);
+                }else{
+                    fTransaction.show(fg_pm);
+                }
                 break;
             //系统管理
             case R.id.sys_channel:
@@ -188,7 +206,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 }
                 break;
             case R.id.in_channel:
-                setMenus();
+                MenusReset();
                 fTransaction.show(fg_data);
                 in_content.setSelected(true);
                 inBtnView.setSelected(true);
@@ -197,7 +215,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 BillType = 1;
                 break;
             case R.id.order_channel:
-                setMenus();
+                MenusReset();
                 fTransaction.show(fg_data);
                 order_content.setSelected(true);
                 orderBtnView.setSelected(true);
@@ -206,7 +224,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 BillType = 2;
                 break;
             case R.id.return_channel:
-                setMenus();
+                MenusReset();
                 fTransaction.show(fg_data);
                 return_content.setSelected(true);
                 returnBtnView.setSelected(true);
@@ -215,7 +233,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 BillType = 3;
                 break;
             case R.id.allot_channel:
-                setMenus();
+                MenusReset();
                 fTransaction.show(fg_data);
                 allot_content.setSelected(true);
                 allotBtnView.setSelected(true);
@@ -224,7 +242,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 BillType = 4;
                 break;
             case R.id.check_channel:
-                setMenus();
+                MenusReset();
                 fTransaction.show(fg_data);
                 check_content.setSelected(true);
                 checkBtnView.setSelected(true);
@@ -232,9 +250,22 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 btnViewInit();
                 BillType = 5;
                 break;
+            case R.id.groupx_channel:
+                MenusReset();
+                fTransaction.show(fg_pm);
+                groupx_content.setSelected(true);
+                gxBtnView.setSelected(true);
+                gxBtnView.addView(sub);
+                btnViewInit();
+                BillType = 6;
+                break;
             //单据
             case R.id.bill_btn:
-                fTransaction.show(fg_data);
+                if(BillType<=5)
+                    fTransaction.show(fg_data);
+                else{
+                    fTransaction.show(fg_pm);
+                }
                 //新建一个显式意图，第一个参数为当前Activity类对象，第二个参数为你要打开的Activity类
                 Intent intent =new Intent(MainActivity.this,GetBillActivity.class);
                 //用Bundle携带数据
@@ -246,7 +277,11 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 break;
             //采集
             case R.id.scan_btn:
-                fTransaction.show(fg_data);
+                if(BillType<=5)
+                    fTransaction.show(fg_data);
+                else{
+                    fTransaction.show(fg_pm);
+                }
                 Intent scanIntent;
                 switch (BillType){
                     case 1:
@@ -261,6 +296,9 @@ public class MainActivity extends Activity implements View.OnClickListener {
                     case 4:
                         scanIntent = new Intent(MainActivity.this , Scan_Allot_Activity.class);
                         break;
+                    case 5:
+                        scanIntent = new Intent(MainActivity.this , Scan_Check_Activity.class);
+                        break;
                     default:
                         scanIntent = new Intent(MainActivity.this, Scan_Godown_Activity.class);
                 }
@@ -269,7 +307,11 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 break;
             //查询
             case R.id.query_btn:
-                fTransaction.show(fg_data);
+                if(BillType<=5)
+                    fTransaction.show(fg_data);
+                else{
+                    fTransaction.show(fg_pm);
+                }
                 break;
 
             case R.id.delete_all_channel:
@@ -287,6 +329,9 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
     }
 
+    /**
+     *数据管理Fragment
+     */
     public class DataFragment extends Fragment {
 
         private String content;
@@ -299,6 +344,24 @@ public class MainActivity extends Activity implements View.OnClickListener {
         }
     }
 
+    /**
+     *生产管理Fragment
+     */
+    public class PMFragment extends Fragment {
+
+        private String content;
+
+        @Override
+        public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+            View view = inflater.inflate(R.layout.fg_pm,container,false);
+            PMFragmentBind(view);
+            return view;
+        }
+    }
+
+    /**
+     * 系统管理Fragment
+     */
     public class SysFragment extends Fragment {
 
         private String content;
@@ -311,6 +374,15 @@ public class MainActivity extends Activity implements View.OnClickListener {
         }
     }
 
+    /**
+     * 初始化 生产管理 Fragment
+     * @param view
+     */
+    public void PMFragmentBind(View view){
+        groupx_content = (TextView)view.findViewById(R.id.groupx_channel);
+        gxBtnView = (LinearLayout)view.findViewById(R.id.groupx_btn_view);
+        groupx_content.setOnClickListener(this);
+    }
     /**
      * 初始化 系统管理 Fragment
      * @param view
@@ -332,10 +404,10 @@ public class MainActivity extends Activity implements View.OnClickListener {
         check_content = (TextView)view.findViewById(R.id.check_channel);
 
         inBtnView = (LinearLayout)view.findViewById(R.id.in_btn_view);
-        orderBtnView = (LinearLayout)view.findViewById(R.id.order_btn_view);;
-        returnBtnView = (LinearLayout)view.findViewById(R.id.return_btn_view);;
-        allotBtnView = (LinearLayout)view.findViewById(R.id.allot_btn_view);;
-        checkBtnView = (LinearLayout)view.findViewById(R.id.check_btn_view);;
+        orderBtnView = (LinearLayout)view.findViewById(R.id.order_btn_view);
+        returnBtnView = (LinearLayout)view.findViewById(R.id.return_btn_view);
+        allotBtnView = (LinearLayout)view.findViewById(R.id.allot_btn_view);
+        checkBtnView = (LinearLayout)view.findViewById(R.id.check_btn_view);
 
         in_content.setOnClickListener(this);
         order_content.setOnClickListener(this);

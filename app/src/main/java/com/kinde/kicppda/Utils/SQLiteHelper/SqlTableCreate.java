@@ -65,6 +65,17 @@ public class SqlTableCreate {
             + "Description text, "
             + "CreateDate text, "
             + "CreateUserId text, "
+            + "CreateUserName text, "
+            + "Status smallint)";
+    //关联箱主单表
+    public static final String CREATE_GROUPX_MAIN_TABLE = "create table groupxMainBill ("
+            + "GodownXId text primary key, "
+            + "GodownXCode text, "
+            + "GodownXDate text, "
+            + "Description text, "
+            + "CreateDate text, "
+            + "CreateUserId text, "
+            + "CreateUserName text, "
             + "Status smallint)";
 
     //创建入库明细表
@@ -179,5 +190,31 @@ public class SqlTableCreate {
         return true;
     }
 
+    //创建关联箱明细表
+    public static Boolean GroupX_Billing_Create(SQLiteDatabase db , String billNo) throws Exception{
+        String EntryFileName = billNo + Public.GroupXBillingType;
+        String CREATE_ALLOT_BILL_TABLE = "create table '" + EntryFileName + "'("
+                + "id integer primary key autoincrement,"
+                + "GodownXBillingId text, "
+                + "GodownXId text, "
+                + "ProductId text, "
+                + "ProductName text, "
+                + "EnCode text, "
+                + "LN text, "
+                + "PR text, "
+                + "Qty text, "
+                + "QtyFact text, "
+                + "SingleBoxPerBigBox text, "
+                + "SinglePerBox text, "
+                + "CreateUserId text, "
+                + "CreateUserName text)";
+        try {
+            db.execSQL("drop table if exists '" + EntryFileName + "'");
+            db.execSQL(CREATE_ALLOT_BILL_TABLE);
+        }catch (Exception ex){
+            throw ex;
+        }
+        return true;
+    }
 
 }

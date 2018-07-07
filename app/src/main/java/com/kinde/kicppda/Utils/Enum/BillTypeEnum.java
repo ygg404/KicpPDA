@@ -12,7 +12,8 @@ public enum BillTypeEnum {
     ordertype(2),         //发货
     returntype(3),  //退货
     allottype(4),//调拨
-    checktype(5); //盘点
+    checktype(5), //盘点
+    groupxtype(6); //关联箱
 
     private final int value;
     //构造方法必须是private或者默认
@@ -36,6 +37,8 @@ public enum BillTypeEnum {
                 return BillTypeEnum.allottype;
             case 5:
                 return BillTypeEnum.checktype;
+            case 6:
+                return BillTypeEnum.groupxtype;
             default:
                 return null;
         }
@@ -53,6 +56,8 @@ public enum BillTypeEnum {
                 return "调拨";
             case 5:
                 return "盘点";
+            case 6:
+                return "生产关联箱";
             default:
                 return null;
         }

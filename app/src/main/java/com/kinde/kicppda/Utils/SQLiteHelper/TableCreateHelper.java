@@ -126,4 +126,31 @@ public class TableCreateHelper {
         }
         return true;
     }
+
+    /**
+     * 创建盘点扫码表
+     * @return
+     */
+    public boolean Check_Scan_Create(String billNo){
+        try {
+            String ScanFileName = billNo + Public.CheckScanType;
+            //判断这张表是否存在，若存在，则跳过创建表操作
+            String CREATE_ALLOT_SCAN_TABLE = "CREATE TABLE IF NOT EXISTS '" + ScanFileName + "'("
+                    + "id integer primary key autoincrement,"
+                    + "SerialNo text, "
+                    + "ProductId text, "
+                    + "Qty text, "
+                    + "ScanTag text, "
+                    + "CreateDate text, "
+                    + "CreateUserId text )";
+            db = DBHelper.getReadableDatabase();
+            db.execSQL(CREATE_ALLOT_SCAN_TABLE);
+        }catch (Exception ex){
+            return false;
+        }
+        finally {
+            db.close();
+        }
+        return true;
+    }
 }

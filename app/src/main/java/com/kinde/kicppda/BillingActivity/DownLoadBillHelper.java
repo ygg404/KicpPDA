@@ -11,6 +11,7 @@ import com.kinde.kicppda.Utils.Models.AllotListResultMsg;
 import com.kinde.kicppda.Utils.Models.CheckListResultMsg;
 import com.kinde.kicppda.Utils.Models.GodownBillingListResultMsg;
 import com.kinde.kicppda.Utils.Models.GodownListResultMsg;
+import com.kinde.kicppda.Utils.Models.GroupXListResultMsg;
 import com.kinde.kicppda.Utils.Models.OrderBillingListResultMsg;
 import com.kinde.kicppda.Utils.Models.OrderListResultMsg;
 import com.kinde.kicppda.Utils.Models.ReturnBillingListResultMsg;
@@ -314,7 +315,7 @@ public class DownLoadBillHelper {
         return "单据获取成功！";
     }
 
-    //获取盘点主单和明细
+    //获取盘点主单
     public static String downLoadCheckBill(GetBillHelper gBillHelper, String datebegin,String dateend ,String billBarcode)
     {
         //获取主单
@@ -352,11 +353,84 @@ public class DownLoadBillHelper {
         else {
             return "网络异常！";
         }
-        //保存调拨主单
+        //保存盘点主单
         gBillHelper.SaveCheckDataFile(checkListc.Result);
 
         return "单据获取成功！";
     }
+
+    //获取关联箱主单和明细
+    public static String downLoadGroupXBill(GetBillHelper gBillHelper, String datebegin,String dateend ,String billBarcode)
+    {
+        //获取主单
+        HashMap<String,String> query = new HashMap<String, String>();
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+
+        try {
+            Date dateBegin = checkDateValid(datebegin);
+            Date dateEnd = checkDateValid(dateend);
+            query.put("groupXCode",billBarcode);
+            query.put("beginDate", dateBegin==null?"":formatter.format(dateBegin) );
+            query.put("endDate", dateEnd==null?"":formatter.format(dateEnd));
+            query.put("status", "1");
+        }catch (Exception ex){
+            return ex.getMessage();
+        }
+
+        GroupXListResultMsg groupxListc = ApiHelper.GetHttp(GroupXListResultMsg.class,
+                Config.WebApiUrl + "GetGroupXList?", query, Config.StaffId , Config.AppSecret ,true);
+
+        if(groupxListc!=null)
+        {
+            groupxListc.setResult();
+
+            if(groupxListc.StatusCode != 200)
+            {
+                return groupxListc.Info;
+            }
+            if( groupxListc.Result == null || groupxListc.Result.isEmpty())
+            {
+                return  "无相关数据！";
+            }
+
+        }
+        else {
+            return "网络异常！";
+        }
+        //保存调拨主单
+        gBillHelper.SaveAllotDataFile(allotListc.Result);
+
+
+        //获取调拨明细，并保存
+        for( AllotEntity allotEntity : allotListc.Result)
+        {
+            query.clear();
+            query.put("allotId" , allotEntity.AllotId);
+            AllotBillingListResultMsg allotBillListc = ApiHelper.GetHttp(AllotBillingListResultMsg.class,
+                    Config.WebApiUrl + "GetAllotBillingListByAllotId?", query, Config.StaffId , Config.AppSecret ,true);
+            allotBillListc.setResult();
+            if(allotBillListc!=null)
+            {
+                if(allotBillListc.StatusCode != 200)
+                {
+                    return allotBillListc.Info;
+
+                }
+                if( allotBillListc.Result == null || allotBillListc.Result.isEmpty())
+                {
+                    return "无相关数据！";
+                }
+
+            }
+            else {
+                return "网络异常！";
+            }
+            gBillHelper.SaveAllotBillingDataFile(allotEntity.AllotCode , allotBillListc.Result);
+
+        }
+        return "单据获取成功！";
+    }
+
     /**
      * 日期格式 是否有效
      * @param dateValue

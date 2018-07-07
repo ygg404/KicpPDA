@@ -212,6 +212,11 @@ public class GetBillActivity extends Activity implements OnEngineStatus{
         {
             Title = "获取" + BillTypeEnum.checktype.getTypeName()+"单据";
         }
+        else if( billType == BillTypeEnum.groupxtype.getValue() )
+        {
+            Title = "获取" + BillTypeEnum.groupxtype.getTypeName()+"单据";
+        }
+
         //设置标题
         billtitle.setText(Title.toString());
         quitbtn.setOnClickListener(new View.OnClickListener() {
@@ -226,13 +231,6 @@ public class GetBillActivity extends Activity implements OnEngineStatus{
                 new Thread(GetBillingRun).start();
                 mProgersssDialog = new ProgersssDialog(GetBillActivity.this);
                 mProgersssDialog.setMsg("获取单据中");
-//                db = DBHelper.getReadableDatabase();
-//                Cursor cursor = db.rawQuery("select name from sqlite_master where type='table' order by name", null);
-//                while(cursor.moveToNext()){
-//                    //遍历出表名
-//                    String name = cursor.getString(0);
-//
-//                }
             }
         });
     }

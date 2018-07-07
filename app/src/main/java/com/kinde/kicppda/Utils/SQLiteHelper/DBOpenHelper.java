@@ -34,6 +34,7 @@ public class DBOpenHelper extends SQLiteOpenHelper {
             db.execSQL(SqlTableCreate.CREATE_RETURN_MAIN_TABLE);
             db.execSQL(SqlTableCreate.CREATE_ALLOT_MAIN_TABLE);
             db.execSQL(SqlTableCreate.CREATE_CHECK_MAIN_TABLE);
+            db.execSQL(SqlTableCreate.CREATE_GROUPX_MAIN_TABLE);
         }
         catch (Exception ex){
             ex.printStackTrace();

@@ -273,7 +273,7 @@ public class GetBillHelper {
                         +"values('"+
                         attr.CheckId+"','"+ attr.CheckCode+"','"+(attr.CheckDate==null?"":sdf.format(attr.CheckDate))+"','"+
                         attr.WarehouseId+"','"+attr.WarehouseName+"','"+ attr.Description+"','"+
-                        (attr.CreateDate==null?"":sdf.format(attr.CreateDate))+"','"+attr.CreateUserId+"',"
+                        (attr.CreateDate==null?"":sdf.format(attr.CreateDate))+"','"+attr.CreateUserId+"','"
                         +attr.CreateUserName+"',"+String.valueOf(attr.Status)+")"
                 );
                 //创建盘点明细表
