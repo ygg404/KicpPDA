@@ -40,7 +40,7 @@
     <string name="return_scantext">退货采集</string>
     <string name="allot_scantext">调拨采集</string>
     <string name="check_scantext">盘点采集</string>
-
+    <string name="gx_scantext">关联箱采集</string>
     <!--采集通用-->
     <string name="bill_num">选择单号:</string>
     <string name="bill_date">单据日期:</string>
@@ -72,6 +72,9 @@
     <!--盘点采集-->
     <string name="checkWarehouse">盘点仓库:</string>
     <string name="check_product">盘点产品:</string>
+    <!--关联箱采集-->
+    <string name="gx_product">产品名称:</string>
+    <string name="gx_group">当 前 组： </string>
 
     <string name="pcode">编号</string>
     <string name="pname">产品名称</string>

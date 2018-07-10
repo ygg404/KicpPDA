@@ -11,7 +11,6 @@ import com.kinde.kicppda.Utils.Models.TokenResultMsg;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.math.BigInteger;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
@@ -20,7 +19,6 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Random;
-
 /**
  * webapi接口帮助类
  */
@@ -50,7 +48,7 @@ public class ApiHelper {
 
     /**
      * 计算机签名
-      * @param timeStamp
+     * @param timeStamp
      * @param nonce
      * @param staffId
      * @param data
@@ -78,8 +76,16 @@ public class ApiHelper {
         }
         // digest()最后确定返回md5 hash值，返回值为8为字符串。因为md5 hash值是16位的hex值，实际上就是8位的字符
         // BigInteger函数则将8位的字符串转换成16位hex值，用字符串来表示；得到字符串形式的hash值
-        String md5Encode = (new BigInteger(1, md5.digest()).toString(16)).toUpperCase();
-        return md5Encode;
+
+        byte[] hash = md5.digest();
+        StringBuilder secpwd = new StringBuilder();
+        for (int i = 0; i < hash.length; i++)
+        {
+            int v = hash[i] & 0xFF;
+            if (v < 16) secpwd.append(0);
+            secpwd.append(Integer.toString(v, 16));
+        }
+        return secpwd.toString().toUpperCase();
     }
 
     /**
@@ -93,7 +99,8 @@ public class ApiHelper {
      * @param <T>
      * @return
      */
-    public static  <T> T GetHttp(Class<T> clazz ,String webApi, HashMap<String, String> querymap, int staffId, String appSecret, boolean sign){
+    public static  <T> T GetHttp(Class<T> clazz ,String webApi, HashMap<String, String> querymap, int staffId, String appSecret, boolean sign) throws Exception
+    {
         String msg = null;
         T msgClass = null;
 
@@ -158,7 +165,7 @@ public class ApiHelper {
 
             msgClass = JSON.parseObject(  msg , clazz  );
         }catch (Exception ex){
-            ;
+            throw new Exception( ex.getMessage() );
         }
         finally {
 
@@ -177,7 +184,12 @@ public class ApiHelper {
         String tokenApi = Config.WebApiUrl + "GetToken?";
         HashMap<String,String> query = new HashMap<String, String>();
         query.put("staffId", String.valueOf(staffId));
-        TokenResultMsg tokenResultMsg = GetHttp(TokenResultMsg.class ,tokenApi,query , Config.StaffId, Config.AppSecret,false);
+        TokenResultMsg tokenResultMsg = null;
+        try {
+            tokenResultMsg = GetHttp(TokenResultMsg.class, tokenApi, query, Config.StaffId, Config.AppSecret, false);
+        }catch (Exception ex){
+            ;
+        }
         return tokenResultMsg;
     }
 

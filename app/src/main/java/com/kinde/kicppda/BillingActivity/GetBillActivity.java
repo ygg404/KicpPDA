@@ -14,13 +14,13 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.imscs.barcodemanager.BarcodeManager;
 import com.imscs.barcodemanager.BarcodeManager.OnEngineStatus;
 import com.imscs.barcodemanager.Constants;
 import com.imscs.barcodemanager.ScanTouchManager;
 import com.kinde.kicppda.R;
+import com.kinde.kicppda.Utils.Adialog;
 import com.kinde.kicppda.Utils.Enum.BillTypeEnum;
 import com.kinde.kicppda.Utils.ProgersssDialog;
 import com.kinde.kicppda.decodeLib.DecodeSampleApplication;
@@ -32,6 +32,7 @@ import java.util.Date;
 import static com.kinde.kicppda.BillingActivity.DownLoadBillHelper.downLoadAllotBill;
 import static com.kinde.kicppda.BillingActivity.DownLoadBillHelper.downLoadCheckBill;
 import static com.kinde.kicppda.BillingActivity.DownLoadBillHelper.downLoadGodownBill;
+import static com.kinde.kicppda.BillingActivity.DownLoadBillHelper.downLoadGroupXBill;
 import static com.kinde.kicppda.BillingActivity.DownLoadBillHelper.downLoadOrderBill;
 import static com.kinde.kicppda.BillingActivity.DownLoadBillHelper.downLoadReturnBill;
 
@@ -63,6 +64,7 @@ public class GetBillActivity extends Activity implements OnEngineStatus{
     private Button quitbtn;
     private EditText billBarcode;
     private ProgersssDialog mProgersssDialog;
+    private Adialog mAdialog;
    
     public class DoDecodeThread extends Thread {
         public void run() {
@@ -76,12 +78,18 @@ public class GetBillActivity extends Activity implements OnEngineStatus{
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
+            //登录加载dialog关闭
+            mProgersssDialog.cancel();
             switch (msg.what) {
+                //错误提示
                 case 0:
                     //do something,refresh UI;
-                    Toast.makeText(GetBillActivity.this , msg.obj.toString() ,Toast.LENGTH_LONG).show();
-                    //登录加载dialog关闭
-                    mProgersssDialog.cancel();
+                    mAdialog.failDialog( msg.obj.toString() );
+                    break;
+                //成功提示
+                case 1:
+                    //do something,refresh UI;
+                    mAdialog.okDialog( msg.obj.toString() );
                     break;
                 default:
                     break;
@@ -99,8 +107,8 @@ public class GetBillActivity extends Activity implements OnEngineStatus{
 
         super.onCreate(savedInstanceState);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN,   //非全屏
+                WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN);
         setContentView(R.layout.get_bill);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
@@ -143,27 +151,68 @@ public class GetBillActivity extends Activity implements OnEngineStatus{
             String dateEndValue = dateend.getText().toString().trim();
             String billBarValue = billBarcode.getText().toString().trim();
             Message message = new Message();
+            message.what = 1;
 
             switch (billType){
                 case 1:
-                    message.obj = downLoadGodownBill( gBillHelper, dateBeginValue,dateEndValue ,billBarValue );
-                    eHandler.sendMessage(message);
+                    try {
+                        message.obj = downLoadGodownBill(gBillHelper, dateBeginValue, dateEndValue, billBarValue);
+                        eHandler.sendMessage(message);
+                    }catch ( Exception ex){
+                        message.what = 0;
+                        message.obj = ex.getMessage();
+                        eHandler.sendMessage(message);
+                    }
                     break;
                 case 2:
-                    message.obj = downLoadOrderBill( gBillHelper, dateBeginValue,dateEndValue ,billBarValue );
-                    eHandler.sendMessage(message);
+                    try {
+                        message.obj = downLoadOrderBill(gBillHelper, dateBeginValue, dateEndValue, billBarValue);
+                        eHandler.sendMessage(message);
+                    }catch ( Exception ex){
+                        message.what = 0;
+                        message.obj = ex.getMessage();
+                        eHandler.sendMessage(message);
+                    }
                     break;
                 case 3:
-                    message.obj = downLoadReturnBill( gBillHelper, dateBeginValue,dateEndValue ,billBarValue );
-                    eHandler.sendMessage(message);
+                    try {
+                        message.obj = downLoadReturnBill(gBillHelper, dateBeginValue, dateEndValue, billBarValue);
+                        eHandler.sendMessage(message);
+                    }catch ( Exception ex){
+                        message.what = 0;
+                        message.obj = ex.getMessage();
+                        eHandler.sendMessage(message);
+                    }
                     break;
                 case 4:
-                    message.obj = downLoadAllotBill( gBillHelper, dateBeginValue,dateEndValue ,billBarValue );
-                    eHandler.sendMessage(message);
+                    try {
+                        message.obj = downLoadAllotBill(gBillHelper, dateBeginValue, dateEndValue, billBarValue);
+                        eHandler.sendMessage(message);
+                    }catch ( Exception ex){
+                        message.what = 0;
+                        message.obj = ex.getMessage();
+                        eHandler.sendMessage(message);
+                    }
                     break;
                 case 5:
-                    message.obj = downLoadCheckBill( gBillHelper, dateBeginValue,dateEndValue ,billBarValue );
-                    eHandler.sendMessage(message);
+                    try {
+                        message.obj = downLoadCheckBill(gBillHelper, dateBeginValue, dateEndValue, billBarValue);
+                        eHandler.sendMessage(message);
+                    }catch ( Exception ex){
+                        message.what = 0;
+                        message.obj = ex.getMessage();
+                        eHandler.sendMessage(message);
+                    }
+                    break;
+                case 6:
+                    try {
+                        message.obj = downLoadGroupXBill(gBillHelper, dateBeginValue, dateEndValue, billBarValue);
+                        eHandler.sendMessage(message);
+                    }catch ( Exception ex){
+                        message.what = 0;
+                        message.obj = ex.getMessage();
+                        eHandler.sendMessage(message);
+                    }
                     break;
                 default:
                     break;
@@ -190,6 +239,7 @@ public class GetBillActivity extends Activity implements OnEngineStatus{
         dateend.setText(sdf.format(dnow));
         //数据库操作初始化
         gBillHelper = new GetBillHelper(this);
+        mAdialog = new Adialog(this);
 
         String Title = "";
         if( billType == BillTypeEnum.intype.getValue() )

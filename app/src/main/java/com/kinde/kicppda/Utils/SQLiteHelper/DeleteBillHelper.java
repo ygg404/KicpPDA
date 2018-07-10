@@ -30,7 +30,8 @@ public class DeleteBillHelper {
                               Public.ORDER_MAIN_TABLE,
                               Public.RETURN_MAIN_TABLE,
                               Public.ALLOT_MAIN_TABLE,
-                              Public.CHECK_MAIN_TABLE };
+                              Public.CHECK_MAIN_TABLE,
+                              Public.GROUPX_MAIN_TABLE};
 
         try {
             db = DBHelper.getReadableDatabase();

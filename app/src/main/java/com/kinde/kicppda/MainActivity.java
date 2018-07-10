@@ -21,6 +21,7 @@ import android.widget.TextView;
 import com.kinde.kicppda.BillingActivity.GetBillActivity;
 import com.kinde.kicppda.ScanActivity.Scan_Allot_Activity;
 import com.kinde.kicppda.ScanActivity.Scan_Check_Activity;
+import com.kinde.kicppda.ScanActivity.Scan_GodownX_Activity;
 import com.kinde.kicppda.ScanActivity.Scan_Godown_Activity;
 import com.kinde.kicppda.ScanActivity.Scan_Order_Activity;
 import com.kinde.kicppda.ScanActivity.Scan_Return_Activity;
@@ -298,6 +299,9 @@ public class MainActivity extends Activity implements View.OnClickListener {
                         break;
                     case 5:
                         scanIntent = new Intent(MainActivity.this , Scan_Check_Activity.class);
+                        break;
+                    case 6:
+                        scanIntent = new Intent(MainActivity.this , Scan_GodownX_Activity.class);
                         break;
                     default:
                         scanIntent = new Intent(MainActivity.this, Scan_Godown_Activity.class);

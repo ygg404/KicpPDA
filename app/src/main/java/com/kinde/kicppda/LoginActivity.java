@@ -11,8 +11,8 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
+import com.kinde.kicppda.Utils.Adialog;
 import com.kinde.kicppda.Utils.ApiHelper;
 import com.kinde.kicppda.Utils.Config;
 import com.kinde.kicppda.Utils.Models.HttpResponseMsg;
@@ -35,17 +35,18 @@ public class LoginActivity extends AppCompatActivity {
     private EditText password_login;
     private Button button_login;
     private ProgersssDialog mProgersssDialog;
+    private Adialog mAdialog;
 
-    Handler mHandler = new Handler(){
+    Handler eHandler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
+            //登录加载dialog关闭
+            mProgersssDialog.cancel();
             switch (msg.what) {
                 case 0:
                     //do something,refresh UI;
-                    Toast.makeText(LoginActivity.this , msg.obj.toString() ,Toast.LENGTH_LONG).show();
-                    //登录加载dialog关闭
-                    mProgersssDialog.cancel();
+                    mAdialog.failDialog(  msg.obj.toString() );
                     break;
                 default:
                     break;
@@ -65,49 +66,43 @@ public class LoginActivity extends AppCompatActivity {
             HashMap<String,String> query = new HashMap<String, String>();
             query.put("account",id_login.getText().toString());
             query.put("password",password_login.getText().toString());
-            //String msg = ApiHelper.GetHttp( Config.WebApiUrl + "PdaLogin?", query, Config.StaffId ,"" ,false);
-            HttpResponseMsg msgc = ApiHelper.GetHttp(HttpResponseMsg.class, Config.WebApiUrl + "PdaLogin?", query, Config.StaffId ,"" ,false);
-
-
-            if(msgc!=null)
-            {
-                if(msgc.StatusCode != 200)
+            try{
+                HttpResponseMsg msgc = ApiHelper.GetHttp(HttpResponseMsg.class, Config.WebApiUrl + "PdaLogin?", query, Config.StaffId ,"" ,false);
+                if(msgc!=null)
                 {
-                    message.obj = msgc.Info;
-                    mHandler .sendMessage(message);
-                    return;
+                    if(msgc.StatusCode != 200)
+                    {
+                        throw new Exception(msgc.Info);
+                    }
+                }
+                else {
+                    throw new Exception( "网络异常！" );
                 }
 
-            }
-            else {
-                message.obj = "网络异常！";
-                mHandler .sendMessage(message);
+                //登录获取token
+                TokenResultMsg tokenmsg = ApiHelper.GetSignToken( Config.StaffId , Config.AppSecret);
+                if(tokenmsg!=null)
+                {
+                    if(tokenmsg.StatusCode!= 200){
+                        throw new Exception( tokenmsg.Info );
+                    }
+                    tokenmsg.setResult();
+                    TokenResult = tokenmsg.getResult();
+                    currentStaffId = id_login.getText().toString().trim();
+                }
+                else {
+                    throw new Exception("网络异常！");
+                }
+
+            }catch (Exception ex){
+                message.obj = ex.getMessage();
+                eHandler .sendMessage(message);
                 return;
             }
 
-
-            //登录获取token
-            TokenResultMsg tokenmsg = ApiHelper.GetSignToken( Config.StaffId , Config.AppSecret);
-            if(tokenmsg!=null)
-            {
-                if(tokenmsg.StatusCode!= 200){
-                    message.obj = tokenmsg.Info;
-                    mHandler .sendMessage(message);
-                    return;
-                }
-                tokenmsg.setResult();
-                TokenResult = tokenmsg.getResult();
-                currentStaffId = id_login.getText().toString().trim();
-            }
-            else {
-                message.obj = "网络异常！";
-                mHandler.sendMessage(message);
-                return;
-            }
 
             //登录加载dialog关闭
             mProgersssDialog.cancel();
-
 
             //登录成功
             //新建一个Intent
@@ -137,6 +132,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void bindViews() {
+        mAdialog = new Adialog(LoginActivity.this);
         LimitsEditEnter(id_login);
         LimitsEditEnter(password_login);
 

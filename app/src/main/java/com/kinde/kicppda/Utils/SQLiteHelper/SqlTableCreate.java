@@ -10,7 +10,7 @@ import com.kinde.kicppda.Utils.Public;
 
 public class SqlTableCreate {
     //入库主单表
-    public static final String CREATE_IN_MAIN_TABLE = "create table inMainBill ("
+    public static final String CREATE_IN_MAIN_TABLE = "create table "+ Public.IN_MAIN_TABLE +"("
             + "GodownId text primary key, "
             + "GodownCode text, "
             + "GodownDate text, "
@@ -21,7 +21,7 @@ public class SqlTableCreate {
             + "CreateUserId text, "
             + "Status smallint)";
     //出库主单表
-    public static final String CREATE_ORDER_MAIN_TABLE = "create table orderMainBill ("
+    public static final String CREATE_ORDER_MAIN_TABLE = "create table "+ Public.ORDER_MAIN_TABLE +"("
             + "OrderId text primary key, "
             + "OrderCode text, "
             + "OrderDate text, "
@@ -32,7 +32,7 @@ public class SqlTableCreate {
             + "CreateUserId text, "
             + "Status smallint)";
     //退货主单表
-    public static final String CREATE_RETURN_MAIN_TABLE = "create table returnMainBill ("
+    public static final String CREATE_RETURN_MAIN_TABLE = "create table "+ Public.RETURN_MAIN_TABLE +"("
             + "ReturnId text primary key, "
             + "ReturnCode text, "
             + "ReturnDate text, "
@@ -43,7 +43,7 @@ public class SqlTableCreate {
             + "CreateUserId text, "
             + "Status smallint)";
     //调拨主单表
-    public static final String CREATE_ALLOT_MAIN_TABLE = "create table allotMainBill ("
+    public static final String CREATE_ALLOT_MAIN_TABLE = "create table "+ Public.ALLOT_MAIN_TABLE +"("
             + "AllotId text primary key, "
             + "AllotCode text, "
             + "AllotDate text, "
@@ -56,7 +56,7 @@ public class SqlTableCreate {
             + "CreateUserId text, "
             + "Status smallint)";
     //盘点主单表
-    public static final String CREATE_CHECK_MAIN_TABLE = "create table checkMainBill ("
+    public static final String CREATE_CHECK_MAIN_TABLE = "create table "+ Public.CHECK_MAIN_TABLE +"("
             + "CheckId text primary key, "
             + "CheckCode text, "
             + "CheckDate text, "
@@ -68,7 +68,7 @@ public class SqlTableCreate {
             + "CreateUserName text, "
             + "Status smallint)";
     //关联箱主单表
-    public static final String CREATE_GROUPX_MAIN_TABLE = "create table groupxMainBill ("
+    public static final String CREATE_GROUPX_MAIN_TABLE = "create table "+ Public.GROUPX_MAIN_TABLE +"("
             + "GodownXId text primary key, "
             + "GodownXCode text, "
             + "GodownXDate text, "

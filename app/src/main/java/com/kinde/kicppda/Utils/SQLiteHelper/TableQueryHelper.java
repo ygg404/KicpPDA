@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.kinde.kicppda.Models.AllotBillingEntity;
 import com.kinde.kicppda.Models.GodownBillingEntity;
+import com.kinde.kicppda.Models.GodownXBillingEntity;
 import com.kinde.kicppda.Models.OrderBillingEntity;
 import com.kinde.kicppda.Models.ReturnBillingEntity;
 
@@ -300,5 +301,42 @@ public class TableQueryHelper {
             db.close();
         }
         return aBillingList;
+    }
+
+    /**
+     * 关联箱明细查询
+     * @param EntryFileName
+     * @return
+     */
+    public List<GodownXBillingEntity> queryGodownXBilling(String EntryFileName) {
+        List<GodownXBillingEntity> gxBillingList = new ArrayList<GodownXBillingEntity>();
+        DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            String Sqlstr = "Select GodownBillingId,GodownId,ProductId,ProductName,EnCode,LN,PR,Qty,QtyFact from '"
+                    + EntryFileName +"'";
+            db = DBHelper.getReadableDatabase();
+            Cursor cursor = db.rawQuery(Sqlstr, null);
+            while (cursor.moveToNext()) {
+                //遍历出键值
+                GodownXBillingEntity entity = new GodownXBillingEntity();
+                entity.GodownXBillingId = cursor.getString(0);
+                entity.GodownXId = cursor.getString(1);
+                entity.ProductId = cursor.getString(2);
+                entity.ProductName = cursor.getString(3);
+                entity.EnCode = cursor.getString(4);
+                entity.LN = cursor.getString(5);
+                entity.PR = cursor.getString(6)==null?null:format.parse(cursor.getString(6));
+                entity.Qty = Integer.parseInt( cursor.getString(7));
+                entity.QtyFact = Integer.parseInt( cursor.getString(8));
+
+                gxBillingList.add(entity);
+            }
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
+        finally {
+            db.close();
+        }
+        return gxBillingList;
     }
 }

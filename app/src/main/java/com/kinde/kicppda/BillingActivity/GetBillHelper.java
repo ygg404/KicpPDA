@@ -8,6 +8,8 @@ import com.kinde.kicppda.Models.AllotEntity;
 import com.kinde.kicppda.Models.CheckEntity;
 import com.kinde.kicppda.Models.GodownBillingEntity;
 import com.kinde.kicppda.Models.GodownEntity;
+import com.kinde.kicppda.Models.GodownXBillingEntity;
+import com.kinde.kicppda.Models.GodownXEntity;
 import com.kinde.kicppda.Models.OrderBillingEntity;
 import com.kinde.kicppda.Models.OrderEntity;
 import com.kinde.kicppda.Models.ReturnBillingEntity;
@@ -288,4 +290,59 @@ public class GetBillHelper {
         return true;
     }
 
+    /**
+     * 保存关联箱主单文件
+     * @return
+     */
+    public boolean SaveGroupXDataFile(List<GodownXEntity> gxEntity){
+        try {
+            for (GodownXEntity attr : gxEntity) {
+                db = DBHelper.getWritableDatabase();
+                db.execSQL("DELETE FROM "+ Public.GROUPX_MAIN_TABLE  +" WHERE GodownXCode= '" + attr.GodownXCode+"'");
+                //保存主单之前删除相同单据号的主单据
+                db.execSQL("insert into "+ Public.GROUPX_MAIN_TABLE+
+                        "(GodownXId ,GodownXCode,GodownXDate,Description,CreateDate,CreateUserId,CreateUserName,Status) "
+                        +"values('"+
+                        attr.GodownXId+"','"+ attr.GodownXCode+"','"+(attr.GodownXDate==null?"":sdf.format(attr.GodownXDate))+"','"
+                        + attr.Description+"','"+ (attr.CreateDate==null?"":sdf.format(attr.CreateDate))+"','"+attr.CreateUserId+"','"
+                        +attr.CreateUserName+"',"+String.valueOf(attr.Status)+")"
+                );
+                //创建关联箱明细表
+                SqlTableCreate.GroupX_Billing_Create(db , attr.GodownXCode);
+            }
+        }catch (Exception ex){
+            return false;
+        }
+        finally {
+            db.close();
+        }
+        return true;
+    }
+
+    /**
+     * 保存关联箱明细单文件
+     * @return
+     */
+    public boolean SaveGroupXBillingDataFile(String gxEntityCode, List<GodownXBillingEntity> gxBillEntity){
+        try {
+            for (GodownXBillingEntity attr : gxBillEntity) {
+                db = DBHelper.getWritableDatabase();
+                //保存主单之前删除相同单据号的主单据
+                db.execSQL("insert into '"+ gxEntityCode +  Public.GroupXBillingType +"'"+
+                        "(GodownXBillingId,GodownXId,ProductId,ProductName,EnCode,"
+                        +"Qty,QtyFact,SinglePerBox,SingleBoxPerBigBox,LN,PR,"
+                        +"CreateUserId,CreateUserName)" +"values('"
+                        +attr.GodownXBillingId+"','"+ attr.GodownXId+"','"+ attr.ProductId+"','"+attr.ProductName+"','"
+                        +attr.EnCode+"','" +attr.Qty+"','"+attr.QtyFact+"','"+attr.SinglePerBox+"','" +attr.SingleBoxPerBigBox+"','"
+                        +attr.LN+"','"+(attr.PR==null?"":sdf.format(attr.PR))+"','" +attr.CreateUserId+"','"+attr.CreateUserName+"')"
+                );
+            }
+        }catch (Exception ex){
+            return false;
+        }
+        finally {
+            db.close();
+        }
+        return true;
+    }
 }

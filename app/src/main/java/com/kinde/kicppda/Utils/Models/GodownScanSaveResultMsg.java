@@ -10,11 +10,7 @@ import com.kinde.kicppda.Utils.Enum.StatusCodeEnum;
  * 入库扫描明细保存返回结果
  */
 public class GodownScanSaveResultMsg extends HttpResponseMsg {
-    private int Qty;
-
-    public int getResult(){
-        return Qty;
-    }
+    public int Qty;
 
     public void setResult(){
         if(StatusCode == StatusCodeEnum.Success.getValue() && !(Data == null || Data=="")){
