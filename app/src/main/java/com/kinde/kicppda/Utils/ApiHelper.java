@@ -168,7 +168,9 @@ public class ApiHelper {
             throw new Exception( ex.getMessage() );
         }
         finally {
-
+            if( msgClass == null ){
+                throw new Exception("网络异常！");
+            }
             return msgClass;
         }
 

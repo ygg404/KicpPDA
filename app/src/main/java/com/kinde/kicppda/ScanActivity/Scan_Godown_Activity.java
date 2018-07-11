@@ -87,6 +87,10 @@ public class Scan_Godown_Activity extends Activity implements  View.OnClickListe
     private TextView lbCurCount;
     private TextView lbBillCount;
 
+    private String MainFileName = "";//主单表
+    private String EntryFileName = "";//明细表
+    private String ScanFileName = "";//扫描表
+
     private DeleteBillHelper mDelBill;      //删除单据
     private TableCreateHelper mCreateBill;   //创建单据
     private TableQueryHelper mQueryBill;     //查询单据
@@ -145,6 +149,14 @@ public class Scan_Godown_Activity extends Activity implements  View.OnClickListe
         mDoDecodeThread.start();
     }
 
+    //设置单据保存文件
+    private void SetFilePath(String billNo)
+    {
+        MainFileName  = Public.IN_MAIN_TABLE;
+        EntryFileName = billNo  + Public.GodownBillingType;
+        ScanFileName  =  billNo +  Public.GodownScanType;
+    }
+
     private void initView(){
         aDialog = new Adialog(Scan_Godown_Activity.this);
 
@@ -184,12 +196,13 @@ public class Scan_Godown_Activity extends Activity implements  View.OnClickListe
                     @Override
                     public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
                         ViewClear();
-                        billNo = cmb_plist.getSelectedItem().toString();
-                        BillingLoad( billNo + Public.GodownBillingType );
+                        billNo = cmb_plist.getSelectedItem().toString().trim();
+                        SetFilePath(billNo);
+                        BillingLoad( EntryFileName );
                         mCreateBill.Godown_Scan_Create( billNo );  //创建扫码表
-                        billId = mQueryBill.getKeyValue("GodownId" , Public.IN_MAIN_TABLE , "GodownCode",billNo);
-                        tbBillDate.setText( mQueryBill.getKeyValue("GodownDate", Public.IN_MAIN_TABLE ,"GodownCode",billNo) );
-                        tbWarehouse.setText( mQueryBill.getKeyValue("WarehouseName", Public.IN_MAIN_TABLE ,"GodownCode",billNo) );
+                        billId = mQueryBill.getKeyValue("GodownId" , MainFileName , "GodownCode",billNo);
+                        tbBillDate.setText( mQueryBill.getKeyValue("GodownDate", MainFileName ,"GodownCode",billNo) );
+                        tbWarehouse.setText( mQueryBill.getKeyValue("WarehouseName", MainFileName ,"GodownCode",billNo) );
                     }
 
                     @Override
@@ -363,7 +376,7 @@ public class Scan_Godown_Activity extends Activity implements  View.OnClickListe
         billCount = 0;
         int Qty = 0;
         String curProductId;
-        List<String[]>scanInfoList = mQueryBill.ScanQuery( cmb_plist.getSelectedItem().toString() + Public.GodownScanType);
+        List<String[]>scanInfoList = mQueryBill.ScanQuery( ScanFileName);
         for(String[] scanInfo : scanInfoList){
             barcode_exit.add(scanInfo[0]);
             curProductId = scanInfo[1];
@@ -425,19 +438,16 @@ public class Scan_Godown_Activity extends Activity implements  View.OnClickListe
                 query.put("godownId", billId);
                 query.put("productId", productId);
 
-                String LN = mQueryBill.getKeyValue("LN", billNo + Public.GodownBillingType, "ProductId", productId);
-                String PR = mQueryBill.getKeyValue("PR", billNo + Public.GodownBillingType, "ProductId", productId);
+                String LN = mQueryBill.getKeyValue("LN", EntryFileName, "ProductId", productId);
+                String PR = mQueryBill.getKeyValue("PR", EntryFileName, "ProductId", productId);
                 query.put("ln", LN);
                 query.put("pr", PR);
                 query.put("serialNo", barcode );
 
                 GodownScanSaveResultMsg scanResult = ApiHelper.GetHttp(GodownScanSaveResultMsg.class, Config.WebApiUrl + "PostGodownSerialNo?",
                             query, staffId, appSecret, true);
-
-                if (scanResult == null) {
-                    throw new Exception("网络异常!");
-                }
                 scanResult.setResult();
+
                 if(scanResult.StatusCode!=200){
                     throw new Exception( scanResult.Info );
                 }
@@ -454,9 +464,9 @@ public class Scan_Godown_Activity extends Activity implements  View.OnClickListe
                 insertData[2] = LN;
                 insertData[3] = PR;
                 insertData[4] = String.valueOf( scanResult.Qty );
-                insertData[5] = mQueryBill.getKeyValue("CreateDate", billNo + Public.GodownBillingType, "ProductId", productId);
-                insertData[6] = mQueryBill.getKeyValue("CreateUserId", billNo + Public.GodownBillingType, "ProductId", productId);
-                mScanBill.GodownScanSave(billNo + Public.GodownScanType , insertData);
+                insertData[5] = mQueryBill.getKeyValue("CreateDate", EntryFileName, "ProductId", productId);
+                insertData[6] = mQueryBill.getKeyValue("CreateUserId", EntryFileName, "ProductId", productId);
+                mScanBill.GodownScanSave(ScanFileName , insertData);
 
                 curCount += scanResult.Qty;
                 billCount += scanResult.Qty;
@@ -516,10 +526,10 @@ public class Scan_Godown_Activity extends Activity implements  View.OnClickListe
                 break;
             //删除单据
             case R.id.btn_DelBill:
-                String BillNum = cmb_plist.getSelectedItem().toString();      //单据号
-                boolean ok = mDelBill.DeleteTheData( Public.IN_MAIN_TABLE , "GodownCode" , BillNum )
-                        && mDelBill.DeleteFile(BillNum + Public.GodownBillingType)
-                        && mDelBill.DeleteFile(BillNum + Public.GodownScanType);
+               
+                boolean ok = mDelBill.DeleteTheData( MainFileName , "GodownCode" , billNo )
+                        && mDelBill.DeleteFile( EntryFileName )
+                        && mDelBill.DeleteFile( ScanFileName );
                 if(ok){
                     aDialog.okDialog("删除单据成功！");
                 }else{
@@ -569,9 +579,8 @@ public class Scan_Godown_Activity extends Activity implements  View.OnClickListe
                 if (keyCode == KeyEvent.KEYCODE_ENTER && event.getAction()==KeyEvent.ACTION_DOWN) {
                     //TODO:回车键按下时要执行的操作
                     ProductInfo.clear();
-                    String tableName = cmb_plist.getSelectedItem().toString() + Public.GodownBillingType;
                     String keyValue = tbProduct.getText().toString();
-                    List<String[]> BillInfoList = mQueryBill.getProductInfo( tableName , keyValue);
+                    List<String[]> BillInfoList = mQueryBill.getProductInfo( EntryFileName , keyValue);
 
                     for( String[] billInfo : BillInfoList){
                         HashMap<String, Object> item = new HashMap<String, Object>();

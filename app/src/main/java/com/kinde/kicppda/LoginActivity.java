@@ -67,32 +67,23 @@ public class LoginActivity extends AppCompatActivity {
             query.put("account",id_login.getText().toString());
             query.put("password",password_login.getText().toString());
             try{
+                //登录
                 HttpResponseMsg msgc = ApiHelper.GetHttp(HttpResponseMsg.class, Config.WebApiUrl + "PdaLogin?", query, Config.StaffId ,"" ,false);
-                if(msgc!=null)
+
+                if(msgc.StatusCode != 200)
                 {
-                    if(msgc.StatusCode != 200)
-                    {
-                        throw new Exception(msgc.Info);
-                    }
-                }
-                else {
-                    throw new Exception( "网络异常！" );
+                    throw new Exception(msgc.Info);
                 }
 
                 //登录获取token
                 TokenResultMsg tokenmsg = ApiHelper.GetSignToken( Config.StaffId , Config.AppSecret);
-                if(tokenmsg!=null)
-                {
-                    if(tokenmsg.StatusCode!= 200){
-                        throw new Exception( tokenmsg.Info );
-                    }
-                    tokenmsg.setResult();
-                    TokenResult = tokenmsg.getResult();
-                    currentStaffId = id_login.getText().toString().trim();
+
+                if(tokenmsg.StatusCode!= 200){
+                    throw new Exception( tokenmsg.Info );
                 }
-                else {
-                    throw new Exception("网络异常！");
-                }
+                tokenmsg.setResult();
+                TokenResult = tokenmsg.getResult();
+                currentStaffId = id_login.getText().toString().trim();
 
             }catch (Exception ex){
                 message.obj = ex.getMessage();

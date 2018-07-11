@@ -40,4 +40,45 @@ public class ScanBillingHelper {
         }
     }
 
+    public void OrderScanSave(String tableName ,String[] insertData ) throws Exception{
+        try{
+            db = DBHelper.getWritableDatabase();
+            //保存主单之前删除相同单据号的主单据
+            db.execSQL("insert into '"+ tableName+
+                    "'(SerialNo,ProductId,Qty,CreateDate,CreateUserId) " +"values('"+
+                    insertData[0]+"','"+ insertData[1]+"','"+ insertData[2] + "','" +
+                    insertData[3]+"','"+ insertData[4]+"')"
+            );
+        }catch (Exception ex){
+            throw new Exception(ex.getMessage());
+        }
+    }
+
+    public void ReturnScanSave(String tableName ,String[] insertData ) throws Exception{
+        try{
+            db = DBHelper.getWritableDatabase();
+            //保存主单之前删除相同单据号的主单据
+            db.execSQL("insert into '"+ tableName+
+                    "'(SerialNo,ProductId,Qty,CreateDate,CreateUserId) " +"values('"+
+                    insertData[0]+"','"+ insertData[1]+"','"+ insertData[2] + "','" +
+                    insertData[3]+"','"+ insertData[4]+"')"
+            );
+        }catch (Exception ex){
+            throw new Exception(ex.getMessage());
+        }
+    }
+
+    public void AllotScanSave(String tableName ,String[] insertData ) throws Exception{
+        try{
+            db = DBHelper.getWritableDatabase();
+            //保存主单之前删除相同单据号的主单据
+            db.execSQL("insert into '"+ tableName+
+                    "'(SerialNo,ProductId,Qty,CreateDate,CreateUserId) " +"values('"+
+                    insertData[0]+"','"+ insertData[1]+"','"+ insertData[2] + "','" +
+                    insertData[3]+"','"+ insertData[4]+"')"
+            );
+        }catch (Exception ex){
+            throw new Exception(ex.getMessage());
+        }
+    }
 }

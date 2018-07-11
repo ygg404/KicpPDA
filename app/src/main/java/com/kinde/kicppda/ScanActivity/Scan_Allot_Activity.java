@@ -29,6 +29,10 @@ import com.imscs.barcodemanager.ScanTouchManager;
 import com.kinde.kicppda.Models.AllotBillingEntity;
 import com.kinde.kicppda.R;
 import com.kinde.kicppda.Utils.Adialog;
+import com.kinde.kicppda.Utils.ApiHelper;
+import com.kinde.kicppda.Utils.Config;
+import com.kinde.kicppda.Utils.Models.AllotScanSaveResultMsg;
+import com.kinde.kicppda.Utils.ProgersssDialog;
 import com.kinde.kicppda.Utils.Public;
 import com.kinde.kicppda.Utils.SQLiteHelper.DeleteBillHelper;
 import com.kinde.kicppda.Utils.SQLiteHelper.TableCreateHelper;
@@ -52,7 +56,9 @@ public class Scan_Allot_Activity extends Activity implements  View.OnClickListen
     private EditText tbWarehouseIn;         //调入仓
     private EditText tbWarehouseOut;        //调出仓
     private EditText tbProduct;             //发货产品
-    private EditText barCode;               //当前条码
+    private EditText tbBarcode;               //当前条码
+    private String billNo   = "";           //单号
+    private String billId   = "";           //单据id
     private ListView mListView;             //产品选择列表
     private ImageView mGoback;              //返回键
     private HorizontalScrollView mHorizontalScrollView;
@@ -65,6 +71,7 @@ public class Scan_Allot_Activity extends Activity implements  View.OnClickListen
     private boolean bLockMode = false;         //锁定模式
     private String productId = "";      //调拨产品ID
     private List<AllotBillingEntity> allotbillingList = new ArrayList<AllotBillingEntity>();//出库单据明细
+	private ProgersssDialog mProgersssDialog;
 
     private int curPreSet = 0;          //当前预设
     private int curCount = 0;           //当前数量
@@ -76,9 +83,14 @@ public class Scan_Allot_Activity extends Activity implements  View.OnClickListen
     private TextView lbCurCount;
     private TextView lbBillCount;
 
+    private String MainFileName = "";//主单表
+    private String EntryFileName = "";//明细表
+    private String ScanFileName = "";//扫描表
+
     private DeleteBillHelper mDelBill;      //删除单据
     private TableCreateHelper mCreateBill;   //创建单据
     private TableQueryHelper mQueryBill;     //查询单据
+	private ScanBillingHelper mScanBill;     //扫码单据
     private List<String> allotNumList;         //调拨单据编号列表
 
     //扫码
@@ -126,10 +138,19 @@ public class Scan_Allot_Activity extends Activity implements  View.OnClickListen
         mDelBill = new DeleteBillHelper(Scan_Allot_Activity.this);
         mCreateBill = new TableCreateHelper(Scan_Allot_Activity.this);
         mQueryBill = new TableQueryHelper(Scan_Allot_Activity.this);
+		mScanBill  =  new ScanBillingHelper(Scan_Allot_Activity.this);
         initView();
 
         mDoDecodeThread = new DoDecodeThread();
         mDoDecodeThread.start();
+    }
+
+    //设置单据保存文件
+    private void SetFilePath(String billNo)
+    {
+        MainFileName  = Public.ALLOT_MAIN_TABLE;
+        EntryFileName = billNo  + Public.AllotBillingType;
+        ScanFileName  =  billNo +  Public.AllotScanType;
     }
 
     private void initView(){
@@ -148,7 +169,7 @@ public class Scan_Allot_Activity extends Activity implements  View.OnClickListen
         mListView = (ListView)findViewById(R.id.in_list_view);
         mGoback = (ImageView)findViewById(R.id.go_back);
         mHorizontalScrollView =(HorizontalScrollView)findViewById(R.id.HorizontalScrollView);
-        barCode = (EditText)findViewById(R.id.bar_code);
+        tbBarcode = (EditText)findViewById(R.id.bar_code);
         lbCurPreset = (TextView)findViewById(R.id.lbCurPreset);
         lbBillPreset = (TextView)findViewById(R.id.lbBillPreset);
         lbCurCount = (TextView)findViewById(R.id.lbCurCount);
@@ -170,14 +191,14 @@ public class Scan_Allot_Activity extends Activity implements  View.OnClickListen
                     @Override
                     public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
                         ViewClear();
-                        BillingLoad( cmb_plist.getSelectedItem().toString() + Public.AllotBillingType );
-                        mCreateBill.Allot_Scan_Create( cmb_plist.getSelectedItem().toString() );  //创建扫码表
-                        tbBillDate.setText(   mQueryBill.getKeyValue("AllotDate", Public.ALLOT_MAIN_TABLE ,
-                                "AllotCode",cmb_plist.getSelectedItem().toString() ) );
-                        tbWarehouseIn.setText(  mQueryBill.getKeyValue("WarehouseNameIn", Public.ALLOT_MAIN_TABLE ,
-                                "AllotCode",cmb_plist.getSelectedItem().toString() )  );
-                        tbWarehouseOut.setText(  mQueryBill.getKeyValue("WarehouseNameOut", Public.ALLOT_MAIN_TABLE ,
-                                "AllotCode",cmb_plist.getSelectedItem().toString() )  );
+                        billNo = cmb_plist.getSelectedItem().toString().trim();
+						SetFilePath(billNo);
+						BillingLoad( EntryFileName );
+                        mCreateBill.Allot_Scan_Create( billNo );  //创建扫码表
+						billId = mQueryBill.getKeyValue("AllotId" , MainFileName , "AllotCode",billNo);
+                        tbBillDate.setText(   mQueryBill.getKeyValue("AllotDate", MainFileName ,"AllotCode",billNo ) );
+                        tbWarehouseIn.setText(  mQueryBill.getKeyValue("WarehouseNameIn", MainFileName ,"AllotCode",billNo )  );
+                        tbWarehouseOut.setText(  mQueryBill.getKeyValue("WarehouseNameOut", MainFileName ,"AllotCode",billNo) );
                     }
 
                     @Override
@@ -342,7 +363,7 @@ public class Scan_Allot_Activity extends Activity implements  View.OnClickListen
         billCount = 0;
         int Qty = 0;
         String curProductId;
-        List<String[]>scanInfoList = mQueryBill.ScanQuery( cmb_plist.getSelectedItem().toString() + Public.GodownScanType);
+        List<String[]>scanInfoList = mQueryBill.ScanQuery( ScanFileName);
         for(String[] scanInfo : scanInfoList){
             barcode_exit.add(scanInfo[0]);
             curProductId = scanInfo[1];
@@ -357,6 +378,125 @@ public class Scan_Allot_Activity extends Activity implements  View.OnClickListen
         lbBillCount.setText( String.valueOf(billCount) );
     }
 
+    Handler eHandler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what) {
+                case 0:
+                    //do something,refresh UI;
+                    aDialog.failDialog(msg.obj.toString());
+                    //登录加载dialog关闭
+                    mProgersssDialog.cancel();
+                    break;
+                case 1:
+                    lbCurCount.setText( String.valueOf(curCount) );
+                    lbBillCount.setText( String.valueOf(billCount) );
+                    if (billCount == billPreset)
+                    {
+                      //  D300SysUI.PlaySound(Public.SoundPath);
+                        aDialog.okDialog("本单已扫描完成!");
+                        break;
+                    }
+                    if (curCount == curPreSet)
+                    {
+                        aDialog.okDialog("当前产品扫描完成!");
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+    };
+
+    /**
+     * 获取单据线程
+     */
+    Runnable PostScanRun = new Runnable() {
+        @Override
+        public void run() {
+            Message mess =  new Message();
+            try {
+                //上传扫描明细
+                String barcode = tbBarcode.getText().toString().trim();
+                int staffId = Config.StaffId;
+                String appSecret = Config.AppSecret;
+                HashMap<String, String> query = new HashMap<String, String>();
+                query.put("allotId", billId);
+                query.put("productId", productId);
+                query.put("serialNo", barcode );
+
+                AllotScanSaveResultMsg scanResult = ApiHelper.GetHttp(AllotScanSaveResultMsg.class, Config.WebApiUrl + "PostAllotSerialNo?",
+                            query, staffId, appSecret, true);
+                scanResult.setResult();
+
+                if(scanResult.StatusCode!=200){
+                    throw new Exception( scanResult.Info );
+                }
+
+                if (scanResult.Qty == 0)
+                {
+                  //  D300SysUI.PlaySound(Public.SoundPath);
+                    throw new Exception("异常：入库数量为0！");
+                }
+
+                String[] insertData = new String[5];
+                insertData[0] = barcode;
+                insertData[1] = productId;
+                insertData[2] = String.valueOf( scanResult.Qty );
+                insertData[3] = mQueryBill.getKeyValue("CreateDate", EntryFileName, "ProductId", productId);
+                insertData[4] = mQueryBill.getKeyValue("CreateUserId", EntryFileName, "ProductId", productId);
+                mScanBill.OrderScanSave(ScanFileName , insertData);
+
+                curCount += scanResult.Qty;
+                billCount += scanResult.Qty;
+                barcode_exit.add( barcode );//加到内存中
+
+            }catch (Exception ex){
+                mess.obj = ex.getMessage();
+                eHandler.sendMessage(mess);
+                return;
+            }
+            mess.what = 1;
+            eHandler.sendMessage(mess);
+            mProgersssDialog.cancel();
+        }
+    };
+     //扫码处理
+    public void HandleBarcode(String barCode)
+    {
+        if (bLockMode)
+        {
+            String barcode = barCode.trim().replace("*", "").replace("http://kd315.net?b=", "").replace("http://kd315.net/?b=", "")
+                    .replace("http://test.kd315.cn/mk/result?b=","").replace(" ", "").replace("Y", "").replace("X", "");
+            if (barcode.length() != 15)
+            {
+                aDialog.failDialog("条码长度不正确！");
+                return;
+            }
+            barcode = barcode.substring(0, 14);
+
+            //检查条码是否重复
+            if (barcode_exit.contains(barcode))
+            {
+                aDialog.warnDialog("条码" + barcode + "已扫描，请不要重复扫描。");
+                return;
+            }
+
+            tbBarcode.setText(barcode);//当前条码
+
+            mProgersssDialog = new ProgersssDialog(Scan_Allot_Activity.this);
+            mProgersssDialog.setMsg("扫码上传中");
+            new Thread(PostScanRun).start();
+        }
+        else
+        {
+
+        }
+
+        return;
+    }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -366,10 +506,10 @@ public class Scan_Allot_Activity extends Activity implements  View.OnClickListen
                 break;
             //删除单据
             case R.id.btn_DelBill:
-                String BillNum = cmb_plist.getSelectedItem().toString();      //单据号
-                boolean ok = mDelBill.DeleteTheData( Public.ALLOT_MAIN_TABLE , "AllotCode" , BillNum )
-                        && mDelBill.DeleteFile(BillNum + Public.AllotBillingType)
-                        && mDelBill.DeleteFile(BillNum + Public.AllotScanType);
+            
+                boolean ok = mDelBill.DeleteTheData( MainFileName , "AllotCode" , billNo)
+                        && mDelBill.DeleteFile( EntryFileName )
+                        && mDelBill.DeleteFile( ScanFileName );
                 if(ok){
                     aDialog.okDialog("删除单据成功！");
                 }else{
@@ -418,9 +558,8 @@ public class Scan_Allot_Activity extends Activity implements  View.OnClickListen
                 if (keyCode == KeyEvent.KEYCODE_ENTER && event.getAction()==KeyEvent.ACTION_DOWN) {
                     //TODO:回车键按下时要执行的操作
                     ProductInfo.clear();
-                    String tableName = cmb_plist.getSelectedItem().toString() + Public.OrderBillingType;
                     String keyValue = tbProduct.getText().toString();
-                    List<String[]> BillInfoList = mQueryBill.getProductMessage( tableName , keyValue);
+                    List<String[]> BillInfoList = mQueryBill.getProductMessage( EntryFileName , keyValue);
 
                     for( String[] billInfo : BillInfoList){
                         HashMap<String, Object> item = new HashMap<String, Object>();
@@ -474,7 +613,7 @@ public class Scan_Allot_Activity extends Activity implements  View.OnClickListen
                 case Constants.DecoderReturnCode.RESULT_SCAN_SUCCESS:
                     mScanAccount++;
                     BarcodeManager.ScanResult decodeResult = (BarcodeManager.ScanResult) msg.obj;
-                    barCode.setText(decodeResult.result);
+                    HandleBarcode(decodeResult.result);
 //                    billBarcode.setText(decodeResult.result);
                     if (mBarcodeManager != null) {
                         mBarcodeManager.beepScanSuccess();

@@ -48,21 +48,16 @@ public class DownLoadBillHelper {
                     Config.WebApiUrl + "GetGodownList?", query, Config.StaffId , Config.AppSecret ,true);
             godListc.setResult();
 
-            if(godListc!=null)
-            {
-                if(godListc.StatusCode != 200)
-                {
-                    throw new Exception(godListc.Info);
-                }
-                if( godListc.Result == null || godListc.Result.isEmpty())
-                {
-                    throw new Exception("无相关数据！");
-                }
 
+            if(godListc.StatusCode != 200)
+            {
+                throw new Exception(godListc.Info);
             }
-            else {
-                throw new Exception("网络异常！");
+            if( godListc.Result == null || godListc.Result.isEmpty())
+            {
+                throw new Exception("无相关数据！");
             }
+
             //保存入库主单
             gBillHelper.SaveGoDownDataFile(godListc.Result);
 
@@ -75,22 +70,16 @@ public class DownLoadBillHelper {
                 GodownBillingListResultMsg godBillListc = ApiHelper.GetHttp(GodownBillingListResultMsg.class,
                         Config.WebApiUrl + "GetGodownBillingListByGodownId?", query, Config.StaffId , Config.AppSecret ,true);
                 godBillListc.setResult();
-                if(godBillListc!=null)
+
+                if(godBillListc.StatusCode != 200)
                 {
-                    if(godBillListc.StatusCode != 200)
-                    {
-                        throw new Exception(godListc.Info);
-
-                    }
-                    if( godBillListc.Result == null || godBillListc.Result.isEmpty())
-                    {
-                        throw new Exception("无相关数据！");
-                    }
-
+                    throw new Exception(godListc.Info);
                 }
-                else {
-                    throw new Exception("网络异常！");
+                if( godBillListc.Result == null || godBillListc.Result.isEmpty())
+                {
+                    continue;
                 }
+
                 gBillHelper.SaveGoDownBillingDataFile(godEntity.GodownCode , godBillListc.Result);
 
             }
@@ -120,22 +109,16 @@ public class DownLoadBillHelper {
             OrderListResultMsg orderListc = ApiHelper.GetHttp(OrderListResultMsg.class,
                     Config.WebApiUrl + "GetOrderList?", query, Config.StaffId , Config.AppSecret ,true);
 
-            if(orderListc!=null)
+            orderListc.setResult();
+            if(orderListc.StatusCode != 200)
             {
-                orderListc.setResult();
-                if(orderListc.StatusCode != 200)
-                {
-                    throw new Exception( orderListc.Info );
-                }
-                if( orderListc.Result == null || orderListc.Result.isEmpty())
-                {
-                    throw new Exception( "无相关数据！");
-                }
+                throw new Exception( orderListc.Info );
+            }
+            if( orderListc.Result == null || orderListc.Result.isEmpty())
+            {
+                throw new Exception( "无相关数据！");
+            }
 
-            }
-            else {
-                throw new Exception( "网络异常！" );
-            }
             //保存入库主单
             gBillHelper.SaveOrderDataFile(orderListc.Result);
 
@@ -148,23 +131,17 @@ public class DownLoadBillHelper {
                 OrderBillingListResultMsg ordBillListc = ApiHelper.GetHttp(OrderBillingListResultMsg.class,
                         Config.WebApiUrl + "GetOrderBillingListByOrderId?", query, Config.StaffId , Config.AppSecret ,true);
 
-                if(ordBillListc!=null)
+
+                ordBillListc.setResult();
+                if(ordBillListc.StatusCode != 200)
                 {
-                    ordBillListc.setResult();
-                    if(ordBillListc.StatusCode != 200)
-                    {
-                        throw new Exception( ordBillListc.Info );
-
-                    }
-                    if( ordBillListc.Result == null || ordBillListc.Result.isEmpty())
-                    {
-                        throw new Exception( "无相关数据！");
-                    }
-
+                    throw new Exception( ordBillListc.Info );
                 }
-                else {
-                    throw new Exception( "网络异常！" );
+                if( ordBillListc.Result == null || ordBillListc.Result.isEmpty())
+                {
+                    continue;
                 }
+
                 gBillHelper.SaveOrderBillingDataFile(orderEntity.OrderCode , ordBillListc.Result);
             }
         }catch (Exception ex){
@@ -190,24 +167,17 @@ public class DownLoadBillHelper {
 
             ReturnListResultMsg returnListc = ApiHelper.GetHttp(ReturnListResultMsg.class,
                     Config.WebApiUrl + "GetReturnList?", query, Config.StaffId , Config.AppSecret ,true);
+            returnListc.setResult();
 
-            if(returnListc!=null)
+            if(returnListc.StatusCode != 200)
             {
-                returnListc.setResult();
-
-                if(returnListc.StatusCode != 200)
-                {
-                    throw new Exception( returnListc.Info );
-                }
-                if( returnListc.Result == null || returnListc.Result.isEmpty())
-                {
-                    throw new Exception( "无相关数据！");
-                }
-
+                throw new Exception( returnListc.Info );
             }
-            else {
-                throw new Exception( "网络异常！" );
+            if( returnListc.Result == null || returnListc.Result.isEmpty())
+            {
+                throw new Exception( "无相关数据！");
             }
+
             //保存退货主单
             gBillHelper.SaveReturnDataFile(returnListc.Result);
 
@@ -220,22 +190,16 @@ public class DownLoadBillHelper {
                 ReturnBillingListResultMsg returnBillListc = ApiHelper.GetHttp(ReturnBillingListResultMsg.class,
                         Config.WebApiUrl + "GetReturnBillingListByReturnId?", query, Config.StaffId , Config.AppSecret ,true);
                 returnBillListc.setResult();
-                if(returnBillListc!=null)
+
+                if(returnBillListc.StatusCode != 200)
                 {
-                    if(returnBillListc.StatusCode != 200)
-                    {
-                        throw new Exception( returnBillListc.Info );
-
-                    }
-                    if( returnBillListc.Result == null || returnBillListc.Result.isEmpty())
-                    {
-                        throw new Exception( "无相关数据！" );
-                    }
-
+                    throw new Exception( returnBillListc.Info );
                 }
-                else {
-                    throw new Exception( "网络异常！" );
+                if( returnBillListc.Result == null || returnBillListc.Result.isEmpty())
+                {
+                    continue;
                 }
+
                 gBillHelper.SaveReturnBillingDataFile(returnEntity.ReturnCode , returnBillListc.Result);
             }
         }catch (Exception ex){
@@ -260,24 +224,17 @@ public class DownLoadBillHelper {
             query.put("status", "1");
             AllotListResultMsg allotListc = ApiHelper.GetHttp(AllotListResultMsg.class,
                     Config.WebApiUrl + "GetAllotList?", query, Config.StaffId , Config.AppSecret ,true);
+            allotListc.setResult();
 
-            if(allotListc!=null)
+            if(allotListc.StatusCode != 200)
             {
-                allotListc.setResult();
-
-                if(allotListc.StatusCode != 200)
-                {
-                    throw new Exception( allotListc.Info );
-                }
-                if( allotListc.Result == null || allotListc.Result.isEmpty())
-                {
-                    throw new Exception( "无相关数据！" );
-                }
-
+                throw new Exception( allotListc.Info );
             }
-            else {
-                throw new Exception( "网络异常！" );
+            if( allotListc.Result == null || allotListc.Result.isEmpty())
+            {
+                throw new Exception( "无相关数据！" );
             }
+
             //保存调拨主单
             gBillHelper.SaveAllotDataFile(allotListc.Result);
 
@@ -290,21 +247,14 @@ public class DownLoadBillHelper {
                 AllotBillingListResultMsg allotBillListc = ApiHelper.GetHttp(AllotBillingListResultMsg.class,
                         Config.WebApiUrl + "GetAllotBillingListByAllotId?", query, Config.StaffId , Config.AppSecret ,true);
                 allotBillListc.setResult();
-                if(allotBillListc!=null)
+
+                if(allotBillListc.StatusCode != 200)
                 {
-                    if(allotBillListc.StatusCode != 200)
-                    {
-                        throw new Exception( allotBillListc.Info );
-
-                    }
-                    if( allotBillListc.Result == null || allotBillListc.Result.isEmpty())
-                    {
-                        throw new Exception( "无相关数据！" );
-                    }
-
+                    throw new Exception( allotBillListc.Info );
                 }
-                else {
-                    throw new Exception( "网络异常！" );
+                if( allotBillListc.Result == null || allotBillListc.Result.isEmpty())
+                {
+                    continue;
                 }
                 gBillHelper.SaveAllotBillingDataFile(allotEntity.AllotCode , allotBillListc.Result);
 
@@ -332,24 +282,17 @@ public class DownLoadBillHelper {
 
             CheckListResultMsg checkListc = ApiHelper.GetHttp(CheckListResultMsg.class,
                     Config.WebApiUrl + "GetCheckList?", query, Config.StaffId , Config.AppSecret ,true);
+            checkListc.setResult();
 
-            if(checkListc!=null)
+            if(checkListc.StatusCode != 200)
             {
-                checkListc.setResult();
-
-                if(checkListc.StatusCode != 200)
-                {
-                    throw new Exception( checkListc.Info );
-                }
-                if( checkListc.Result == null || checkListc.Result.isEmpty())
-                {
-                    throw new Exception( "无相关数据！" );
-                }
-
+                throw new Exception( checkListc.Info );
             }
-            else {
-                throw new Exception( "网络异常！" );
+            if( checkListc.Result == null || checkListc.Result.isEmpty())
+            {
+                throw new Exception( "无相关数据！" );
             }
+
             //保存盘点主单
             gBillHelper.SaveCheckDataFile(checkListc.Result);
         }catch (Exception ex){
@@ -376,23 +319,15 @@ public class DownLoadBillHelper {
 
             GroupXListResultMsg groupxListc = ApiHelper.GetHttp(GroupXListResultMsg.class,
                     Config.WebApiUrl + "GetGroupXList?", query, Config.StaffId , Config.AppSecret ,true);
+            groupxListc.setResult();
 
-            if(groupxListc!=null)
+            if(groupxListc.StatusCode != 200)
             {
-                groupxListc.setResult();
-
-                if(groupxListc.StatusCode != 200)
-                {
-                    throw new Exception( groupxListc.Info );
-                }
-                if( groupxListc.Result == null || groupxListc.Result.isEmpty())
-                {
-                    throw new Exception(  "无相关数据！" );
-                }
-
+                throw new Exception( groupxListc.Info );
             }
-            else {
-                throw new Exception( "网络异常！");
+            if( groupxListc.Result == null || groupxListc.Result.isEmpty())
+            {
+                throw new Exception(  "无相关数据！" );
             }
             //保存调拨主单
             gBillHelper.SaveGroupXDataFile(groupxListc.Result);
@@ -405,24 +340,17 @@ public class DownLoadBillHelper {
                 GroupXBillingListResultMsg gxBillListc = ApiHelper.GetHttp(GroupXBillingListResultMsg.class,
                         Config.WebApiUrl + "GetGroupXBillingListByGodownXId?", query, Config.StaffId , Config.AppSecret ,true);
                 gxBillListc.setResult();
-                if(gxBillListc!=null)
+
+                if(gxBillListc.StatusCode != 200)
                 {
-                    if(gxBillListc.StatusCode != 200)
-                    {
-                        throw new Exception( gxBillListc.Info );
-
-                    }
-                    if( gxBillListc.Result == null || gxBillListc.Result.isEmpty())
-                    {
-                        throw new Exception( "无相关数据！" );
-                    }
-
+                    throw new Exception( gxBillListc.Info );
                 }
-                else {
-                    throw new Exception( "网络异常！");
+                if( gxBillListc.Result == null || gxBillListc.Result.isEmpty())
+                {
+                    continue;
                 }
+
                 gBillHelper.SaveGroupXBillingDataFile(gxEntity.GodownXCode , gxBillListc.Result);
-
             }
         }catch (Exception ex){
             throw new Exception( ex.getMessage() );
