@@ -22,21 +22,21 @@ import java.io.IOException;
 /**
  * 扫码基类Activity
  */
-public class DecodeScanBaseActivity extends Activity {
+public class DecodeBaseActivity extends Activity {
 
-    private boolean bLockMode = false;         //锁定模式
+    public boolean bLockMode = false;         //锁定模式
 
     public BarcodeManager mBarcodeManager = null;
     public final int SCANKEY_LEFT = 301;
     public final int SCANKEY_RIGHT = 300;
     public final int SCANKEY_CENTER = 302;
     public final int SCANTIMEOUT = 3000;
-    long mScanAccount = 0;
+    public long mScanAccount = 0;
     public boolean mbKeyDown = true;
     public boolean scanTouch_flag = true;
     public Handler mDoDecodeHandler;
-    private WindowManager.LayoutParams windowManagerParams = null;
-    private ScanTouchManager mScanTouchManager = null;
+    public WindowManager.LayoutParams windowManagerParams = null;
+    public ScanTouchManager mScanTouchManager = null;
 
     public class DoDecodeThread extends Thread {
         public void run() {
@@ -45,6 +45,8 @@ public class DecodeScanBaseActivity extends Activity {
             Looper.loop();
         }
     }
+
+    public DoDecodeThread mDoDecodeThread;
 
     public void cancleScan() throws Exception {
         if (mBarcodeManager != null) {
@@ -56,7 +58,7 @@ public class DecodeScanBaseActivity extends Activity {
         doScanInBackground();
     }
 
-    private void doScanInBackground() {
+    public void doScanInBackground() {
         mDoDecodeHandler.post(new Runnable() {
 
             @Override
@@ -131,7 +133,6 @@ public class DecodeScanBaseActivity extends Activity {
                 return super.onKeyUp(keyCode, event);
         }
     }
-
 
     @Override
     protected void onPause() {
