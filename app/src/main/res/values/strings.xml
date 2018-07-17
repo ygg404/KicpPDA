@@ -14,6 +14,13 @@
     <string name="progressbar_dialog_txt">登录中</string>
 
     <string name="main_title">主菜单</string>
+    <!--基础库下载-->
+    <string name="downTitle">基础库下载</string>
+    <string name="downAllBtn">下载所有数据</string>
+    <string name="downStockBtn">下载仓库数据</string>
+    <string name="downProductBtn">下载产品数据</string>
+    <string name="downAgentBtn">下载客户数据</string>
+
     <!--主界面导航栏-->
     <string name="data_text">数据管理</string>
     <string name="sys_text">系统设置</string>
@@ -26,6 +33,7 @@
     <string name="allotmenu">调拨管理</string>
     <string name="checkmenu">盘点管理</string>
     <string name="groupxmenu">生产关联箱</string>
+    <string name="basemenu">基础库下载</string>
 
     <string name="bill">单据</string>
     <string name="scan">采集</string>
@@ -35,7 +43,7 @@
     <string name="billdatebegin">开始时间:</string>
     <string name="billdateend">结束时间:</string>
 
-    <string name="in_scantext">入库采集</string>
+    <string name="godown_scantext">入库采集</string>
     <string name="order_scantext">发货采集</string>
     <string name="return_scantext">退货采集</string>
     <string name="allot_scantext">调拨采集</string>
@@ -81,6 +89,27 @@
     <string name="pln">产品批次</string>
     <string name="pr">产品日期</string>
 
+    <!--查询标题-->
+    <string name="godown_querytitle">入库单查询</string>
+    <string name="order_querytitle">出库单查询</string>
+    <string name="return_querytitle">退货单查询</string>
+    <string name="allot_querytitle">调拨单查询</string>
+    <string name="check_querytitle">盘点单查询</string>
+    <string name="godownx_querytitle">关联箱单查询</string>
+    <!--查询框-->
+    <string name="query_barcode">条码</string>
+    <string name="query_product">名称</string>
+    <string name="query_count">数量</string>
+    <!--查询按钮-->
+    <string name="querybtn">查询</string>
+    <string name="deletebtn">删除</string>
+    <string name="quitbtn">退出</string>
+    <!--查询选择项-->
+    <string name="qid">产品id</string>
+    <string name="qcode">编码:</string>
+    <string name="qname">名称:</string>
+    <string name="qln">批次:</string>
+    <string name="qpr">日期:</string>
 
     <!--系统设置-->
     <string name="delete_txt">清空所有表</string>

@@ -89,7 +89,9 @@ public class TableQueryHelper {
     public List<String[]> getProductInfo(String TableName ,String value){
         List<String[]> BillingInfoList = new ArrayList();
         try {
-            String Sqlstr = "select ProductId,EnCode,ProductName,LN,PR from '" + TableName + "' Where EnCode like '%" + value + "%'";
+            String Sqlstr = "select ProductId,EnCode,ProductName,LN,PR from '" + TableName
+                            + "' Where EnCode like '%" + value + "%' OR "
+                            + "  ProductName like  '%" + value + "%'";
             db = DBHelper.getReadableDatabase();
             Cursor cursor = db.rawQuery(Sqlstr, null);
             while (cursor.moveToNext()) {
@@ -119,7 +121,9 @@ public class TableQueryHelper {
     public List<String[]> getProductMessage(String TableName ,String value){
         List<String[]> BillingInfoList = new ArrayList();
         try {
-            String Sqlstr = "select ProductId,EnCode,ProductName from '" + TableName + "' Where EnCode like '%" + value + "%'";
+            String Sqlstr = "select ProductId,EnCode,ProductName from '" + TableName
+                            + "' Where EnCode like '%" + value + "%' OR "
+                            + "  ProductName like  '%" + value + "%'";
             db = DBHelper.getReadableDatabase();
             Cursor cursor = db.rawQuery(Sqlstr, null);
             while (cursor.moveToNext()) {

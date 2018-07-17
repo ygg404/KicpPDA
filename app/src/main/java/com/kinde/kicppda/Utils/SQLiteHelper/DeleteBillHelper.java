@@ -26,12 +26,12 @@ public class DeleteBillHelper {
      * @return
      */
     public boolean DeleteAllDataFile(){
-        String[] MainBill = { Public.IN_MAIN_TABLE,
+        String[] MainBill = { Public.GODOWN_MAIN_TABLE,
                               Public.ORDER_MAIN_TABLE,
                               Public.RETURN_MAIN_TABLE,
                               Public.ALLOT_MAIN_TABLE,
                               Public.CHECK_MAIN_TABLE,
-                              Public.GROUPX_MAIN_TABLE};
+                              Public.GodownX_MAIN_TABLE};
 
         try {
             db = DBHelper.getReadableDatabase();

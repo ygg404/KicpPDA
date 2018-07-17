@@ -107,23 +107,27 @@ public class ApiHelper {
         try {
             //签名字符串
             String query = "";
-            //queryMapKeySort 以key按字母大小排列
-            HashMap<String, String> queryMapKeySort = new HashMap<String, String>();
-            Object[] key_arr = querymap.keySet().toArray();
-            Arrays.sort(key_arr);
-            for  (Object key : key_arr) {
-                Object value = querymap.get(key);
-                query += ( key.toString() + value.toString() );
-                queryMapKeySort.put( key.toString() , value.toString() );
-            }
-
             //请求的数据
             String queryStr = "";
-            for (String key : queryMapKeySort.keySet()) {
-                queryStr += "&" + key + "=" + URLEncoder.encode(queryMapKeySort.get(key), "UTF-8");
-                //System.out.println("key= "+ key + " and value= " + map.get(key));
+
+            if(querymap != null){
+                //queryMapKeySort 以key按字母大小排列
+                HashMap<String, String> queryMapKeySort = new HashMap<String, String>();
+                Object[] key_arr = querymap.keySet().toArray();
+                Arrays.sort(key_arr);
+                for  (Object key : key_arr) {
+                    Object value = querymap.get(key);
+                    query += ( key.toString() + value.toString() );
+                    queryMapKeySort.put( key.toString() , value.toString() );
+                }
+
+
+                for (String key : queryMapKeySort.keySet()) {
+                    queryStr += "&" + key + "=" + URLEncoder.encode(queryMapKeySort.get(key), "UTF-8");
+                }
+                queryStr = queryStr.substring(1, queryStr.length());
             }
-            queryStr = queryStr.substring(1, queryStr.length());
+
 
             //get请求的url
             URL url=new URL( webApi + queryStr);
@@ -164,16 +168,14 @@ public class ApiHelper {
             conn.disconnect();
 
             msgClass = JSON.parseObject(  msg , clazz  );
-        }catch (Exception ex){
-            throw new Exception( ex.getMessage() );
-        }
-        finally {
-            if( msgClass == null ){
-                throw new Exception("网络异常！");
-            }
-            return msgClass;
+        }catch (Exception ex ){
+            throw new Exception( ex.getMessage() == null?ex.toString():ex.getMessage() );
         }
 
+        if( msgClass == null ){
+            throw new Exception("网络异常！");
+        }
+        return msgClass;
     }
 
     /**

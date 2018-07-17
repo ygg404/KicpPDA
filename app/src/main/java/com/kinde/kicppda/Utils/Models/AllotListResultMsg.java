@@ -13,10 +13,6 @@ import java.util.List;
 public class AllotListResultMsg extends HttpResponseMsg{
     public List<AllotEntity> Result;
 
-    public List<AllotEntity> getResult(){
-        return Result;
-    }
-
     public void setResult(){
         if(StatusCode == StatusCodeEnum.Success.getValue() && !(Data == null || Data=="")){
             Result =  JSON.parseArray(Data.toString(), AllotEntity.class);

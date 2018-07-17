@@ -42,6 +42,12 @@ import static com.kinde.kicppda.BillingActivity.DownLoadBillHelper.downLoadRetur
 
 public class GetBillActivity extends Activity implements OnEngineStatus{
 
+    private final int GodownType = 1;       //入库
+    private final int OrderType = 2;        //发货
+    private final int ReturnType = 3;  //退货
+    private final int AllotType = 4; //调拨
+    private final int CheckType = 5; //盘点
+    private final int GxType = 6; //关联箱
     public GetBillHelper gBillHelper;
 
     public BarcodeManager mBarcodeManager = null;
@@ -154,7 +160,7 @@ public class GetBillActivity extends Activity implements OnEngineStatus{
             message.what = 1;
 
             switch (billType){
-                case 1:
+                case GodownType:
                     try {
                         message.obj = downLoadGodownBill(gBillHelper, dateBeginValue, dateEndValue, billBarValue);
                         eHandler.sendMessage(message);
@@ -164,7 +170,7 @@ public class GetBillActivity extends Activity implements OnEngineStatus{
                         eHandler.sendMessage(message);
                     }
                     break;
-                case 2:
+                case OrderType:
                     try {
                         message.obj = downLoadOrderBill(gBillHelper, dateBeginValue, dateEndValue, billBarValue);
                         eHandler.sendMessage(message);
@@ -174,7 +180,7 @@ public class GetBillActivity extends Activity implements OnEngineStatus{
                         eHandler.sendMessage(message);
                     }
                     break;
-                case 3:
+                case ReturnType:
                     try {
                         message.obj = downLoadReturnBill(gBillHelper, dateBeginValue, dateEndValue, billBarValue);
                         eHandler.sendMessage(message);
@@ -184,7 +190,7 @@ public class GetBillActivity extends Activity implements OnEngineStatus{
                         eHandler.sendMessage(message);
                     }
                     break;
-                case 4:
+                case AllotType:
                     try {
                         message.obj = downLoadAllotBill(gBillHelper, dateBeginValue, dateEndValue, billBarValue);
                         eHandler.sendMessage(message);
@@ -194,7 +200,7 @@ public class GetBillActivity extends Activity implements OnEngineStatus{
                         eHandler.sendMessage(message);
                     }
                     break;
-                case 5:
+                case CheckType:
                     try {
                         message.obj = downLoadCheckBill(gBillHelper, dateBeginValue, dateEndValue, billBarValue);
                         eHandler.sendMessage(message);
@@ -204,7 +210,7 @@ public class GetBillActivity extends Activity implements OnEngineStatus{
                         eHandler.sendMessage(message);
                     }
                     break;
-                case 6:
+                case GxType:
                     try {
                         message.obj = downLoadGroupXBill(gBillHelper, dateBeginValue, dateEndValue, billBarValue);
                         eHandler.sendMessage(message);
@@ -242,29 +248,29 @@ public class GetBillActivity extends Activity implements OnEngineStatus{
         mAdialog = new Adialog(this);
 
         String Title = "";
-        if( billType == BillTypeEnum.intype.getValue() )
+        if( billType == BillTypeEnum.godownType.getValue() )
         {
-            Title = "获取" + BillTypeEnum.intype.getTypeName()+"单据";
+            Title = "获取" + BillTypeEnum.godownType.getTypeName()+"单据";
         }
-        else if( billType == BillTypeEnum.ordertype.getValue() )
+        else if( billType == BillTypeEnum.orderType.getValue() )
         {
-            Title = "获取" + BillTypeEnum.ordertype.getTypeName()+"单据";
+            Title = "获取" + BillTypeEnum.orderType.getTypeName()+"单据";
         }
-        else if( billType == BillTypeEnum.returntype.getValue() )
+        else if( billType == BillTypeEnum.returnType.getValue() )
         {
-            Title = "获取" + BillTypeEnum.returntype.getTypeName()+"单据";
+            Title = "获取" + BillTypeEnum.returnType.getTypeName()+"单据";
         }
-        else if( billType == BillTypeEnum.allottype.getValue() )
+        else if( billType == BillTypeEnum.allotType.getValue() )
         {
-            Title = "获取" + BillTypeEnum.allottype.getTypeName()+"单据";
+            Title = "获取" + BillTypeEnum.allotType.getTypeName()+"单据";
         }
-        else if( billType == BillTypeEnum.checktype.getValue() )
+        else if( billType == BillTypeEnum.checkType.getValue() )
         {
-            Title = "获取" + BillTypeEnum.checktype.getTypeName()+"单据";
+            Title = "获取" + BillTypeEnum.checkType.getTypeName()+"单据";
         }
-        else if( billType == BillTypeEnum.groupxtype.getValue() )
+        else if( billType == BillTypeEnum.gxType.getValue() )
         {
-            Title = "获取" + BillTypeEnum.groupxtype.getTypeName()+"单据";
+            Title = "获取" + BillTypeEnum.gxType.getTypeName()+"单据";
         }
 
         //设置标题

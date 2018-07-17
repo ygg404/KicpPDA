@@ -35,7 +35,7 @@ import com.kinde.kicppda.Utils.Models.AllotScanSaveResultMsg;
 import com.kinde.kicppda.Utils.ProgersssDialog;
 import com.kinde.kicppda.Utils.Public;
 import com.kinde.kicppda.Utils.SQLiteHelper.DeleteBillHelper;
-import com.kinde.kicppda.Utils.SQLiteHelper.TableCreateHelper;
+import com.kinde.kicppda.Utils.SQLiteHelper.ScanCreateHelper;
 import com.kinde.kicppda.Utils.SQLiteHelper.TableQueryHelper;
 import com.kinde.kicppda.decodeLib.DecodeSampleApplication;
 
@@ -88,7 +88,7 @@ public class Scan_Allot_Activity extends Activity implements  View.OnClickListen
     private String ScanFileName = "";//扫描表
 
     private DeleteBillHelper mDelBill;      //删除单据
-    private TableCreateHelper mCreateBill;   //创建单据
+    private ScanCreateHelper mCreateBill;   //创建单据
     private TableQueryHelper mQueryBill;     //查询单据
 	private ScanBillingHelper mScanBill;     //扫码单据
     private List<String> allotNumList;         //调拨单据编号列表
@@ -136,7 +136,7 @@ public class Scan_Allot_Activity extends Activity implements  View.OnClickListen
         mScanTouchManager.setVisibility(View.INVISIBLE);
 
         mDelBill = new DeleteBillHelper(Scan_Allot_Activity.this);
-        mCreateBill = new TableCreateHelper(Scan_Allot_Activity.this);
+        mCreateBill = new ScanCreateHelper(Scan_Allot_Activity.this);
         mQueryBill = new TableQueryHelper(Scan_Allot_Activity.this);
 		mScanBill  =  new ScanBillingHelper(Scan_Allot_Activity.this);
         initView();
@@ -278,18 +278,16 @@ public class Scan_Allot_Activity extends Activity implements  View.OnClickListen
 
         btnLock.setText("锁定扫描");
         bLockMode = false;
-        barcode_exit.clear();
 
         mScanTouchManager.setVisibility(View.INVISIBLE);
-        // OpenScan(false);
     }
 
     //锁定扫描
     private void Lock()
     {
         cmb_plist.setEnabled(false);
-        tbWarehouseIn.setEnabled(true);
-        tbWarehouseOut.setEnabled(true);
+        tbWarehouseIn.setEnabled(false);
+        tbWarehouseOut.setEnabled(false);
         tbBillDate.setEnabled(false);
         tbProduct.setEnabled(false);
         btnDelBill.setEnabled(false);
@@ -297,9 +295,8 @@ public class Scan_Allot_Activity extends Activity implements  View.OnClickListen
 
         btnLock.setText("解除锁定");
         bLockMode = true;
-        barcode_exit.clear();
+
         mScanTouchManager.setVisibility(View.VISIBLE);
-        // OpenScan(true);
     }
 
     //锁定扫描事件
@@ -372,6 +369,7 @@ public class Scan_Allot_Activity extends Activity implements  View.OnClickListen
             {
                 curCount += Qty;
             }
+            billCount += Qty;
         }
 
         lbCurCount.setText( String.valueOf(curCount) );
@@ -462,6 +460,7 @@ public class Scan_Allot_Activity extends Activity implements  View.OnClickListen
             mProgersssDialog.cancel();
         }
     };
+
      //扫码处理
     public void HandleBarcode(String barCode)
     {

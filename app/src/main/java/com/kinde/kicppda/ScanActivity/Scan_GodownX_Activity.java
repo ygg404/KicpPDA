@@ -29,9 +29,13 @@ import com.imscs.barcodemanager.ScanTouchManager;
 import com.kinde.kicppda.Models.GodownXBillingEntity;
 import com.kinde.kicppda.R;
 import com.kinde.kicppda.Utils.Adialog;
+import com.kinde.kicppda.Utils.ApiHelper;
+import com.kinde.kicppda.Utils.Config;
+import com.kinde.kicppda.Utils.Models.GodownScanSaveResultMsg;
+import com.kinde.kicppda.Utils.ProgersssDialog;
 import com.kinde.kicppda.Utils.Public;
 import com.kinde.kicppda.Utils.SQLiteHelper.DeleteBillHelper;
-import com.kinde.kicppda.Utils.SQLiteHelper.TableCreateHelper;
+import com.kinde.kicppda.Utils.SQLiteHelper.ScanCreateHelper;
 import com.kinde.kicppda.Utils.SQLiteHelper.TableQueryHelper;
 import com.kinde.kicppda.decodeLib.DecodeSampleApplication;
 
@@ -41,7 +45,7 @@ import java.util.HashMap;
 import java.util.List;
 
 /**
- * Created by Lenovo on 2018/7/9.
+ * Created by YGG on 2018/6/4.
  */
 
 public class Scan_GodownX_Activity extends Activity implements  View.OnClickListener,OnEngineStatus {
@@ -49,10 +53,12 @@ public class Scan_GodownX_Activity extends Activity implements  View.OnClickList
     private Adialog aDialog;                //警告提示窗口
     private Spinner cmb_plist;              //单据号选择项
     private EditText tbBillDate;            //单据日期
-    private EditText tbProduct;             //入库产品
+    private EditText tbProduct;             //关联产品
     private EditText tbPR;                  //生产日期
     private EditText tbLN;                  //生产批次
-    private EditText barCode;               //当前条码
+    private EditText tbBarcode;               //当前条码
+    private String billNo   = "";           //单号
+    private String billId   = "";           //单据id
     private ListView mListView;             //产品选择列表
     private ImageView mGoback;              //返回键
     private HorizontalScrollView mHorizontalScrollView;
@@ -65,6 +71,7 @@ public class Scan_GodownX_Activity extends Activity implements  View.OnClickList
     private boolean bLockMode = false;      //锁定模式
     private String productId = "";      //产品ID
     private List<GodownXBillingEntity> godownXbillingList = new ArrayList<GodownXBillingEntity>();//入库单据明细
+    private ProgersssDialog mProgersssDialog;
 
     private int curPreSet = 0;          //当前预设
     private int curCount = 0;           //当前数量
@@ -76,9 +83,14 @@ public class Scan_GodownX_Activity extends Activity implements  View.OnClickList
     private TextView lbCurCount;
     private TextView lbBillCount;
 
-    private DeleteBillHelper mDelBill;       //删除单据
-    private TableCreateHelper mCreateBill;   //创建单据
+    private String MainFileName = "";//主单表
+    private String EntryFileName = "";//明细表
+    private String ScanFileName = "";//扫描表
+
+    private DeleteBillHelper mDelBill;      //删除单据
+    private ScanCreateHelper mCreateBill;   //创建单据
     private TableQueryHelper mQueryBill;     //查询单据
+	private ScanBillingHelper mScanBill;     //扫码单据
     private List<String> godownXNumList;      //关联箱单据编号列表
 
     //扫码
@@ -125,12 +137,21 @@ public class Scan_GodownX_Activity extends Activity implements  View.OnClickList
 
 
         mDelBill = new DeleteBillHelper(Scan_GodownX_Activity.this);
-        mCreateBill = new TableCreateHelper(Scan_GodownX_Activity.this);
+        mCreateBill = new ScanCreateHelper(Scan_GodownX_Activity.this);
         mQueryBill = new TableQueryHelper(Scan_GodownX_Activity.this);
+		mScanBill  =  new ScanBillingHelper(Scan_GodownX_Activity.this);
         initView();
 
         mDoDecodeThread = new DoDecodeThread();
         mDoDecodeThread.start();
+    }
+
+    //设置单据保存文件
+    private void SetFilePath(String billNo)
+    {
+        MainFileName  = Public.GodownX_MAIN_TABLE;
+        EntryFileName = billNo  + Public.GodownXBillingType;
+        ScanFileName  =  billNo +  Public.GodownXScanType;
     }
 
     private void initView(){
@@ -149,7 +170,7 @@ public class Scan_GodownX_Activity extends Activity implements  View.OnClickList
         mListView = (ListView)findViewById(R.id.in_list_view);
         mGoback = (ImageView)findViewById(R.id.go_back);
         mHorizontalScrollView =(HorizontalScrollView)findViewById(R.id.HorizontalScrollView);
-        barCode = (EditText)findViewById(R.id.bar_code);
+        tbBarcode = (EditText)findViewById(R.id.bar_code);
         lbCurPreset = (TextView)findViewById(R.id.lbCurPreset);
         lbBillPreset = (TextView)findViewById(R.id.lbBillPreset);
         lbCurCount = (TextView)findViewById(R.id.lbCurCount);
@@ -162,7 +183,7 @@ public class Scan_GodownX_Activity extends Activity implements  View.OnClickList
         ViewClear();
 
         //初始化单据选项列表
-        godownXNumList = mQueryBill.getBillNum(Public.GROUPX_MAIN_TABLE , "GodownXCode");
+        godownXNumList = mQueryBill.getBillNum(Public.GodownX_MAIN_TABLE , "GodownXCode");
         spinAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item, godownXNumList);
         spinAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         cmb_plist.setAdapter(spinAdapter);
@@ -171,16 +192,29 @@ public class Scan_GodownX_Activity extends Activity implements  View.OnClickList
                     @Override
                     public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
                         ViewClear();
-                        BillingLoad( cmb_plist.getSelectedItem().toString() + Public.GroupXBillingType );
-                        mCreateBill.Godown_Scan_Create( cmb_plist.getSelectedItem().toString() );  //创建扫码表
-                        tbBillDate.setText(   mQueryBill.getKeyValue("GodownXDate", Public.GROUPX_MAIN_TABLE ,
-                                "GodownXCode",cmb_plist.getSelectedItem().toString() ) );
+                        billNo = cmb_plist.getSelectedItem().toString().trim();
+                        SetFilePath(billNo);
+						mCreateBill.GodownX_Scan_Create( billNo );  //创建扫码表
+                        tbBillDate.setText(   mQueryBill.getKeyValue("GodownXDate", MainFileName ,"GodownXCode",billNo ) );
                     }
 
                     @Override
                     public void onNothingSelected(AdapterView<?> arg0) {
                     }
                 });
+        tbBarcode.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if(keyCode == KeyEvent.KEYCODE_ENTER && event.getAction()==KeyEvent.ACTION_DOWN){
+                    //TODO:返回键按下时要执行的操作
+                    if(bLockMode){
+                        HandleBarcode( tbBarcode.getText().toString().trim());
+                    }
+                    return true;
+                }
+                return false;
+            }
+        });
 
         mListView.bringToFront();
         //创建SimpleAdapter适配器将数据绑定到item显示控件上
@@ -266,7 +300,7 @@ public class Scan_GodownX_Activity extends Activity implements  View.OnClickList
         barcode_exit.clear();
 
         mScanTouchManager.setVisibility(View.INVISIBLE);
-        // OpenScan(false);
+
     }
 
     //锁定扫描
@@ -284,7 +318,7 @@ public class Scan_GodownX_Activity extends Activity implements  View.OnClickList
         bLockMode = true;
         barcode_exit.clear();
         mScanTouchManager.setVisibility(View.VISIBLE);
-        // OpenScan(true);
+
     }
 
     //锁定扫描事件
@@ -339,11 +373,11 @@ public class Scan_GodownX_Activity extends Activity implements  View.OnClickList
         billCount = 0;
         int Qty = 0;
         String curProductId;
-        List<String[]>scanInfoList = mQueryBill.ScanQuery( cmb_plist.getSelectedItem().toString() + Public.GroupXBillingType);
+        List<String[]>scanInfoList = mQueryBill.ScanQuery( ScanFileName );
         for(String[] scanInfo : scanInfoList){
             barcode_exit.add(scanInfo[0]);
             curProductId = scanInfo[1];
-            Qty = Integer.parseInt(scanInfo[4]);
+            Qty = Integer.parseInt(scanInfo[2]);
             if (curProductId.equals(productId) )
             {
                 curCount += Qty;
@@ -352,6 +386,132 @@ public class Scan_GodownX_Activity extends Activity implements  View.OnClickList
 
         lbCurCount.setText( String.valueOf(curCount) );
         lbBillCount.setText( String.valueOf(billCount) );
+    }
+
+    Handler eHandler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what) {
+                case 0:
+                    //do something,refresh UI;
+                    aDialog.failDialog(msg.obj.toString());
+                    //登录加载dialog关闭
+                    mProgersssDialog.cancel();
+                    break;
+                case 1:
+                    lbCurCount.setText( String.valueOf(curCount) );
+                    lbBillCount.setText( String.valueOf(billCount) );
+                    if (billCount == billPreset)
+                    {
+                      //  D300SysUI.PlaySound(Public.SoundPath);
+                        aDialog.okDialog("本单已扫描完成!");
+                        break;
+                    }
+                    if (curCount == curPreSet)
+                    {
+                        aDialog.okDialog("当前产品扫描完成!");
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+    };
+
+    /**
+     * 获取单据线程
+     */
+    Runnable PostScanRun = new Runnable() {
+        @Override
+        public void run() {
+            Message mess =  new Message();
+            try {
+                //上传扫描明细
+                String barcode = tbBarcode.getText().toString().trim();
+                int staffId = Config.StaffId;
+                String appSecret = Config.AppSecret;
+                HashMap<String, String> query = new HashMap<String, String>();
+                query.put("godownId", billId);
+                query.put("productId", productId);
+
+                String LN = mQueryBill.getKeyValue("LN", EntryFileName, "ProductId", productId);
+                String PR = mQueryBill.getKeyValue("PR", EntryFileName, "ProductId", productId);
+                query.put("ln", LN);
+                query.put("pr", PR);
+                query.put("serialNo", barcode );
+
+                GodownScanSaveResultMsg scanResult = ApiHelper.GetHttp(GodownScanSaveResultMsg.class, Config.WebApiUrl + "PostGodownSerialNo?",
+                            query, staffId, appSecret, true);
+                scanResult.setResult();
+
+                if(scanResult.StatusCode!=200){
+                    throw new Exception( scanResult.Info );
+                }
+
+                if (scanResult.Qty == 0)
+                {
+                  //  D300SysUI.PlaySound(Public.SoundPath);
+                    throw new Exception("异常：入库数量为0！");
+                }
+
+                String[] insertData = new String[7];
+                insertData[0] = barcode;
+                insertData[1] = productId;
+                insertData[2] = LN;
+                insertData[3] = PR;
+                insertData[4] = String.valueOf( scanResult.Qty );
+                insertData[5] = mQueryBill.getKeyValue("CreateDate", EntryFileName, "ProductId", productId);
+                insertData[6] = mQueryBill.getKeyValue("CreateUserId", EntryFileName, "ProductId", productId);
+                mScanBill.GodownScanSave(ScanFileName , insertData);
+
+                curCount += scanResult.Qty;
+                billCount += scanResult.Qty;
+                barcode_exit.add( barcode );//加到内存中
+
+            }catch (Exception ex){
+                mess.obj = ex.getMessage();
+                eHandler.sendMessage(mess);
+                return;
+            }
+            mess.what = 1;
+            eHandler.sendMessage(mess);
+            mProgersssDialog.cancel();
+        }
+    };
+     //扫码处理
+    public void HandleBarcode(String barCode)
+    {
+        if (bLockMode)
+        {
+            String barcode = barCode.trim().replace("*", "").replace("http://kd315.net?b=", "").replace("http://kd315.net/?b=", "")
+                    .replace("http://test.kd315.cn/mk/result?b=","").replace(" ", "").replace("Y", "").replace("X", "");
+            if (barcode.length() != 15)
+            {
+                aDialog.failDialog("条码长度不正确！");
+                return;
+            }
+            barcode = barcode.substring(0, 14);
+
+            //检查条码是否重复
+            if (barcode_exit.contains(barcode))
+            {
+                aDialog.warnDialog("条码" + barcode + "已扫描，请不要重复扫描。");
+                return;
+            }
+
+            tbBarcode.setText(barcode);//当前条码
+
+            mProgersssDialog = new ProgersssDialog(Scan_GodownX_Activity.this);
+            mProgersssDialog.setMsg("扫码上传中");
+            new Thread(PostScanRun).start();
+        }
+        else
+        {
+
+        }
+
+        return;
     }
 
     @Override
@@ -363,10 +523,10 @@ public class Scan_GodownX_Activity extends Activity implements  View.OnClickList
                 break;
             //删除单据
             case R.id.btn_DelBill:
-                String BillNum = cmb_plist.getSelectedItem().toString();      //单据号
-                boolean ok = mDelBill.DeleteTheData( Public.GROUPX_MAIN_TABLE , "GodownXCode" , BillNum )
-                        && mDelBill.DeleteFile(BillNum + Public.GroupXBillingType)
-                        && mDelBill.DeleteFile(BillNum + Public.GroupXScanType);
+               
+                boolean ok = mDelBill.DeleteTheData( MainFileName , "GodownXCode" , billNo )
+                        && mDelBill.DeleteFile( EntryFileName )
+                        && mDelBill.DeleteFile( ScanFileName );
                 if(ok){
                     aDialog.okDialog("删除单据成功！");
                 }else{
@@ -416,9 +576,9 @@ public class Scan_GodownX_Activity extends Activity implements  View.OnClickList
                 if (keyCode == KeyEvent.KEYCODE_ENTER && event.getAction()==KeyEvent.ACTION_DOWN) {
                     //TODO:回车键按下时要执行的操作
                     ProductInfo.clear();
-                    String tableName = cmb_plist.getSelectedItem().toString() + Public.GroupXBillingType;
+    
                     String keyValue = tbProduct.getText().toString();
-                    List<String[]> BillInfoList = mQueryBill.getProductInfo( tableName , keyValue);
+                    List<String[]> BillInfoList = mQueryBill.getProductInfo( EntryFileName , keyValue);
 
                     for( String[] billInfo : BillInfoList){
                         HashMap<String, Object> item = new HashMap<String, Object>();
@@ -474,8 +634,10 @@ public class Scan_GodownX_Activity extends Activity implements  View.OnClickList
                 case Constants.DecoderReturnCode.RESULT_SCAN_SUCCESS:
                     mScanAccount++;
                     BarcodeManager.ScanResult decodeResult = (BarcodeManager.ScanResult) msg.obj;
-                    barCode.setText(decodeResult.result);
-//                    billBarcode.setText(decodeResult.result);
+
+//                    barCode = decodeResult.result;
+                    HandleBarcode(decodeResult.result);
+//                    new Thread(PostScanRun).start();
                     if (mBarcodeManager != null) {
                         mBarcodeManager.beepScanSuccess();
                     }

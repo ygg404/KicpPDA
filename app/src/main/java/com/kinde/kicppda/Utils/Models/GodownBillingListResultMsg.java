@@ -13,10 +13,6 @@ import java.util.List;
 public class GodownBillingListResultMsg extends HttpResponseMsg{
     public List<GodownBillingEntity> Result;
 
-    public List<GodownBillingEntity> getResult(){
-        return Result;
-    }
-
     public void setResult(){
         if(StatusCode == StatusCodeEnum.Success.getValue() && !(Data == null || Data=="")){
             Result =  JSON.parseArray(Data.toString(), GodownBillingEntity.class);

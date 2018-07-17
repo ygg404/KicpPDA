@@ -10,7 +10,7 @@ import com.kinde.kicppda.Utils.Public;
 
 public class SqlTableCreate {
     //入库主单表
-    public static final String CREATE_IN_MAIN_TABLE = "create table "+ Public.IN_MAIN_TABLE +"("
+    public static final String CREATE_IN_MAIN_TABLE = "create table "+ Public.GODOWN_MAIN_TABLE +"("
             + "GodownId text primary key, "
             + "GodownCode text, "
             + "GodownDate text, "
@@ -68,7 +68,7 @@ public class SqlTableCreate {
             + "CreateUserName text, "
             + "Status smallint)";
     //关联箱主单表
-    public static final String CREATE_GROUPX_MAIN_TABLE = "create table "+ Public.GROUPX_MAIN_TABLE +"("
+    public static final String CREATE_GROUPX_MAIN_TABLE = "create table "+ Public.GodownX_MAIN_TABLE +"("
             + "GodownXId text primary key, "
             + "GodownXCode text, "
             + "GodownXDate text, "
@@ -192,7 +192,7 @@ public class SqlTableCreate {
 
     //创建关联箱明细表
     public static Boolean GroupX_Billing_Create(SQLiteDatabase db , String billNo) throws Exception{
-        String EntryFileName = billNo + Public.GroupXBillingType;
+        String EntryFileName = billNo + Public.GodownXBillingType;
         String CREATE_ALLOT_BILL_TABLE = "create table '" + EntryFileName + "'("
                 + "id integer primary key autoincrement,"
                 + "GodownXBillingId text, "

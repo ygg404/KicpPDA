@@ -35,7 +35,7 @@ import com.kinde.kicppda.Utils.Models.ReturnScanSaveResultMsg;
 import com.kinde.kicppda.Utils.ProgersssDialog;
 import com.kinde.kicppda.Utils.Public;
 import com.kinde.kicppda.Utils.SQLiteHelper.DeleteBillHelper;
-import com.kinde.kicppda.Utils.SQLiteHelper.TableCreateHelper;
+import com.kinde.kicppda.Utils.SQLiteHelper.ScanCreateHelper;
 import com.kinde.kicppda.Utils.SQLiteHelper.TableQueryHelper;
 import com.kinde.kicppda.decodeLib.DecodeSampleApplication;
 
@@ -69,7 +69,7 @@ public class Scan_Return_Activity extends Activity implements  View.OnClickListe
     private Button btnDelBill;              //删除按钮
     private boolean bLockMode = false;         //锁定模式
     private String productId = "";      //退货产品ID
-    private List<ReturnBillingEntity> returnbillingList = new ArrayList<ReturnBillingEntity>();//出库单据明细
+    private List<ReturnBillingEntity> returnbillingList = new ArrayList<ReturnBillingEntity>();//退货单据明细
 	private ProgersssDialog mProgersssDialog;
 
     private int curPreSet = 0;          //当前预设
@@ -87,7 +87,7 @@ public class Scan_Return_Activity extends Activity implements  View.OnClickListe
     private String ScanFileName = "";//扫描表
 
     private DeleteBillHelper mDelBill;      //删除单据
-    private TableCreateHelper mCreateBill;   //创建单据
+    private ScanCreateHelper mCreateBill;   //创建单据
     private TableQueryHelper mQueryBill;     //查询单据
 	private ScanBillingHelper mScanBill;     //扫码单据
     private List<String> returnNumList;         //发货单据编号列表
@@ -135,7 +135,7 @@ public class Scan_Return_Activity extends Activity implements  View.OnClickListe
         mScanTouchManager.setVisibility(View.INVISIBLE);
 
         mDelBill = new DeleteBillHelper(Scan_Return_Activity.this);
-        mCreateBill = new TableCreateHelper(Scan_Return_Activity.this);
+        mCreateBill = new ScanCreateHelper(Scan_Return_Activity.this);
         mQueryBill = new TableQueryHelper(Scan_Return_Activity.this);
 		mScanBill  =  new ScanBillingHelper(Scan_Return_Activity.this);
         initView();

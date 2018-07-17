@@ -8,12 +8,12 @@ package com.kinde.kicppda.Utils.Enum;
  * 获取单据的种类
  */
 public enum BillTypeEnum {
-    intype(1),       //入库
-    ordertype(2),         //发货
-    returntype(3),  //退货
-    allottype(4),//调拨
-    checktype(5), //盘点
-    groupxtype(6); //关联箱
+    godownType(1),       //入库
+    orderType(2),         //发货
+    returnType(3),  //退货
+    allotType(4),//调拨
+    checkType(5), //盘点
+    gxType(6); //关联箱
 
     private final int value;
     //构造方法必须是private或者默认
@@ -28,17 +28,17 @@ public enum BillTypeEnum {
     public BillTypeEnum valueOf(int value) {
         switch (value) {
             case 1:
-                return BillTypeEnum.intype;
+                return BillTypeEnum.godownType;
             case 2:
-                return BillTypeEnum.ordertype;
+                return BillTypeEnum.orderType;
             case 3:
-                return BillTypeEnum.returntype;
+                return BillTypeEnum.returnType;
             case 4:
-                return BillTypeEnum.allottype;
+                return BillTypeEnum.allotType;
             case 5:
-                return BillTypeEnum.checktype;
+                return BillTypeEnum.checkType;
             case 6:
-                return BillTypeEnum.groupxtype;
+                return BillTypeEnum.gxType;
             default:
                 return null;
         }

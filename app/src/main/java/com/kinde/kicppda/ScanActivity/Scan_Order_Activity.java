@@ -35,7 +35,7 @@ import com.kinde.kicppda.Utils.Models.OrderScanSaveResultMsg;
 import com.kinde.kicppda.Utils.ProgersssDialog;
 import com.kinde.kicppda.Utils.Public;
 import com.kinde.kicppda.Utils.SQLiteHelper.DeleteBillHelper;
-import com.kinde.kicppda.Utils.SQLiteHelper.TableCreateHelper;
+import com.kinde.kicppda.Utils.SQLiteHelper.ScanCreateHelper;
 import com.kinde.kicppda.Utils.SQLiteHelper.TableQueryHelper;
 import com.kinde.kicppda.decodeLib.DecodeSampleApplication;
 
@@ -90,7 +90,7 @@ public class Scan_Order_Activity extends Activity implements  View.OnClickListen
     private String ScanFileName = "";//扫描表
 
     private DeleteBillHelper mDelBill;      //删除单据
-    private TableCreateHelper mCreateBill;   //创建单据
+    private ScanCreateHelper mCreateBill;   //创建单据
     private TableQueryHelper mQueryBill;     //查询单据
     private ScanBillingHelper mScanBill;     //扫码单据
     private List<String> orderNumList;         //发货单据编号列表
@@ -138,7 +138,7 @@ public class Scan_Order_Activity extends Activity implements  View.OnClickListen
         mScanTouchManager.setVisibility(View.INVISIBLE);
 
         mDelBill = new DeleteBillHelper(Scan_Order_Activity.this);
-        mCreateBill = new TableCreateHelper(Scan_Order_Activity.this);
+        mCreateBill = new ScanCreateHelper(Scan_Order_Activity.this);
         mQueryBill = new TableQueryHelper(Scan_Order_Activity.this);
 		mScanBill  =  new ScanBillingHelper(Scan_Order_Activity.this);
         initView();

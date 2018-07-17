@@ -44,9 +44,9 @@ public class GetBillHelper {
         try {
             for (GodownEntity attr : gEntity) {
                 db = DBHelper.getWritableDatabase();
-                db.execSQL("DELETE FROM "+ Public.IN_MAIN_TABLE  +" WHERE GodownCode= '" + attr.GodownCode+"'");
+                db.execSQL("DELETE FROM "+ Public.GODOWN_MAIN_TABLE  +" WHERE GodownCode= '" + attr.GodownCode+"'");
                 //保存主单之前删除相同单据号的主单据
-                db.execSQL("insert into "+ Public.IN_MAIN_TABLE+
+                db.execSQL("insert into "+ Public.GODOWN_MAIN_TABLE+
                         "(GodownId ,GodownCode,GodownDate,WarehouseId,WarehouseName,Description,CreateDate,CreateUserId,Status) " +"values('"+
                          attr.GodownId+"','"+ attr.GodownCode+"','"+(attr.GodownDate==null?"":sdf.format(attr.GodownDate))+"','"+
                         attr.WarehouseId+"','"+attr.WarehouseName+"','"+ attr.Description+"','"+
@@ -298,9 +298,9 @@ public class GetBillHelper {
         try {
             for (GodownXEntity attr : gxEntity) {
                 db = DBHelper.getWritableDatabase();
-                db.execSQL("DELETE FROM "+ Public.GROUPX_MAIN_TABLE  +" WHERE GodownXCode= '" + attr.GodownXCode+"'");
+                db.execSQL("DELETE FROM "+ Public.GodownX_MAIN_TABLE  +" WHERE GodownXCode= '" + attr.GodownXCode+"'");
                 //保存主单之前删除相同单据号的主单据
-                db.execSQL("insert into "+ Public.GROUPX_MAIN_TABLE+
+                db.execSQL("insert into "+ Public.GodownX_MAIN_TABLE+
                         "(GodownXId ,GodownXCode,GodownXDate,Description,CreateDate,CreateUserId,CreateUserName,Status) "
                         +"values('"+
                         attr.GodownXId+"','"+ attr.GodownXCode+"','"+(attr.GodownXDate==null?"":sdf.format(attr.GodownXDate))+"','"
@@ -328,7 +328,7 @@ public class GetBillHelper {
             for (GodownXBillingEntity attr : gxBillEntity) {
                 db = DBHelper.getWritableDatabase();
                 //保存主单之前删除相同单据号的主单据
-                db.execSQL("insert into '"+ gxEntityCode +  Public.GroupXBillingType +"'"+
+                db.execSQL("insert into '"+ gxEntityCode +  Public.GodownXBillingType +"'"+
                         "(GodownXBillingId,GodownXId,ProductId,ProductName,EnCode,"
                         +"Qty,QtyFact,SinglePerBox,SingleBoxPerBigBox,LN,PR,"
                         +"CreateUserId,CreateUserName)" +"values('"

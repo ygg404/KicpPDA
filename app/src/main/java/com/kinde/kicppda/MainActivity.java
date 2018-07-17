@@ -18,7 +18,12 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.kinde.kicppda.BaseDataActivity.DownBaseDataActivity;
 import com.kinde.kicppda.BillingActivity.GetBillActivity;
+import com.kinde.kicppda.QueryActivity.Query_Allot_Activity;
+import com.kinde.kicppda.QueryActivity.Query_Godown_Activity;
+import com.kinde.kicppda.QueryActivity.Query_Order_Activity;
+import com.kinde.kicppda.QueryActivity.Query_Return_Activity;
 import com.kinde.kicppda.ScanActivity.Scan_Allot_Activity;
 import com.kinde.kicppda.ScanActivity.Scan_Check_Activity;
 import com.kinde.kicppda.ScanActivity.Scan_GodownX_Activity;
@@ -31,6 +36,12 @@ import com.kinde.kicppda.Utils.SQLiteHelper.DeleteBillHelper;
 
 public class MainActivity extends Activity implements View.OnClickListener {
 
+    private final int GodownType = 1;  //入库
+    private final int OrderType = 2;   //发货
+    private final int ReturnType = 3;  //退货
+    private final int AllotType = 4;   //调拨
+    private final int CheckType = 5;   //盘点
+    private final int GxType = 6;      //关联箱
     //提示窗口
     private Adialog aDialog;
     //单据类型
@@ -53,6 +64,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
     private TextView allot_content;
     private TextView check_content;
     private TextView groupx_content;
+    private TextView base_content;
 
     private LinearLayout inBtnView;
     private LinearLayout orderBtnView;
@@ -260,6 +272,12 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 btnViewInit();
                 BillType = 6;
                 break;
+            case R.id.basedata_channel:
+                fTransaction.show(fg_data);
+                //新建一个显式意图，第一个参数为当前Activity类对象，第二个参数为你要打开的Activity类
+                Intent downIntent =new Intent(MainActivity.this, DownBaseDataActivity.class);
+                startActivity(downIntent);
+                break;
             //单据
             case R.id.bill_btn:
                 if(BillType<=5)
@@ -285,28 +303,27 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 }
                 Intent scanIntent;
                 switch (BillType){
-                    case 1:
+                    case GodownType:
                         scanIntent = new Intent(MainActivity.this, Scan_Godown_Activity.class);
                         break;
-                    case 2:
+                    case OrderType:
                         scanIntent = new Intent(MainActivity.this , Scan_Order_Activity.class);
                         break;
-                    case 3:
+                    case ReturnType:
                         scanIntent = new Intent(MainActivity.this, Scan_Return_Activity.class);
                         break;
-                    case 4:
+                    case AllotType:
                         scanIntent = new Intent(MainActivity.this , Scan_Allot_Activity.class);
                         break;
-                    case 5:
+                    case CheckType:
                         scanIntent = new Intent(MainActivity.this , Scan_Check_Activity.class);
                         break;
-                    case 6:
+                    case GxType:
                         scanIntent = new Intent(MainActivity.this , Scan_GodownX_Activity.class);
                         break;
                     default:
                         scanIntent = new Intent(MainActivity.this, Scan_Godown_Activity.class);
                 }
-
                 startActivity(scanIntent);//打开新的activity
                 break;
             //查询
@@ -316,8 +333,33 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 else{
                     fTransaction.show(fg_pm);
                 }
+                Intent queryIntent;
+                switch (BillType) {
+                    case GodownType:
+                        queryIntent = new Intent(MainActivity.this, Query_Godown_Activity.class);
+                        break;
+                    case OrderType:
+                        queryIntent = new Intent(MainActivity.this , Query_Order_Activity.class);
+                        break;
+                    case ReturnType:
+                        queryIntent = new Intent(MainActivity.this, Query_Return_Activity.class);
+                        break;
+                    case AllotType:
+                        queryIntent = new Intent(MainActivity.this , Query_Allot_Activity.class);
+                        break;
+                    case CheckType:
+                        queryIntent = new Intent(MainActivity.this , Query_Allot_Activity.class);
+                        break;
+                    case GxType:
+                        queryIntent = new Intent(MainActivity.this , Query_Allot_Activity.class);
+                        break;
+                    default:
+                        queryIntent = new Intent(MainActivity.this, Query_Godown_Activity.class);
+                }
+                startActivity(queryIntent);//打开新的activity
                 break;
 
+            //删除
             case R.id.delete_all_channel:
                 fTransaction.show(fg_sys);
                 if(dBillHelper.DeleteAllDataFile())
@@ -406,6 +448,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         return_content = (TextView)view.findViewById(R.id.return_channel);
         allot_content = (TextView)view.findViewById(R.id.allot_channel);
         check_content = (TextView)view.findViewById(R.id.check_channel);
+        base_content = (TextView)view.findViewById(R.id.basedata_channel);
 
         inBtnView = (LinearLayout)view.findViewById(R.id.in_btn_view);
         orderBtnView = (LinearLayout)view.findViewById(R.id.order_btn_view);
@@ -418,6 +461,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         return_content.setOnClickListener(this);
         allot_content.setOnClickListener(this);
         check_content.setOnClickListener(this);
+        base_content.setOnClickListener(this);
 
     }
 

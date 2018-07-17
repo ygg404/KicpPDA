@@ -17,7 +17,7 @@
                 android:background="@color/color_title"
                 android:textSize="25dp"
                 android:textColor="@color/colorWhite"
-                android:text="@string/in_scantext"/>
+                android:text="@string/godown_scantext"/>
             <ImageView
                 android:id="@+id/go_back"
                 android:layout_width="0dp"
@@ -30,6 +30,7 @@
             android:id="@+id/num_linear"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
             android:layout_below="@id/scan_titile">
             <TextView
                 android:layout_width="0dp"

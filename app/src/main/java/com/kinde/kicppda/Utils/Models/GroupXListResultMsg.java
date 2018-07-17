@@ -16,10 +16,6 @@ import java.util.List;
 public class GroupXListResultMsg extends HttpResponseMsg{
     public List<GodownXEntity> Result;
 
-    public List<GodownXEntity> getResult(){
-        return Result;
-    }
-
     public void setResult(){
         if(StatusCode == StatusCodeEnum.Success.getValue() && !(Data == null || Data=="")){
             Result =  JSON.parseArray(Data.toString(), GodownXEntity.class);

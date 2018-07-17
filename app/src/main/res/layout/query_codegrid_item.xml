@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="horizontal"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+    <!-- 条码 -->
+    <TextView
+        android:layout_width="160dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/iBarcode"
+        android:textSize="20dp"
+        android:gravity="center"
+        />
+    <!-- 产品名称 -->
+    <TextView
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/iProduct"
+        android:textSize="20dp"
+        android:gravity="center"
+        />
+    <!-- 数量 -->
+    <TextView
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/iCount"
+        android:textSize="20dp"
+        android:gravity="center"
+        />
+
+</LinearLayout>

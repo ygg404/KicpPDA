@@ -13,10 +13,6 @@ import java.util.List;
 public class ReturnListResultMsg extends HttpResponseMsg {
     public List<ReturnEntity> Result;
 
-    public List<ReturnEntity> getResult(){
-        return Result;
-    }
-
     public void setResult(){
         if(StatusCode == StatusCodeEnum.Success.getValue() && !(Data == null || Data=="")){
             Result =  JSON.parseArray(Data.toString(), ReturnEntity.class);

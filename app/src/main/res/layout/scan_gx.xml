@@ -81,7 +81,7 @@
             android:layout_weight="1"
             android:textSize="18dp"
             android:gravity="center"
-            android:text="@string/in_product"/>
+            android:text="@string/gx_product"/>
         <EditText
             android:id="@+id/in_product"
             android:layout_width="0dp"

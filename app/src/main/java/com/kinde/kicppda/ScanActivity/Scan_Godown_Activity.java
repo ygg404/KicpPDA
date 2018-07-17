@@ -35,7 +35,7 @@ import com.kinde.kicppda.Utils.Models.GodownScanSaveResultMsg;
 import com.kinde.kicppda.Utils.ProgersssDialog;
 import com.kinde.kicppda.Utils.Public;
 import com.kinde.kicppda.Utils.SQLiteHelper.DeleteBillHelper;
-import com.kinde.kicppda.Utils.SQLiteHelper.TableCreateHelper;
+import com.kinde.kicppda.Utils.SQLiteHelper.ScanCreateHelper;
 import com.kinde.kicppda.Utils.SQLiteHelper.TableQueryHelper;
 import com.kinde.kicppda.decodeLib.DecodeSampleApplication;
 
@@ -92,7 +92,7 @@ public class Scan_Godown_Activity extends Activity implements  View.OnClickListe
     private String ScanFileName = "";//扫描表
 
     private DeleteBillHelper mDelBill;      //删除单据
-    private TableCreateHelper mCreateBill;   //创建单据
+    private ScanCreateHelper mCreateBill;   //创建单据
     private TableQueryHelper mQueryBill;     //查询单据
     private ScanBillingHelper mScanBill;     //扫码单据
     private List<String> godownNumList;         //入库单据编号列表
@@ -140,7 +140,7 @@ public class Scan_Godown_Activity extends Activity implements  View.OnClickListe
         mScanTouchManager.setVisibility(View.INVISIBLE);
 
         mDelBill = new DeleteBillHelper(Scan_Godown_Activity.this);
-        mCreateBill = new TableCreateHelper(Scan_Godown_Activity.this);
+        mCreateBill = new ScanCreateHelper(Scan_Godown_Activity.this);
         mQueryBill = new TableQueryHelper(Scan_Godown_Activity.this);
         mScanBill  =  new ScanBillingHelper(Scan_Godown_Activity.this);
         initView();
@@ -152,7 +152,7 @@ public class Scan_Godown_Activity extends Activity implements  View.OnClickListe
     //设置单据保存文件
     private void SetFilePath(String billNo)
     {
-        MainFileName  = Public.IN_MAIN_TABLE;
+        MainFileName  = Public.GODOWN_MAIN_TABLE;
         EntryFileName = billNo  + Public.GodownBillingType;
         ScanFileName  =  billNo +  Public.GodownScanType;
     }
@@ -187,7 +187,7 @@ public class Scan_Godown_Activity extends Activity implements  View.OnClickListe
         ViewClear();
 
         //初始化单据选项列表
-        godownNumList = mQueryBill.getBillNum(Public.IN_MAIN_TABLE , "GodownCode");
+        godownNumList = mQueryBill.getBillNum(Public.GODOWN_MAIN_TABLE , "GodownCode");
         spinAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item, godownNumList);
         spinAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         cmb_plist.setAdapter(spinAdapter);
@@ -209,7 +209,20 @@ public class Scan_Godown_Activity extends Activity implements  View.OnClickListe
                     public void onNothingSelected(AdapterView<?> arg0) {
                                                  }
                 });
-
+        tbBarcode.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if(keyCode == KeyEvent.KEYCODE_ENTER && event.getAction()==KeyEvent.ACTION_DOWN){
+                    //TODO:返回键按下时要执行的操作
+                    if(bLockMode){
+                        HandleBarcode( tbBarcode.getText().toString().trim());
+                    }
+                    return true;
+                }
+                return false;
+            }
+        });
+        tbProduct.requestFocus();
         mListView.bringToFront();
         //创建SimpleAdapter适配器将数据绑定到item显示控件上
         digAdapter = new SimpleAdapter(Scan_Godown_Activity.this, ProductInfo, R.layout.item_inlist,
@@ -423,7 +436,7 @@ public class Scan_Godown_Activity extends Activity implements  View.OnClickListe
     };
 
     /**
-     * 获取单据线程
+     * 扫描提交线程
      */
     Runnable PostScanRun = new Runnable() {
         @Override
