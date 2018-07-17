@@ -1,16 +1,12 @@
 package com.kinde.kicppda.ScanActivity;
 
-import android.app.Activity;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Looper;
 import android.os.Message;
-import android.os.RemoteException;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
-import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -37,9 +33,9 @@ import com.kinde.kicppda.Utils.Public;
 import com.kinde.kicppda.Utils.SQLiteHelper.DeleteBillHelper;
 import com.kinde.kicppda.Utils.SQLiteHelper.ScanCreateHelper;
 import com.kinde.kicppda.Utils.SQLiteHelper.TableQueryHelper;
+import com.kinde.kicppda.decodeLib.DecodeBaseActivity;
 import com.kinde.kicppda.decodeLib.DecodeSampleApplication;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -48,7 +44,7 @@ import java.util.List;
  * Created by YGG on 2018/6/4.
  */
 
-public class Scan_GodownX_Activity extends Activity implements  View.OnClickListener,OnEngineStatus {
+public class Scan_GodownX_Activity extends DecodeBaseActivity implements  View.OnClickListener,OnEngineStatus {
 
     private Adialog aDialog;                //警告提示窗口
     private Spinner cmb_plist;              //单据号选择项
@@ -68,7 +64,6 @@ public class Scan_GodownX_Activity extends Activity implements  View.OnClickList
     private Button btnLock;                 //锁定按钮
     private Button btnUpload;               //上传按钮
     private Button btnDelBill;              //删除按钮
-    private boolean bLockMode = false;      //锁定模式
     private String productId = "";      //产品ID
     private List<GodownXBillingEntity> godownXbillingList = new ArrayList<GodownXBillingEntity>();//入库单据明细
     private ProgersssDialog mProgersssDialog;
@@ -92,28 +87,6 @@ public class Scan_GodownX_Activity extends Activity implements  View.OnClickList
     private TableQueryHelper mQueryBill;     //查询单据
 	private ScanBillingHelper mScanBill;     //扫码单据
     private List<String> godownXNumList;      //关联箱单据编号列表
-
-    //扫码
-    public BarcodeManager mBarcodeManager = null;
-    public final int SCANKEY_LEFT = 301;
-    public final int SCANKEY_RIGHT = 300;
-    public final int SCANKEY_CENTER = 302;
-    public final int SCANTIMEOUT = 3000;
-    long mScanAccount = 0;
-    public boolean mbKeyDown = true;
-    public boolean scanTouch_flag = true;
-    public Handler mDoDecodeHandler;
-    private WindowManager.LayoutParams windowManagerParams = null;
-    private ScanTouchManager mScanTouchManager = null;
-
-    public class DoDecodeThread extends Thread {
-        public void run() {
-            Looper.prepare();
-            mDoDecodeHandler = new Handler();
-            Looper.loop();
-        }
-    }
-    private DoDecodeThread mDoDecodeThread;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -603,31 +576,6 @@ public class Scan_GodownX_Activity extends Activity implements  View.OnClickList
         });
     }
 
-    private void doScanInBackground() {
-        mDoDecodeHandler.post(new Runnable() {
-
-            @Override
-            public void run() {
-                if (mBarcodeManager != null) {
-                    // TODO Auto-generated method stub
-                    try {
-                        synchronized (mBarcodeManager) {
-                            mBarcodeManager.executeScan(SCANTIMEOUT);
-                        }
-
-                    } catch (RemoteException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        });
-    }
-
-
-    public void DoScan() throws Exception {
-        doScanInBackground();
-    }
-
     private Handler ScanResultHandler = new Handler() {
         public void handleMessage(Message msg) {
             switch (msg.what) {
@@ -668,11 +616,6 @@ public class Scan_GodownX_Activity extends Activity implements  View.OnClickList
         }
     };
 
-    public void cancleScan() throws Exception {
-        if (mBarcodeManager != null) {
-            mBarcodeManager.exitScan();
-        }
-    }
 
     @Override
     public void onEngineReady() {
@@ -697,56 +640,6 @@ public class Scan_GodownX_Activity extends Activity implements  View.OnClickList
     }
 
     @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-
-        switch (keyCode) {
-
-            case SCANKEY_LEFT:
-            case SCANKEY_CENTER:
-            case SCANKEY_RIGHT:
-                if(bLockMode) {
-                    try {
-                        if (mbKeyDown) {
-                            DoScan();
-                            mbKeyDown = false;
-                        }
-                    } catch (Exception e) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
-                    }
-                }
-                return true;
-            case KeyEvent.KEYCODE_BACK:
-                this.finish();
-                return true;
-            default:
-                return super.onKeyDown(keyCode, event);
-        }
-    }
-
-    @Override
-    public boolean onKeyUp(int keyCode, KeyEvent event) {
-        switch (keyCode) {
-
-            case SCANKEY_LEFT:
-            case SCANKEY_CENTER:
-            case SCANKEY_RIGHT:
-                if(bLockMode) {
-                    try {
-                        mbKeyDown = true;
-                        cancleScan();
-                    } catch (Exception e) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
-                    }
-                }
-                return true;
-            default:
-                return super.onKeyUp(keyCode, event);
-        }
-    }
-
-    @Override
     protected void onResume() {
         super.onResume();
 
@@ -757,41 +650,6 @@ public class Scan_GodownX_Activity extends Activity implements  View.OnClickList
         }
 
         mScanTouchManager.createScanTouch();
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-
-        if (mBarcodeManager != null) {
-            try {
-                mBarcodeManager.release();
-                mBarcodeManager = null;
-            } catch (IOException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-        }
-
-        //remove ScanTouch
-        if (scanTouch_flag) {
-            mScanTouchManager.removeScanTouch();
-        }
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-
-        if (mBarcodeManager != null) {
-            try {
-                mBarcodeManager.release();
-                mBarcodeManager = null;
-            } catch (IOException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-        }
     }
 
 }

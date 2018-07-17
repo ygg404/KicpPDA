@@ -76,7 +76,7 @@
             android:gravity="center"
             android:text="@string/return_product"/>
         <EditText
-            android:id="@+id/in_product"
+            android:id="@+id/tbProduct"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="2"
@@ -162,7 +162,7 @@
             android:gravity="center"
             android:text="@string/barcode"/>
         <EditText
-            android:id="@+id/bar_code"
+            android:id="@+id/tbBarcode"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="2"

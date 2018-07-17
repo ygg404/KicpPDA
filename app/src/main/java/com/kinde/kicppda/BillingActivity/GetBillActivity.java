@@ -1,13 +1,10 @@
 package com.kinde.kicppda.BillingActivity;
 
-import android.app.Activity;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
-import android.os.RemoteException;
-import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -23,9 +20,9 @@ import com.kinde.kicppda.R;
 import com.kinde.kicppda.Utils.Adialog;
 import com.kinde.kicppda.Utils.Enum.BillTypeEnum;
 import com.kinde.kicppda.Utils.ProgersssDialog;
+import com.kinde.kicppda.decodeLib.DecodeBaseActivity;
 import com.kinde.kicppda.decodeLib.DecodeSampleApplication;
 
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -40,7 +37,7 @@ import static com.kinde.kicppda.BillingActivity.DownLoadBillHelper.downLoadRetur
  * Created by YGG on 2018/6/1.
  */
 
-public class GetBillActivity extends Activity implements OnEngineStatus{
+public class GetBillActivity extends DecodeBaseActivity implements OnEngineStatus{
 
     private final int GodownType = 1;       //入库
     private final int OrderType = 2;        //发货
@@ -50,19 +47,6 @@ public class GetBillActivity extends Activity implements OnEngineStatus{
     private final int GxType = 6; //关联箱
     public GetBillHelper gBillHelper;
 
-    public BarcodeManager mBarcodeManager = null;
-    public final int SCANKEY_LEFT = 301;
-    public final int SCANKEY_RIGHT = 300;
-    public final int SCANKEY_CENTER = 302;
-    public final int SCANTIMEOUT = 3000;
-    long mScanAccount = 0;
-    public boolean mbKeyDown = true;
-    public boolean scanTouch_flag = true;
-    public Handler mDoDecodeHandler;
-
-    private WindowManager.LayoutParams windowManagerParams = null;
-    private ScanTouchManager mScanTouchManager = null;
-
     private TextView billtitle;
     private EditText datebegin;
     private EditText dateend;
@@ -71,7 +55,7 @@ public class GetBillActivity extends Activity implements OnEngineStatus{
     private EditText billBarcode;
     private ProgersssDialog mProgersssDialog;
     private Adialog mAdialog;
-   
+
     public class DoDecodeThread extends Thread {
         public void run() {
             Looper.prepare();
@@ -104,7 +88,7 @@ public class GetBillActivity extends Activity implements OnEngineStatus{
     };
 
     private DoDecodeThread mDoDecodeThread;
-	
+
     //单据类型
     private int billType = 1;
 
@@ -131,7 +115,7 @@ public class GetBillActivity extends Activity implements OnEngineStatus{
             }
         });
 
-       // DBHelper = new DBOpenHelper(this );
+        // DBHelper = new DBOpenHelper(this );
 
         //新页面接收数据
         Bundle bundle = this.getIntent().getExtras();
@@ -232,6 +216,7 @@ public class GetBillActivity extends Activity implements OnEngineStatus{
      */
     private void initializeUI()
     {
+        bLockMode = true;
         billtitle = (TextView)findViewById(R.id.bill_Title);
         quitbtn = (Button)findViewById(R.id.quit_btn);
         getbtn =(Button)findViewById(R.id.get_btn);
@@ -291,30 +276,6 @@ public class GetBillActivity extends Activity implements OnEngineStatus{
         });
     }
 
-    private void doScanInBackground() {
-        mDoDecodeHandler.post(new Runnable() {
-
-            @Override
-            public void run() {
-                if (mBarcodeManager != null) {
-                    // TODO Auto-generated method stub
-                    try {
-                        synchronized (mBarcodeManager) {
-                            mBarcodeManager.executeScan(SCANTIMEOUT);
-                        }
-
-                    } catch (RemoteException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        });
-    }
-
-
-    public void DoScan() throws Exception {
-        doScanInBackground();
-    }
 
     private Handler ScanResultHandler = new Handler() {
         public void handleMessage(Message msg) {
@@ -325,13 +286,13 @@ public class GetBillActivity extends Activity implements OnEngineStatus{
 
                     billBarcode.setText(decodeResult.result);
                     if (mBarcodeManager != null) {
-                        mBarcodeManager.beepScanSuccess();
+             //           mBarcodeManager.beepScanSuccess();
                     }
                     break;
 
                 case Constants.DecoderReturnCode.RESULT_SCAN_FAIL: {
                     if (mBarcodeManager != null) {
-                        mBarcodeManager.beepScanFail();
+                //        mBarcodeManager.beepScanFail();
                     }
 //                mDecodeResultEdit.setText("Scan failed");
 
@@ -353,12 +314,6 @@ public class GetBillActivity extends Activity implements OnEngineStatus{
             }
         }
     };
-
-    public void cancleScan() throws Exception {
-        if (mBarcodeManager != null) {
-            mBarcodeManager.exitScan();
-        }
-    }
 
     @Override
     public void onEngineReady() {
@@ -383,97 +338,16 @@ public class GetBillActivity extends Activity implements OnEngineStatus{
     }
 
     @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-
-        switch (keyCode) {
-
-            case SCANKEY_LEFT:
-            case SCANKEY_CENTER:
-            case SCANKEY_RIGHT:
-                try {
-                    if (mbKeyDown) {
-                        DoScan();
-                        mbKeyDown = false;
-                    }
-                } catch (Exception e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                }
-                return true;
-            case KeyEvent.KEYCODE_BACK:
-                this.finish();
-                return true;
-            default:
-                return super.onKeyDown(keyCode, event);
-        }
-    }
-
-    @Override
-    public boolean onKeyUp(int keyCode, KeyEvent event) {
-        switch (keyCode) {
-
-            case SCANKEY_LEFT:
-            case SCANKEY_CENTER:
-            case SCANKEY_RIGHT:
-                try {
-                     mbKeyDown = true;
-                     cancleScan();
-                } catch (Exception e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                }
-                return true;
-            default:
-                return super.onKeyUp(keyCode, event);
-        }
-    }
-
-    @Override
     protected void onResume() {
         super.onResume();
 
         if ( mBarcodeManager == null) {
             // initialize decodemanager
-             mBarcodeManager = new BarcodeManager(this ,this);
-
+            mBarcodeManager = new BarcodeManager(this ,this);
         }
-
-         mScanTouchManager.createScanTouch();
+        mScanTouchManager.createScanTouch();
     }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
 
-        if (mBarcodeManager != null) {
-            try {
-                mBarcodeManager.release();
-                mBarcodeManager = null;
-            } catch (IOException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-        }
-
-        //remove ScanTouch
-        if (scanTouch_flag) {
-            mScanTouchManager.removeScanTouch();
-        }
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-
-        if (mBarcodeManager != null) {
-            try {
-                mBarcodeManager.release();
-                mBarcodeManager = null;
-            } catch (IOException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-        }
-    }
 
 }

@@ -100,7 +100,7 @@ public class Query_Allot_Activity extends Activity implements View.OnClickListen
         tbWarehouseOut = (EditText) findViewById(R.id.tbWarehouseOut);
         tbProduct = (EditText)findViewById(R.id.in_product);
         dataGrid = (ListView)findViewById(R.id.query_view);
-
+        tbBarcode = (EditText)findViewById(R.id.tbBarcode);
         btnQuery = (Button)findViewById(R.id.btn_query);
         btnQuit = (Button)findViewById(R.id.btn_quit);
         btnDel  = (Button)findViewById(R.id.btn_delete);
@@ -287,7 +287,7 @@ public class Query_Allot_Activity extends Activity implements View.OnClickListen
                 });
                 break;
             //删除按钮事件
-            case R.id.btn_DelBill:
+            case R.id.btn_delete:
                 if (ScanInfo.size() <1)
                 {
                     mAdialog.warnDialog("没有可删除的数据，请查询出你要删除的数据！");

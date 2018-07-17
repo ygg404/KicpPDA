@@ -83,7 +83,7 @@ public class Query_Order_Activity extends Activity implements View.OnClickListen
     protected void onCreate(Bundle savedInstanceState) {
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.query_return);
+        setContentView(R.layout.query_order);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         bindView();
@@ -97,9 +97,9 @@ public class Query_Order_Activity extends Activity implements View.OnClickListen
 
         cmb_plist = (Spinner)findViewById(R.id.num_spinner);
         tbAgent = (EditText)findViewById(R.id.tbAgent);
-        tbProduct = (EditText)findViewById(R.id.in_product);
+        tbProduct = (EditText)findViewById(R.id.tbProduct);
         dataGrid = (ListView)findViewById(R.id.query_view);
-
+        tbBarcode = (EditText)findViewById(R.id.tbBarcode);
         btnQuery = (Button)findViewById(R.id.btn_query);
         btnQuit = (Button)findViewById(R.id.btn_quit);
         btnDel  = (Button)findViewById(R.id.btn_delete);

@@ -98,7 +98,7 @@ public class Query_Return_Activity extends Activity implements View.OnClickListe
         tbWarehouse = (EditText)findViewById(R.id.tbWarehouse);
         tbProduct = (EditText)findViewById(R.id.tbProduct);
         dataGrid = (ListView)findViewById(R.id.query_view);
-
+        tbBarcode = (EditText)findViewById(R.id.tbBarcode);
         btnQuery = (Button)findViewById(R.id.btn_query);
         btnQuit = (Button)findViewById(R.id.btn_quit);
         btnDel  = (Button)findViewById(R.id.btn_delete);

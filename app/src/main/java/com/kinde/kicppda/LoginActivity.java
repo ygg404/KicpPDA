@@ -13,14 +13,8 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.kinde.kicppda.Utils.Adialog;
-import com.kinde.kicppda.Utils.ApiHelper;
-import com.kinde.kicppda.Utils.Config;
-import com.kinde.kicppda.Utils.Models.HttpResponseMsg;
 import com.kinde.kicppda.Utils.Models.Token;
-import com.kinde.kicppda.Utils.Models.TokenResultMsg;
 import com.kinde.kicppda.Utils.ProgersssDialog;
-
-import java.util.HashMap;
 
 /**
  * Created by YGG on 2018/5/25.
@@ -60,7 +54,7 @@ public class LoginActivity extends AppCompatActivity {
     Runnable loadRun = new Runnable(){
         @Override
         public void run() {
-
+            /*
             // TODO Auto-generated method stub
             Message message = new Message();
             HashMap<String,String> query = new HashMap<String, String>();
@@ -91,7 +85,7 @@ public class LoginActivity extends AppCompatActivity {
                 return;
             }
 
-
+    */
             //登录加载dialog关闭
             mProgersssDialog.cancel();
 
