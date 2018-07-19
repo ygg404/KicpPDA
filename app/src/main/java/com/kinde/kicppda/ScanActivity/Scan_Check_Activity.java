@@ -122,9 +122,9 @@ public class Scan_Check_Activity extends DecodeBaseActivity implements  View.OnC
     //设置单据保存文件
     private void SetFilePath(String billNo)
     {
-        MainFileName  = Public.RETURN_MAIN_TABLE;
+        MainFileName  = Public.CHECK_MAIN_TABLE;
       //  EntryFileName = billNo  + Public.ReturnBillingType;
-        ScanFileName  =  billNo +  Public.ReturnScanType;
+        ScanFileName  =  billNo +  Public.CheckScanType;
     }
 
     private void initView(){
@@ -384,11 +384,11 @@ public class Scan_Check_Activity extends DecodeBaseActivity implements  View.OnC
                 int staffId = Config.StaffId;
                 String appSecret = Config.AppSecret;
                 HashMap<String, String> query = new HashMap<String, String>();
-                query.put("returnId", billId);
+                query.put("checkId", billId);
                 query.put("productId", productId);
                 query.put("serialNo", barcode );
 
-                ReturnScanSaveResultMsg scanResult = ApiHelper.GetHttp(ReturnScanSaveResultMsg.class, Config.WebApiUrl + "PostReturnSerialNo?",
+                ReturnScanSaveResultMsg scanResult = ApiHelper.GetHttp(ReturnScanSaveResultMsg.class, Config.WebApiUrl + "PostCheckSerialNo?",
                             query, staffId, appSecret, true);
                 scanResult.setResult();
 

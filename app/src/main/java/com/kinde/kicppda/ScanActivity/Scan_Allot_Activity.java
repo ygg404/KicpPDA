@@ -488,7 +488,7 @@ public class Scan_Allot_Activity extends DecodeBaseActivity implements  View.OnC
                 }else{
                     aDialog.failDialog("删除单据失败！");
                 }
-                initView(); //重启
+                initView();
                 break;
             case R.id.go_back:
                 finish();

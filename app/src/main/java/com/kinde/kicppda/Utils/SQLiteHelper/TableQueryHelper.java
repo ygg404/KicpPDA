@@ -316,7 +316,7 @@ public class TableQueryHelper {
         List<GodownXBillingEntity> gxBillingList = new ArrayList<GodownXBillingEntity>();
         DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         try {
-            String Sqlstr = "Select GodownBillingId,GodownId,ProductId,ProductName,EnCode,LN,PR,Qty,QtyFact from '"
+            String Sqlstr = "Select GodownXBillingId,GodownXId,ProductId,ProductName,EnCode,LN,PR,Qty,QtyFact,SingleBoxPerBigBox,SinglePerBox from '"
                     + EntryFileName +"'";
             db = DBHelper.getReadableDatabase();
             Cursor cursor = db.rawQuery(Sqlstr, null);
@@ -332,7 +332,8 @@ public class TableQueryHelper {
                 entity.PR = cursor.getString(6)==null?null:format.parse(cursor.getString(6));
                 entity.Qty = Integer.parseInt( cursor.getString(7));
                 entity.QtyFact = Integer.parseInt( cursor.getString(8));
-
+                entity.SingleBoxPerBigBox = Integer.parseInt( cursor.getString(9));
+                entity.SinglePerBox = Integer.parseInt( cursor.getString(10));
                 gxBillingList.add(entity);
             }
         }catch (Exception ex){

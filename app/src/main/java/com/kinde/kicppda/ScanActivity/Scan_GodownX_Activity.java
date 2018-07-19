@@ -27,7 +27,7 @@ import com.kinde.kicppda.R;
 import com.kinde.kicppda.Utils.Adialog;
 import com.kinde.kicppda.Utils.ApiHelper;
 import com.kinde.kicppda.Utils.Config;
-import com.kinde.kicppda.Utils.Models.GodownScanSaveResultMsg;
+import com.kinde.kicppda.Utils.Models.GroupXScanSaveResultMsg;
 import com.kinde.kicppda.Utils.ProgersssDialog;
 import com.kinde.kicppda.Utils.Public;
 import com.kinde.kicppda.Utils.SQLiteHelper.DeleteBillHelper;
@@ -77,6 +77,7 @@ public class Scan_GodownX_Activity extends DecodeBaseActivity implements  View.O
     private TextView lbBillPreset;
     private TextView lbCurCount;
     private TextView lbBillCount;
+    private TextView lbCurGroup;
 
     private String MainFileName = "";//主单表
     private String EntryFileName = "";//明细表
@@ -87,6 +88,12 @@ public class Scan_GodownX_Activity extends DecodeBaseActivity implements  View.O
     private TableQueryHelper mQueryBill;     //查询单据
 	private ScanBillingHelper mScanBill;     //扫码单据
     private List<String> godownXNumList;      //关联箱单据编号列表
+
+    //码的类型
+    private final int productType = 1;      //产品
+    private final int boxType = 2;          //箱
+    private int curProductCount = 0;        //当前组合已录入的个数
+    private int groupCount = 0;             //组合个数
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -129,7 +136,6 @@ public class Scan_GodownX_Activity extends DecodeBaseActivity implements  View.O
 
     private void initView(){
         aDialog = new Adialog(Scan_GodownX_Activity.this);
-
         bLockMode = false;
         btnLock = (Button)findViewById(R.id.btn_Lock);
         btnUpload = (Button)findViewById(R.id.btn_Upload);
@@ -137,17 +143,18 @@ public class Scan_GodownX_Activity extends DecodeBaseActivity implements  View.O
 
         cmb_plist = (Spinner)findViewById(R.id.num_spinner);
         tbBillDate = (EditText)findViewById(R.id.bill_date);
-        tbProduct = (EditText)findViewById(R.id.in_product);
-        tbPR = (EditText)findViewById(R.id.in_pr);
-        tbLN = (EditText)findViewById(R.id.in_ln);
+        tbProduct = (EditText)findViewById(R.id.tbProduct);
+        tbPR = (EditText)findViewById(R.id.pr);
+        tbLN = (EditText)findViewById(R.id.ln);
         mListView = (ListView)findViewById(R.id.in_list_view);
         mGoback = (ImageView)findViewById(R.id.go_back);
         mHorizontalScrollView =(HorizontalScrollView)findViewById(R.id.HorizontalScrollView);
-        tbBarcode = (EditText)findViewById(R.id.bar_code);
+        tbBarcode = (EditText)findViewById(R.id.tbBarcode);
         lbCurPreset = (TextView)findViewById(R.id.lbCurPreset);
         lbBillPreset = (TextView)findViewById(R.id.lbBillPreset);
         lbCurCount = (TextView)findViewById(R.id.lbCurCount);
         lbBillCount = (TextView)findViewById(R.id.lbBillCount);
+        lbCurGroup = (TextView)findViewById(R.id.curGroup);
 
         mGoback.setOnClickListener(this);
         btnLock.setOnClickListener(this);
@@ -167,7 +174,10 @@ public class Scan_GodownX_Activity extends DecodeBaseActivity implements  View.O
                         ViewClear();
                         billNo = cmb_plist.getSelectedItem().toString().trim();
                         SetFilePath(billNo);
+						BillingLoad( EntryFileName );
 						mCreateBill.GodownX_Scan_Create( billNo );  //创建扫码表
+                        billId = mQueryBill.getKeyValue("GodownXId" , MainFileName , "GodownXCode",billNo);
+						tbBillDate.setText( mQueryBill.getKeyValue("GodownXDate", MainFileName ,"GodownXCode",billNo) );
                         tbBillDate.setText(   mQueryBill.getKeyValue("GodownXDate", MainFileName ,"GodownXCode",billNo ) );
                     }
 
@@ -188,7 +198,7 @@ public class Scan_GodownX_Activity extends DecodeBaseActivity implements  View.O
                 return false;
             }
         });
-
+        tbProduct.requestFocus();
         mListView.bringToFront();
         //创建SimpleAdapter适配器将数据绑定到item显示控件上
         digAdapter = new SimpleAdapter(Scan_GodownX_Activity.this, ProductInfo, R.layout.item_inlist,
@@ -212,19 +222,8 @@ public class Scan_GodownX_Activity extends DecodeBaseActivity implements  View.O
         });
     }
 
-    //重写与ContextMenu相关方法
-//    @Override
-    //重写上下文菜单的创建方法
-//    public void onCreateContextMenu(ContextMenu menu, View v,
-//                                    ContextMenu.ContextMenuInfo menuInfo) {
-//        //子菜单部分：
-//        MenuInflater inflator = new MenuInflater(this);
-//        inflator.inflate(R.menu.menu_sub, menu);
-//        super.onCreateContextMenu(menu, v, menuInfo);
-//    }
-
-
     private void ViewClear(){
+
         tbBillDate.setText("");
         tbProduct.setText("");
         tbPR.setText("");
@@ -256,6 +255,8 @@ public class Scan_GodownX_Activity extends DecodeBaseActivity implements  View.O
         lbCurCount.setText( String.valueOf(curCount) );
         lbBillCount.setText( String.valueOf(billCount) );
 
+//        groupCount =
+//        lbCurGroup.setText();
     }
     //解除锁定
     private void Unlock()
@@ -315,7 +316,7 @@ public class Scan_GodownX_Activity extends DecodeBaseActivity implements  View.O
 
             if (tbProduct.getText().toString().isEmpty())
             {
-                aDialog.warnDialog("请选择入库产品！");
+                aDialog.warnDialog("请选择关联产品！");
                 return;
             }
 
@@ -367,10 +368,19 @@ public class Scan_GodownX_Activity extends DecodeBaseActivity implements  View.O
             super.handleMessage(msg);
             switch (msg.what) {
                 case 0:
-                    //do something,refresh UI;
-                    aDialog.failDialog(msg.obj.toString());
+
                     //登录加载dialog关闭
                     mProgersssDialog.cancel();
+
+                    if( msg.obj.toString().equals("OK1")){
+                        curProductCount ++;
+                        lbCurGroup.setText( String.valueOf(curProductCount) + "/" + String.valueOf(groupCount));
+                    }
+                    else{
+                        aDialog.failDialog(msg.obj.toString());
+                    }
+                    //do something,refresh UI;
+
                     break;
                 case 1:
                     lbCurCount.setText( String.valueOf(curCount) );
@@ -405,7 +415,7 @@ public class Scan_GodownX_Activity extends DecodeBaseActivity implements  View.O
                 int staffId = Config.StaffId;
                 String appSecret = Config.AppSecret;
                 HashMap<String, String> query = new HashMap<String, String>();
-                query.put("godownId", billId);
+                query.put("godownXId", billId);
                 query.put("productId", productId);
 
                 String LN = mQueryBill.getKeyValue("LN", EntryFileName, "ProductId", productId);
@@ -413,33 +423,39 @@ public class Scan_GodownX_Activity extends DecodeBaseActivity implements  View.O
                 query.put("ln", LN);
                 query.put("pr", PR);
                 query.put("serialNo", barcode );
+                if(curProductCount < groupCount) {
+                    query.put("curSerailNoAddType", String.valueOf(productType));
+                }else
+                {
+                    query.put("curSerailNoAddType", String.valueOf(boxType));
+                }
+                query.put("curProductCount", String.valueOf(curProductCount));
 
-                GodownScanSaveResultMsg scanResult = ApiHelper.GetHttp(GodownScanSaveResultMsg.class, Config.WebApiUrl + "PostGodownSerialNo?",
+                GroupXScanSaveResultMsg scanResult = ApiHelper.GetHttp(GroupXScanSaveResultMsg.class, Config.WebApiUrl + "CheckGroupXSerialNo?",
                             query, staffId, appSecret, true);
-                scanResult.setResult();
+               // scanResult.setResult();
 
                 if(scanResult.StatusCode!=200){
                     throw new Exception( scanResult.Info );
                 }
 
-                if (scanResult.Qty == 0)
-                {
-                  //  D300SysUI.PlaySound(Public.SoundPath);
-                    throw new Exception("异常：入库数量为0！");
-                }
+//                if (scanResult.Qty == 0)
+//                {
+//                  //  D300SysUI.PlaySound(Public.SoundPath);
+//                    throw new Exception("异常：入库数量为0！");
+//                }
 
                 String[] insertData = new String[7];
                 insertData[0] = barcode;
                 insertData[1] = productId;
                 insertData[2] = LN;
                 insertData[3] = PR;
-                insertData[4] = String.valueOf( scanResult.Qty );
+                insertData[4] = "";
                 insertData[5] = mQueryBill.getKeyValue("CreateDate", EntryFileName, "ProductId", productId);
                 insertData[6] = mQueryBill.getKeyValue("CreateUserId", EntryFileName, "ProductId", productId);
-                mScanBill.GodownScanSave(ScanFileName , insertData);
-
-                curCount += scanResult.Qty;
-                billCount += scanResult.Qty;
+                mScanBill.GodownXScanSave(ScanFileName , insertData);
+//                curCount += scanResult.Qty;
+//                billCount += scanResult.Qty;
                 barcode_exit.add( barcode );//加到内存中
 
             }catch (Exception ex){
@@ -529,6 +545,8 @@ public class Scan_GodownX_Activity extends DecodeBaseActivity implements  View.O
                 if(gEntity.ProductId.equals(productId)){
                     curPreSet = gEntity.Qty;
                     lbCurPreset.setText( String.valueOf( curPreSet ) ); //当前预设
+                    groupCount = gEntity.SinglePerBox;
+                    lbCurGroup.setText( String.valueOf(curCount) + "/" + String.valueOf(groupCount));
                     break;
                 }
             }
@@ -583,9 +601,8 @@ public class Scan_GodownX_Activity extends DecodeBaseActivity implements  View.O
                     mScanAccount++;
                     BarcodeManager.ScanResult decodeResult = (BarcodeManager.ScanResult) msg.obj;
 
-//                    barCode = decodeResult.result;
                     HandleBarcode(decodeResult.result);
-//                    new Thread(PostScanRun).start();
+
                     if (mBarcodeManager != null) {
                         mBarcodeManager.beepScanSuccess();
                     }

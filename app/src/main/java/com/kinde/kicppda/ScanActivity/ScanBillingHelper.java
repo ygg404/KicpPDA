@@ -81,4 +81,18 @@ public class ScanBillingHelper {
             throw new Exception(ex.getMessage());
         }
     }
+
+    public void GodownXScanSave(String tableName ,String[] insertData ) throws Exception{
+        try{
+            db = DBHelper.getWritableDatabase();
+            //保存主单之前删除相同单据号的主单据
+            db.execSQL("insert into '"+ tableName+
+                    "'(SerialNo,ProductId,LN,PR,GroupNo,CreateDate,CreateUserId) " +"values('"+
+                    insertData[0]+"','"+ insertData[1]+"','"+ insertData[2] + "','" +
+                    insertData[3]+"','"+ insertData[4]+"','"+ insertData[5] +"','"+ insertData[6] + "')"
+            );
+        }catch (Exception ex){
+            throw new Exception(ex.getMessage());
+        }
+    }
 }

@@ -162,18 +162,17 @@ public class ScanCreateHelper {
         try {
             String ScanFileName = billNo + Public.GodownXScanType;
             //判断这张表是否存在，若存在，则跳过创建表操作
-            String CREATE_GODOWN_SCAN_TABLE = "CREATE TABLE IF NOT EXISTS '" + ScanFileName + "'("
+            String CREATE_GODOWNX_SCAN_TABLE = "CREATE TABLE IF NOT EXISTS '" + ScanFileName + "'("
                     + "id integer primary key autoincrement,"
                     + "SerialNo text, "
                     + "ProductId text, "
                     + "LN text, "
                     + "PR text, "
-                    + "Qty text, "
-                    + "ScanTag text, "
+                    + "GroupNo text, "
                     + "CreateDate text, "
                     + "CreateUserId text )";
             db = DBHelper.getReadableDatabase();
-            db.execSQL(CREATE_GODOWN_SCAN_TABLE);
+            db.execSQL(CREATE_GODOWNX_SCAN_TABLE);
         }catch (Exception ex){
             return false;
         }

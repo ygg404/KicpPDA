@@ -2,6 +2,8 @@ package com.kinde.kicppda.Utils;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.Animation;
@@ -33,6 +35,17 @@ public class ProgersssDialog extends Dialog{
         //dialog添加视图
         setContentView(view);
         show();  //显示
+
+        this.setOnKeyListener(new OnKeyListener() {
+            @Override
+            public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
+                if(keyCode == KeyEvent.KEYCODE_BACK && event.getAction()==KeyEvent.ACTION_DOWN){
+                    //TODO:返回键按下时要执行的操作
+                    return true;
+                }
+                return false;
+            }
+        });
 //           dismiss(); //取消显示
     }
 

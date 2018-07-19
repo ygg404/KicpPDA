@@ -10,14 +10,16 @@
         android:id="@+id/iBarcode"
         android:textSize="20dp"
         android:gravity="center"
+        android:background="@drawable/contentview_border"
         />
     <!-- 产品名称 -->
     <TextView
-        android:layout_width="200dp"
+        android:layout_width="240dp"
         android:layout_height="wrap_content"
         android:id="@+id/iProduct"
         android:textSize="20dp"
         android:gravity="center"
+        android:background="@drawable/contentview_border"
         />
     <!-- 数量 -->
     <TextView
@@ -26,6 +28,7 @@
         android:id="@+id/iCount"
         android:textSize="20dp"
         android:gravity="center"
+        android:background="@drawable/contentview_border"
         />
 
 </LinearLayout>

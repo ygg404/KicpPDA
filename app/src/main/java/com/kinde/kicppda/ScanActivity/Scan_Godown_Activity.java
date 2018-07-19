@@ -598,9 +598,8 @@ public class Scan_Godown_Activity extends DecodeBaseActivity implements  View.On
                     mScanAccount++;
                     BarcodeManager.ScanResult decodeResult = (BarcodeManager.ScanResult) msg.obj;
 
-//                    barCode = decodeResult.result;
                     HandleBarcode(decodeResult.result);
-//                    new Thread(PostScanRun).start();
+
                     if (mBarcodeManager != null) {
                         mBarcodeManager.beepScanSuccess();
                     }
