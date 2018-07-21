@@ -17,6 +17,7 @@ import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.imscs.barcodemanager.BarcodeManager;
 import com.imscs.barcodemanager.BarcodeManager.OnEngineStatus;
@@ -46,7 +47,7 @@ import java.util.List;
 
 public class Scan_GodownX_Activity extends DecodeBaseActivity implements  View.OnClickListener,OnEngineStatus {
 
-    private Adialog aDialog;                //警告提示窗口
+    private Adialog mAdialog;                //警告提示窗口
     private Spinner cmb_plist;              //单据号选择项
     private EditText tbBillDate;            //单据日期
     private EditText tbProduct;             //关联产品
@@ -89,11 +90,11 @@ public class Scan_GodownX_Activity extends DecodeBaseActivity implements  View.O
 	private ScanBillingHelper mScanBill;     //扫码单据
     private List<String> godownXNumList;      //关联箱单据编号列表
 
-    //码的类型
-    private final int productType = 1;      //产品
-    private final int boxType = 2;          //箱
-    private int curProductCount = 0;        //当前组合已录入的个数
-    private int groupCount = 0;             //组合个数
+    private int CurProductCount = 0;//当前组添加产品个数
+    private int CurGroupXCount = 0;//当期添加的组个数
+    private int CurSerailNoAddType = 1; //1:产品，2:箱
+    private List<String> CurProductNoArr = new ArrayList<>();   //序号组合
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,7 +116,6 @@ public class Scan_GodownX_Activity extends DecodeBaseActivity implements  View.O
         });
         mScanTouchManager.setVisibility(View.INVISIBLE);
 
-
         mDelBill = new DeleteBillHelper(Scan_GodownX_Activity.this);
         mCreateBill = new ScanCreateHelper(Scan_GodownX_Activity.this);
         mQueryBill = new TableQueryHelper(Scan_GodownX_Activity.this);
@@ -135,7 +135,8 @@ public class Scan_GodownX_Activity extends DecodeBaseActivity implements  View.O
     }
 
     private void initView(){
-        aDialog = new Adialog(Scan_GodownX_Activity.this);
+        CurProductNoArr.clear();
+        mAdialog = new Adialog(Scan_GodownX_Activity.this);
         bLockMode = false;
         btnLock = (Button)findViewById(R.id.btn_Lock);
         btnUpload = (Button)findViewById(R.id.btn_Upload);
@@ -305,18 +306,18 @@ public class Scan_GodownX_Activity extends DecodeBaseActivity implements  View.O
         {
             if (cmb_plist.getSelectedItem() == null )
             {
-                aDialog.warnDialog( "请选择单号！" );
+                mAdialog.warnDialog( "请选择单号！" );
                 return;
             }
             if (tbBillDate.getText().toString().isEmpty())
             {
-                aDialog.warnDialog( "单据日期不能为空，请重新选择单据！" );
+                mAdialog.warnDialog( "单据日期不能为空，请重新选择单据！" );
                 return;
             }
 
             if (tbProduct.getText().toString().isEmpty())
             {
-                aDialog.warnDialog("请选择关联产品！");
+                mAdialog.warnDialog("请选择关联产品！");
                 return;
             }
 
@@ -324,13 +325,13 @@ public class Scan_GodownX_Activity extends DecodeBaseActivity implements  View.O
             if (billPreset == billCount)
             {
 //                D300SysUI.PlaySound(Public.SoundPath);
-                aDialog.warnDialog("单据扫描完成！");
+                mAdialog.warnDialog("单据扫描完成！");
                 return;
             }
             if (curCount == curPreSet)
             {
 //                D300SysUI.PlaySound(Public.SoundPath);
-                aDialog.warnDialog("当前产品扫描完成!");
+                mAdialog.warnDialog("当前产品扫描完成!");
                 return;
             }
 
@@ -366,35 +367,52 @@ public class Scan_GodownX_Activity extends DecodeBaseActivity implements  View.O
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
+
             switch (msg.what) {
+                //do something,refresh UI;
                 case 0:
-
-                    //登录加载dialog关闭
-                    mProgersssDialog.cancel();
-
+                    String barcode = tbBarcode.getText().toString().trim();
                     if( msg.obj.toString().equals("OK1")){
-                        curProductCount ++;
-                        lbCurGroup.setText( String.valueOf(curProductCount) + "/" + String.valueOf(groupCount));
-                    }
-                    else{
-                        aDialog.failDialog(msg.obj.toString());
-                    }
-                    //do something,refresh UI;
+                        //加载dialog关闭
+                        mProgersssDialog.cancel();
+                        curCount++;
+                        billCount++;
+                        lbCurCount.setText( String.valueOf(curCount) );
+                        lbBillCount.setText( String.valueOf(billCount) );
+                        CurProductCount ++;
+                        CurProductNoArr.add( barcode );
+                        lbCurGroup.setText( String.valueOf(CurProductCount) + "/" + String.valueOf(CurGroupXCount));
+                    }else if ( msg.obj.toString().equals("OK2") ) {
+                        //加载dialog关闭
+                        mProgersssDialog.cancel();
+                        Toast.makeText(Scan_GodownX_Activity.this,"请录入箱号！",Toast.LENGTH_SHORT ).show();
+                        curCount++;
+                        billCount++;
+                        lbCurCount.setText( String.valueOf(curCount) );
+                        lbBillCount.setText( String.valueOf(billCount) );
+                        CurProductCount++;
+                        CurSerailNoAddType = 2; //录入箱号
+                        CurProductNoArr.add( barcode );
+                        lbCurGroup.setText( String.valueOf(CurProductCount) + "/" + String.valueOf(CurGroupXCount));
+                    }else if( msg.obj.toString().equals("OK3")  ){
+                        new Thread(PostGroupXRun).start();
+                        mProgersssDialog.setMsg("保存组合中");
 
+                    }
+                    else {
+                        //加载dialog关闭
+                        mProgersssDialog.cancel();
+                        mAdialog.failDialog(msg.obj.toString());
+                    }
                     break;
                 case 1:
-                    lbCurCount.setText( String.valueOf(curCount) );
-                    lbBillCount.setText( String.valueOf(billCount) );
-                    if (billCount == billPreset)
-                    {
-                      //  D300SysUI.PlaySound(Public.SoundPath);
-                        aDialog.okDialog("本单已扫描完成!");
-                        break;
-                    }
-                    if (curCount == curPreSet)
-                    {
-                        aDialog.okDialog("当前产品扫描完成!");
-                    }
+                    mProgersssDialog.cancel();
+                    CurProductNoArr.clear();
+                    CurProductCount = 0;
+                   // CurGroupXCount += 1;
+                    CurSerailNoAddType = 1; //开始下一组
+                    mAdialog.okDialog(msg.obj.toString());
+                    lbCurGroup.setText( String.valueOf(CurProductCount) + "/" + String.valueOf(CurGroupXCount));
                     break;
                 default:
                     break;
@@ -403,14 +421,13 @@ public class Scan_GodownX_Activity extends DecodeBaseActivity implements  View.O
     };
 
     /**
-     * 获取单据线程
+     * 产品箱关联检查序号
      */
-    Runnable PostScanRun = new Runnable() {
+    Runnable CheckGroupXRun = new Runnable() {
         @Override
         public void run() {
             Message mess =  new Message();
             try {
-                //上传扫描明细
                 String barcode = tbBarcode.getText().toString().trim();
                 int staffId = Config.StaffId;
                 String appSecret = Config.AppSecret;
@@ -423,61 +440,90 @@ public class Scan_GodownX_Activity extends DecodeBaseActivity implements  View.O
                 query.put("ln", LN);
                 query.put("pr", PR);
                 query.put("serialNo", barcode );
-                if(curProductCount < groupCount) {
-                    query.put("curSerailNoAddType", String.valueOf(productType));
-                }else
-                {
-                    query.put("curSerailNoAddType", String.valueOf(boxType));
-                }
-                query.put("curProductCount", String.valueOf(curProductCount));
+                query.put("curSerailNoAddType", String.valueOf(CurSerailNoAddType));
+                query.put("curProductCount", String.valueOf(CurProductCount));
 
                 GroupXScanSaveResultMsg scanResult = ApiHelper.GetHttp(GroupXScanSaveResultMsg.class, Config.WebApiUrl + "CheckGroupXSerialNo?",
                             query, staffId, appSecret, true);
                // scanResult.setResult();
-
                 if(scanResult.StatusCode!=200){
                     throw new Exception( scanResult.Info );
                 }
 
-//                if (scanResult.Qty == 0)
-//                {
-//                  //  D300SysUI.PlaySound(Public.SoundPath);
-//                    throw new Exception("异常：入库数量为0！");
-//                }
+//                String[] insertData = new String[7];
+//                insertData[0] = barcode;
+//                insertData[1] = productId;
+//                insertData[2] = LN;
+//                insertData[3] = PR;
+//                insertData[4] = "";
+//                insertData[5] = mQueryBill.getKeyValue("CreateDate", EntryFileName, "ProductId", productId);
+//                insertData[6] = mQueryBill.getKeyValue("CreateUserId", EntryFileName, "ProductId", productId);
+//                mScanBill.GodownXScanSave(ScanFileName , insertData);
 
-                String[] insertData = new String[7];
-                insertData[0] = barcode;
-                insertData[1] = productId;
-                insertData[2] = LN;
-                insertData[3] = PR;
-                insertData[4] = "";
-                insertData[5] = mQueryBill.getKeyValue("CreateDate", EntryFileName, "ProductId", productId);
-                insertData[6] = mQueryBill.getKeyValue("CreateUserId", EntryFileName, "ProductId", productId);
-                mScanBill.GodownXScanSave(ScanFileName , insertData);
-//                curCount += scanResult.Qty;
-//                billCount += scanResult.Qty;
-                barcode_exit.add( barcode );//加到内存中
 
             }catch (Exception ex){
                 mess.obj = ex.getMessage();
                 eHandler.sendMessage(mess);
                 return;
             }
-            mess.what = 1;
-            eHandler.sendMessage(mess);
-            mProgersssDialog.cancel();
         }
     };
+
+
+    /**
+     * 产品箱关联添加组合关系
+     */
+    Runnable PostGroupXRun = new Runnable() {
+        @Override
+        public void run() {
+            Message mess = new Message();
+            try {
+                String serialNo = "";
+                for(String attr : CurProductNoArr){
+                    serialNo = serialNo + attr + ",";
+                }
+                String serialNoX = tbBarcode.getText().toString().trim();
+
+                int staffId = Config.StaffId;
+                String appSecret = Config.AppSecret;
+                HashMap<String, String> query = new HashMap<String, String>();
+                query.put("godownXId", billId);
+                query.put("productId", productId);
+                String LN = mQueryBill.getKeyValue("LN", EntryFileName, "ProductId", productId);
+                String PR = mQueryBill.getKeyValue("PR", EntryFileName, "ProductId", productId);
+                query.put("ln", LN);
+                query.put("pr", PR);
+                query.put("serialNo", serialNo );
+                query.put("serialNoX", serialNoX );
+
+                GroupXScanSaveResultMsg saveResult = ApiHelper.GetHttp(GroupXScanSaveResultMsg.class, Config.WebApiUrl + "PostGroupXSerialNo?",
+                        query, staffId, appSecret, true);
+                if(saveResult.StatusCode!=200){
+                    throw new Exception( saveResult.Info );
+                }
+
+            }catch (Exception ex){
+                mess.obj = ex.getMessage().toString();
+                eHandler.sendMessage(mess);
+                return;
+            }
+            mess.what =1;
+            mess.obj = "保存组合成功！";
+            eHandler.sendMessage(mess);
+
+        }
+    };
+
      //扫码处理
     public void HandleBarcode(String barCode)
     {
         if (bLockMode)
         {
             String barcode = barCode.trim().replace("*", "").replace("http://kd315.net?b=", "").replace("http://kd315.net/?b=", "")
-                    .replace("http://test.kd315.cn/mk/result?b=","").replace(" ", "").replace("Y", "").replace("X", "");
+                    .replace("http://test.kd315.cn/mk/result?b=","").replace(" ", "").replace("X","").replace("Y","");
             if (barcode.length() != 15)
             {
-                aDialog.failDialog("条码长度不正确！");
+                mAdialog.failDialog("条码长度不正确！");
                 return;
             }
             barcode = barcode.substring(0, 14);
@@ -485,7 +531,7 @@ public class Scan_GodownX_Activity extends DecodeBaseActivity implements  View.O
             //检查条码是否重复
             if (barcode_exit.contains(barcode))
             {
-                aDialog.warnDialog("条码" + barcode + "已扫描，请不要重复扫描。");
+                mAdialog.warnDialog("条码" + barcode + "已扫描，请不要重复扫描。");
                 return;
             }
 
@@ -493,7 +539,7 @@ public class Scan_GodownX_Activity extends DecodeBaseActivity implements  View.O
 
             mProgersssDialog = new ProgersssDialog(Scan_GodownX_Activity.this);
             mProgersssDialog.setMsg("扫码上传中");
-            new Thread(PostScanRun).start();
+            new Thread(CheckGroupXRun).start();
         }
         else
         {
@@ -517,9 +563,9 @@ public class Scan_GodownX_Activity extends DecodeBaseActivity implements  View.O
                         && mDelBill.DeleteFile( EntryFileName )
                         && mDelBill.DeleteFile( ScanFileName );
                 if(ok){
-                    aDialog.okDialog("删除单据成功！");
+                    mAdialog.okDialog("删除单据成功！");
                 }else{
-                    aDialog.failDialog("删除单据失败！");
+                    mAdialog.failDialog("删除单据失败！");
                 }
                 initView(); //重启
                 break;
@@ -545,8 +591,8 @@ public class Scan_GodownX_Activity extends DecodeBaseActivity implements  View.O
                 if(gEntity.ProductId.equals(productId)){
                     curPreSet = gEntity.Qty;
                     lbCurPreset.setText( String.valueOf( curPreSet ) ); //当前预设
-                    groupCount = gEntity.SinglePerBox;
-                    lbCurGroup.setText( String.valueOf(curCount) + "/" + String.valueOf(groupCount));
+                    CurGroupXCount = gEntity.SinglePerBox;
+                    lbCurGroup.setText( String.valueOf(CurProductCount) + "/" + String.valueOf(CurGroupXCount));
                     break;
                 }
             }

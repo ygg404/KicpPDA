@@ -140,6 +140,8 @@ public class ScanCreateHelper {
                     + "SerialNo text, "
                     + "ProductId text, "
                     + "Qty text, "
+                    + "LN text, "
+                    + "PR text, "
                     + "ScanTag text, "
                     + "CreateDate text, "
                     + "CreateUserId text )";

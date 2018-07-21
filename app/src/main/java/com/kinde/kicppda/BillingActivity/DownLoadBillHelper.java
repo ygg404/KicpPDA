@@ -23,6 +23,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 
+import static com.kinde.kicppda.Utils.ApiHelper.checkDateValid;
+
 /**
  * Created by Lenovo on 2018/6/29.
  */
@@ -358,27 +360,5 @@ public class DownLoadBillHelper {
         return "单据获取成功！";
     }
 
-    /**
-     * 日期格式 是否有效
-     * @param dateValue
-     * @return
-     */
-    private static Date checkDateValid(String dateValue) throws Exception{
-        StringBuffer sb = new StringBuffer();
-        if (dateValue == null || dateValue.isEmpty()) {
-            return null;
-        }
-        else {
-            try {
-                SimpleDateFormat fdate = new SimpleDateFormat("yyyy-MM-dd");
-                sb.append(dateValue.trim()).insert(4, "-");
-                sb.insert(7, "-");
-                // fdate.parse( sb.toString() );
-                return fdate.parse( sb.toString() );
-            } catch(Exception ex)
-            {
-                throw new Exception("日期格式必须是yyyyMMdd");
-            }
-        }
-    }
+
 }

@@ -4,16 +4,18 @@ import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.view.Gravity;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.PopupWindow;
 import android.widget.SimpleAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -26,7 +28,7 @@ import com.kinde.kicppda.R;
 import com.kinde.kicppda.Utils.Adialog;
 import com.kinde.kicppda.Utils.ApiHelper;
 import com.kinde.kicppda.Utils.Config;
-import com.kinde.kicppda.Utils.Models.ReturnScanSaveResultMsg;
+import com.kinde.kicppda.Utils.Models.CheckScanSaveResultMsg;
 import com.kinde.kicppda.Utils.ProgersssDialog;
 import com.kinde.kicppda.Utils.Public;
 import com.kinde.kicppda.Utils.SQLiteHelper.DeleteBillHelper;
@@ -35,9 +37,13 @@ import com.kinde.kicppda.Utils.SQLiteHelper.TableQueryHelper;
 import com.kinde.kicppda.decodeLib.DecodeBaseActivity;
 import com.kinde.kicppda.decodeLib.DecodeSampleApplication;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+
+import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 
 /**
  * Created by YGG on 2018/7/7.
@@ -55,12 +61,9 @@ public class Scan_Check_Activity extends DecodeBaseActivity implements  View.OnC
     private EditText tbBarcode;               //当前条码
     private String billNo   = "";           //单号
     private String billId   = "";           //单据id
-    private ListView mListView;             //产品选择列表
     private ImageView mGoback;              //返回键
-    private HorizontalScrollView mHorizontalScrollView;
+
     private ArrayAdapter<String> spinAdapter;       //单据号spinner的适配器
-    private SimpleAdapter digAdapter;
-    private List<HashMap<String, Object>> ProductInfo = new ArrayList<HashMap<String,Object>>();   //产品信息
     private Button btnLock;                 //锁定按钮
     private Button btnUpload;               //上传按钮
     private Button btnDelBill;              //删除按钮
@@ -87,6 +90,13 @@ public class Scan_Check_Activity extends DecodeBaseActivity implements  View.OnC
     private TableQueryHelper mQueryBill;     //查询单据
     private ScanBillingHelper mScanBill;     //扫码单据
     private List<String> checkNumList;         //盘点单据编号列表
+
+    private View layout;
+    private PopupWindow popupWindow;
+    private ListView mListView;
+    private SimpleAdapter digAdapter;
+    private List<HashMap<String, Object>> ProductInfo = new ArrayList<HashMap<String,Object>>();   //产品信息
+    private List<HashMap<String, Object>> ScanInfoList = new ArrayList<HashMap<String,Object>>();   //扫码表信息
 
 
     @Override
@@ -141,9 +151,7 @@ public class Scan_Check_Activity extends DecodeBaseActivity implements  View.OnC
         tbProduct = (EditText)findViewById(R.id.tbProduct);
         tbLN = (EditText)findViewById(R.id.tbLN);
         tbPR = (EditText)findViewById(R.id.tbPR);
-        mListView = (ListView)findViewById(R.id.in_list_view);
         mGoback = (ImageView)findViewById(R.id.go_back);
-        mHorizontalScrollView =(HorizontalScrollView)findViewById(R.id.HorizontalScrollView);
         tbBarcode = (EditText)findViewById(R.id.bar_code);
 //        lbCurPreset = (TextView)findViewById(R.id.lbCurPreset);
 //        lbBillPreset = (TextView)findViewById(R.id.lbBillPreset);
@@ -169,10 +177,13 @@ public class Scan_Check_Activity extends DecodeBaseActivity implements  View.OnC
                         billNo = cmb_plist.getSelectedItem().toString().trim();
                         SetFilePath(billNo);
                         mCreateBill.Check_Scan_Create( billNo );  //创建扫码表
+                        billId =  mQueryBill.getKeyValue("CheckId", MainFileName ,
+                                "CheckCode",billNo );
                         tbBillDate.setText(   mQueryBill.getKeyValue("CheckDate", MainFileName ,
                                 "CheckCode",billNo ) );
                         tbWarehouse.setText(  mQueryBill.getKeyValue("WarehouseName", MainFileName,
                                 "CheckCode",billNo )  );
+                        LoadBarcodes();
                     }
 
                     @Override
@@ -180,64 +191,86 @@ public class Scan_Check_Activity extends DecodeBaseActivity implements  View.OnC
                     }
                 });
 
-        mListView.bringToFront();
-        //创建SimpleAdapter适配器将数据绑定到item显示控件上
-        digAdapter = new SimpleAdapter(Scan_Check_Activity.this, ProductInfo, R.layout.item_inlist,
-                new String[]{"pcode", "pname", "pln","pr"}, new int[]{R.id.pcode, R.id.pname, R.id.pln,R.id.pr});
         EnterListShow(tbProduct);
-        //实现列表的显示
-        mListView.setAdapter(digAdapter);
-        //条目点击事件
-        mListView.setOnItemClickListener(new ItemClickListener());
-
-
-
+        tbProduct.requestFocus();
     }
 
-    //重写与ContextMenu相关方法
-//    @Override
-    //重写上下文菜单的创建方法
-//    public void onCreateContextMenu(ContextMenu menu, View v,
-//                                    ContextMenu.ContextMenuInfo menuInfo) {
-//        //子菜单部分：
-//        MenuInflater inflator = new MenuInflater(this);
-//        inflator.inflate(R.menu.menu_sub, menu);
-//        super.onCreateContextMenu(menu, v, menuInfo);
-//    }
+    //产品选项 PopupWindow 初始化
+    private void queryPopInit(View v){
+        LayoutInflater inflater=LayoutInflater.from(v.getContext());
+        //R.layout.scale_view 这个是里pop里放的XML文件
+        layout=inflater.inflate(R.layout.query_listview, null);
+        //findViewById(R.id.mainlayout)   这个是你的POP要放的View,后面是宽和高
+        popupWindow = new PopupWindow(findViewById(R.id.scan_check),MATCH_PARENT,MATCH_PARENT,true);
+        popupWindow.setTouchable(true);
+        layout.setFocusableInTouchMode(true);
+        //设置pop的内容
+        popupWindow.setContentView(layout);
+        //这个是显示位置
+        popupWindow.showAtLocation(v, Gravity.CENTER,0,0);
+
+        layout.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if(keyCode == KeyEvent.KEYCODE_BACK && event.getAction()==KeyEvent.ACTION_DOWN){
+                    popupWindow.dismiss();
+                    return true;
+                }
+                return false;
+            }
+        });
+
+        ProductInfo.clear();
+        mListView = (ListView)layout.findViewById(R.id.in_list_view);
+        //创建SimpleAdapter适配器将数据绑定到item显示控件上
+        digAdapter = new SimpleAdapter(Scan_Check_Activity.this, ProductInfo, R.layout.query_list_items,
+                new String[]{"qcode", "qname" }, new int[]{R.id.qcode, R.id.qname});
+
+        String keyValue = tbProduct.getText().toString();
+        List<String[]> InfoList = mQueryBill.getProductMessage( Public.B_INVENTORY_File , keyValue);
+        for( String[] billInfo : InfoList){
+            HashMap<String, Object> item = new HashMap<String, Object>();
+            item.put("qid", billInfo[0]);
+            item.put("qcode", billInfo[1]);
+            item.put("qname", billInfo[2]);
+            ProductInfo.add(item);
+        }
+
+        //实现列表的显示
+        digAdapter.notifyDataSetChanged();
+        mListView.setAdapter(digAdapter);
+
+        //列表点击选项
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                ListView listView = (ListView) parent;
+                HashMap<String, Object> productData = (HashMap<String, Object>) listView.getItemAtPosition(position);
+
+                productId = productData.get("qid").toString();
+                tbProduct.setText( productData.get("qname").toString() );
+                tbPR.setText("");
+                tbLN.setText("");
+                popupWindow.dismiss();
+                LoadBarcodes();
+            }
+        });
+    }
 
 
     private void ViewClear(){
         tbWarehouse.setText("");
         tbBillDate.setText("");
         tbProduct.setText("");
+        tbLN.setText("");
+        tbPR.setText("");
 //        lbCurPreset.setText("0");
 //        lbBillPreset.setText("0");
         lbCurCount.setText("0");
         lbBillCount.setText("0");
-        mHorizontalScrollView.setVisibility(View.INVISIBLE);
-    }
-
-    //加载明细信息
-    private void BillingLoad(String EntryFileName){
-      //  billPreset = 0;
-        billCount = 0;
-//        orderbillingList = mQueryBill.queryOrderBilling(EntryFileName);
-//        for( OrderBillingEntity entity : orderbillingList)
-//        {
-////            billPreset += entity.Qty;
-//            //本单数量
-//            billCount += entity.QtyFact;
-//        }
-//        curPreSet = 0;
-//        lbCurPreset.setText( String.valueOf(curPreSet) );
-//        lbBillPreset.setText( String.valueOf(billPreset) );
-
-        curCount = 0;
-        //  billCount = 0;
-        lbCurCount.setText( String.valueOf(curCount) );
-        lbBillCount.setText( String.valueOf(billCount) );
 
     }
+
     //解除锁定
     private void Unlock()
     {
@@ -334,6 +367,7 @@ public class Scan_Check_Activity extends DecodeBaseActivity implements  View.OnC
             {
                 curCount += Qty;
             }
+            billCount += Qty;
         }
 
         lbCurCount.setText( String.valueOf(curCount) );
@@ -372,28 +406,49 @@ public class Scan_Check_Activity extends DecodeBaseActivity implements  View.OnC
     };
 
     /**
-     * 获取单据线程
+     *盘点保存明细
      */
-    Runnable PostScanRun = new Runnable() {
+    Runnable PostCheckScanRun = new Runnable() {
         @Override
         public void run() {
             Message mess =  new Message();
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
             try {
                 //上传扫描明细
                 String barcode = tbBarcode.getText().toString().trim();
                 int staffId = Config.StaffId;
                 String appSecret = Config.AppSecret;
+                Date datePR = ApiHelper.checkDateValid(tbPR.getText().toString().trim());
+                String ln = tbLN.getText().toString().trim();
+                String pr = datePR==null?"":formatter.format(datePR);
                 HashMap<String, String> query = new HashMap<String, String>();
                 query.put("checkId", billId);
                 query.put("productId", productId);
                 query.put("serialNo", barcode );
-
-                ReturnScanSaveResultMsg scanResult = ApiHelper.GetHttp(ReturnScanSaveResultMsg.class, Config.WebApiUrl + "PostCheckSerialNo?",
+                query.put("ln" , ln );
+                query.put("pr" , pr );
+                CheckScanSaveResultMsg scanResult = ApiHelper.GetHttp(CheckScanSaveResultMsg.class, Config.WebApiUrl + "PostCheckSerialNo?",
                             query, staffId, appSecret, true);
                 scanResult.setResult();
 
-                if(scanResult.StatusCode!=200){
-                    throw new Exception( scanResult.Info );
+                if(scanResult.StatusCode!=200) {
+                    if (scanResult.Info.equals("different") ){
+                        scanResult = ApiHelper.GetHttp(CheckScanSaveResultMsg.class, Config.WebApiUrl + "PostCheckSerialNo2?",
+                                query, staffId, appSecret, true);
+                        scanResult.setResult();
+
+                        if(scanResult.StatusCode!=200){
+                            throw new Exception( scanResult.Info );
+                        }
+
+                        if (scanResult.Qty == 0)
+                        {
+                            //  D300SysUI.PlaySound(Public.SoundPath);
+                            throw new Exception("异常：入库数量为0！");
+                        }
+                    } else {
+                        throw new Exception(scanResult.Info);
+                    }
                 }
 
                 if (scanResult.Qty == 0)
@@ -402,13 +457,15 @@ public class Scan_Check_Activity extends DecodeBaseActivity implements  View.OnC
                     throw new Exception("异常：入库数量为0！");
                 }
 
-                String[] insertData = new String[5];
+                String[] insertData = new String[7];
                 insertData[0] = barcode;
                 insertData[1] = productId;
                 insertData[2] = String.valueOf( scanResult.Qty );
-                insertData[3] = mQueryBill.getKeyValue("CreateDate", EntryFileName, "ProductId", productId);
-                insertData[4] = mQueryBill.getKeyValue("CreateUserId", EntryFileName, "ProductId", productId);
-                mScanBill.OrderScanSave( ScanFileName , insertData);
+                insertData[3] = ln;
+                insertData[4] = pr;
+                insertData[5] = mQueryBill.getKeyValue("CreateDate", EntryFileName, "ProductId", productId);
+                insertData[6] = mQueryBill.getKeyValue("CreateUserId", EntryFileName, "ProductId", productId);
+                mScanBill.CheckScanSave( ScanFileName , insertData);
 
                 curCount += scanResult.Qty;
                 billCount += scanResult.Qty;
@@ -419,6 +476,7 @@ public class Scan_Check_Activity extends DecodeBaseActivity implements  View.OnC
                 eHandler.sendMessage(mess);
                 return;
             }
+
             mess.what = 1;
             eHandler.sendMessage(mess);
             mProgersssDialog.cancel();
@@ -449,7 +507,7 @@ public class Scan_Check_Activity extends DecodeBaseActivity implements  View.OnC
 
             mProgersssDialog = new ProgersssDialog(Scan_Check_Activity.this);
             mProgersssDialog.setMsg("扫码上传中");
-            new Thread(PostScanRun).start();
+            new Thread(PostCheckScanRun).start();
         }
         else
         {
@@ -484,30 +542,6 @@ public class Scan_Check_Activity extends DecodeBaseActivity implements  View.OnC
         }
     }
 
-    //获取点击事件
-    private final class ItemClickListener implements AdapterView.OnItemClickListener {
-
-        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            ListView listView = (ListView) parent;
-            HashMap<String, Object> productData = (HashMap<String, Object>) listView.getItemAtPosition(position);
-
-            productId = productData.get("pid").toString();
-            tbProduct.setText( productData.get("pname").toString() );
-
-//            for( OrderBillingEntity oEntity : orderbillingList)
-//            {
-//                if(oEntity.ProductId.equals(productId)){
-//                    curPreSet = oEntity.Qty;
-//                    lbCurPreset.setText( String.valueOf( curPreSet ) ); //当前预设
-//                    break;
-//                }
-//            }
-
-            mHorizontalScrollView.setVisibility(View.INVISIBLE);
-
-        }
-    }
-
     /**
      * 回车换行显示表格
      * @param et
@@ -518,25 +552,7 @@ public class Scan_Check_Activity extends DecodeBaseActivity implements  View.OnC
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 if (keyCode == KeyEvent.KEYCODE_ENTER && event.getAction()==KeyEvent.ACTION_DOWN) {
                     //TODO:回车键按下时要执行的操作
-                    ProductInfo.clear();
-                    String tableName = cmb_plist.getSelectedItem().toString() + Public.OrderBillingType;
-                    String keyValue = tbProduct.getText().toString();
-                    List<String[]> BillInfoList = mQueryBill.getProductMessage( tableName , keyValue);
-
-                    for( String[] billInfo : BillInfoList){
-                        HashMap<String, Object> item = new HashMap<String, Object>();
-                        item.put("pid", billInfo[0]);
-                        item.put("pcode", billInfo[1]);
-                        item.put("pname", billInfo[2]);
-                        ProductInfo.add(item);
-                    }
-                    digAdapter.notifyDataSetChanged();
-                    mHorizontalScrollView.setVisibility(View.VISIBLE);
-                    return true;
-                }
-                if(keyCode == KeyEvent.KEYCODE_BACK && event.getAction()==KeyEvent.ACTION_DOWN){
-                    //TODO:返回键按下时要执行的操作
-                    mHorizontalScrollView.setVisibility(View.INVISIBLE);
+                    queryPopInit(v);
                     return true;
                 }
                 return false;
@@ -551,7 +567,7 @@ public class Scan_Check_Activity extends DecodeBaseActivity implements  View.OnC
                 case Constants.DecoderReturnCode.RESULT_SCAN_SUCCESS:
                     mScanAccount++;
                     BarcodeManager.ScanResult decodeResult = (BarcodeManager.ScanResult) msg.obj;
-                    tbBarcode.setText(decodeResult.result);
+                    HandleBarcode(decodeResult.result);
 //                    billBarcode.setText(decodeResult.result);
                     if (mBarcodeManager != null) {
                         mBarcodeManager.beepScanSuccess();

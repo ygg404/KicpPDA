@@ -40,12 +40,12 @@ public class BaseTableCreateHelper {
     public void BaseProductCreate() throws Exception{
         try {
             //判断这张表是否存在，若存在，则跳过创建表操作
-            String CREATE_BaseAgent_TABLE = "CREATE TABLE IF NOT EXISTS '" + Public.B_INVENTORY_File + "'("
+            String CREATE_BaseProduct_TABLE = "CREATE TABLE IF NOT EXISTS '" + Public.B_INVENTORY_File + "'("
                     + "ProductId text primary key, "
                     + "EnCode text, "
-                    + "FullName text )";
+                    + "ProductName text )";
             db = DBHelper.getReadableDatabase();
-            db.execSQL(CREATE_BaseAgent_TABLE);
+            db.execSQL(CREATE_BaseProduct_TABLE);
         }catch (Exception ex){
             throw new Exception(ex.getMessage());
         }

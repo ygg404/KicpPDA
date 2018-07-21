@@ -15,6 +15,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.security.MessageDigest;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
@@ -86,6 +87,30 @@ public class ApiHelper {
             secpwd.append(Integer.toString(v, 16));
         }
         return secpwd.toString().toUpperCase();
+    }
+
+    /**
+     * 日期格式 是否有效
+     * @param dateValue
+     * @return
+     */
+    public static Date checkDateValid(String dateValue) throws Exception{
+        StringBuffer sb = new StringBuffer();
+        if (dateValue == null || dateValue.isEmpty()) {
+            return null;
+        }
+        else {
+            try {
+                SimpleDateFormat fdate = new SimpleDateFormat("yyyy-MM-dd");
+                sb.append(dateValue.trim()).insert(4, "-");
+                sb.insert(7, "-");
+                // fdate.parse( sb.toString() );
+                return fdate.parse( sb.toString() );
+            } catch(Exception ex)
+            {
+                throw new Exception("日期格式必须是yyyyMMdd");
+            }
+        }
     }
 
     /**

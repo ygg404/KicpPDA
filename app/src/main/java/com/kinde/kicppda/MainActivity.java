@@ -21,6 +21,7 @@ import android.widget.TextView;
 import com.kinde.kicppda.BaseDataActivity.DownBaseDataActivity;
 import com.kinde.kicppda.BillingActivity.GetBillActivity;
 import com.kinde.kicppda.QueryActivity.Query_Allot_Activity;
+import com.kinde.kicppda.QueryActivity.Query_Check_Activity;
 import com.kinde.kicppda.QueryActivity.Query_Godown_Activity;
 import com.kinde.kicppda.QueryActivity.Query_Order_Activity;
 import com.kinde.kicppda.QueryActivity.Query_Return_Activity;
@@ -348,7 +349,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
                         queryIntent = new Intent(MainActivity.this , Query_Allot_Activity.class);
                         break;
                     case CheckType:
-                        queryIntent = new Intent(MainActivity.this , Query_Allot_Activity.class);
+                        queryIntent = new Intent(MainActivity.this , Query_Check_Activity.class);
                         break;
                     case GxType:
                         queryIntent = new Intent(MainActivity.this , Query_Allot_Activity.class);

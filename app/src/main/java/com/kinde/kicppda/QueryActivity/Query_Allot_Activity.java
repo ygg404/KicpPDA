@@ -207,8 +207,8 @@ public class Query_Allot_Activity extends DecodeBaseActivity implements View.OnC
         ProductInfo.clear();
         mListView = (ListView)layout.findViewById(R.id.in_list_view);
         //创建SimpleAdapter适配器将数据绑定到item显示控件上
-        digAdapter = new SimpleAdapter(Query_Allot_Activity.this, ProductInfo, R.layout.query_list_item,
-                new String[]{"qcode", "qname", "qln","qpr"}, new int[]{R.id.qcode, R.id.qname, R.id.qln,R.id.qpr});
+        digAdapter = new SimpleAdapter(Query_Allot_Activity.this, ProductInfo, R.layout.query_list_items,
+                new String[]{"qcode", "qname"}, new int[]{R.id.qcode, R.id.qname});
 
         String keyValue = tbProduct.getText().toString();
         List<String[]> BillInfoList = mQueryBill.getProductMessage( EntryFileName , keyValue);

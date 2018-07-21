@@ -25,12 +25,13 @@ import com.imscs.barcodemanager.BarcodeManager;
 import com.imscs.barcodemanager.BarcodeManager.OnEngineStatus;
 import com.imscs.barcodemanager.Constants;
 import com.imscs.barcodemanager.ScanTouchManager;
-import com.kinde.kicppda.Models.ReturnBillingEntity;
+import com.kinde.kicppda.Models.GodownBillingEntity;
 import com.kinde.kicppda.R;
+import com.kinde.kicppda.ScanActivity.ScanBillingHelper;
 import com.kinde.kicppda.Utils.Adialog;
 import com.kinde.kicppda.Utils.ApiHelper;
 import com.kinde.kicppda.Utils.Config;
-import com.kinde.kicppda.Utils.Models.ReturnScanDeleteResultMsg;
+import com.kinde.kicppda.Utils.Models.GodownScanDeleteResultMsg;
 import com.kinde.kicppda.Utils.ProgersssDialog;
 import com.kinde.kicppda.Utils.Public;
 import com.kinde.kicppda.Utils.SQLiteHelper.DeleteBillHelper;
@@ -46,15 +47,15 @@ import java.util.List;
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 
 /**
- * Created by YGG on 2018/7/16.
+ * Created by Lenovo on 2018/7/21.
  */
 
-public class Query_Return_Activity extends DecodeBaseActivity implements View.OnClickListener,OnEngineStatus{
+public class Query_Check_Activity extends DecodeBaseActivity implements View.OnClickListener,OnEngineStatus {
 
-    private String billNo   = "";           //单号
-    private String billId   = "";           //单据id
+    private String billNo = "";           //单号
+    private String billId = "";           //单据id
     private String productId = "";          //产品id
-    private List<ReturnBillingEntity> returnbillingList = new ArrayList<>();//退货单据明细
+    private List<GodownBillingEntity> godownbillingList = new ArrayList<>();//入库单据明细
     private String MainFileName = "";//主单文件
     private String EntryFileName = "";//明细文件
     private String ScanFileName = "";//扫描文件
@@ -68,31 +69,33 @@ public class Query_Return_Activity extends DecodeBaseActivity implements View.On
     private Button btnQuery;    //查询按钮
     private Button btnDel;      //删除按钮
     private Button btnQuit;     //退出按钮
-    private TextView l_bottleCount; //数量
+
     private ProgersssDialog mProgersssDialog;
-    private ArrayAdapter<String> spinAdapter;  //单据号spinner的适配器
+    private ArrayAdapter<String> spinAdapter;       //单据号spinner的适配器
     private DeleteBillHelper mDelBill;      //删除单据
     private ScanCreateHelper mCreateBill;   //创建单据
     private TableQueryHelper mQueryBill;     //查询单据
-
-    private List<String> returnNumList;      //退货单据编号列表
+    private ScanBillingHelper mScanBill;     //扫码单据
+    private List<String> checkNumList;      //单据编号列表
 
     private View layout;
     private PopupWindow popupWindow;
     private ListView mListView;
     private SimpleAdapter digAdapter;
     private SimpleAdapter barAdapter;
-    private List<HashMap<String, Object>> ProductInfo = new ArrayList<HashMap<String,Object>>();   //产品信息
-    private List<HashMap<String, Object>> ScanInfoList = new ArrayList<HashMap<String,Object>>();   //扫码表信息
+    private List<HashMap<String, Object>> ProductInfo = new ArrayList<HashMap<String, Object>>();   //产品信息
+    private List<HashMap<String, Object>> ScanInfoList = new ArrayList<HashMap<String, Object>>();   //扫码表信息
+    private TextView l_bottleCount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.query_return);
+        setContentView(R.layout.query_check);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         windowManagerParams = ((DecodeSampleApplication) getApplication()).getWindowParams();
+
         //initialize ScanTouch and set clicklistener
         mScanTouchManager = new ScanTouchManager(getApplicationContext(), windowManagerParams);
         mScanTouchManager.setOnClickListener(new View.OnClickListener() {
@@ -108,23 +111,23 @@ public class Query_Return_Activity extends DecodeBaseActivity implements View.On
         bindView();
     }
 
-    private void bindView()
-    {
+    private void bindView() {
         bLockMode = true;
-		mAdialog = new Adialog(this);
-        mDelBill = new DeleteBillHelper(Query_Return_Activity.this);
-        mCreateBill = new ScanCreateHelper(Query_Return_Activity.this);
-        mQueryBill = new TableQueryHelper(Query_Return_Activity.this);
+        mAdialog = new Adialog(this);
+        mDelBill = new DeleteBillHelper(Query_Check_Activity.this);
+        mCreateBill = new ScanCreateHelper(Query_Check_Activity.this);
+        mQueryBill = new TableQueryHelper(Query_Check_Activity.this);
+        mScanBill = new ScanBillingHelper(Query_Check_Activity.this);
 
-        cmb_plist = (Spinner)findViewById(R.id.num_spinner);
-        tbWarehouse = (EditText)findViewById(R.id.tbWarehouse);
-        tbProduct = (EditText)findViewById(R.id.tbProduct);
-        dataGrid = (ListView)findViewById(R.id.query_view);
-        tbBarcode = (EditText)findViewById(R.id.tbBarcode);
-        btnQuery = (Button)findViewById(R.id.btn_query);
-        btnQuit = (Button)findViewById(R.id.btn_quit);
-        btnDel  = (Button)findViewById(R.id.btn_delete);
-        l_bottleCount = (TextView)findViewById(R.id.l_bottleCount);
+        cmb_plist = (Spinner) findViewById(R.id.num_spinner);
+        tbWarehouse = (EditText) findViewById(R.id.tbWarehouse);
+        tbProduct = (EditText) findViewById(R.id.tbProduct);
+        dataGrid = (ListView) findViewById(R.id.query_view);
+        tbBarcode = (EditText) findViewById(R.id.tbBarcode);
+        btnQuery = (Button) findViewById(R.id.btn_query);
+        btnQuit = (Button) findViewById(R.id.btn_quit);
+        btnDel = (Button) findViewById(R.id.btn_delete);
+        l_bottleCount = (TextView) findViewById(R.id.l_bottleCount);
         btnQuery.setOnClickListener(this);
         btnQuit.setOnClickListener(this);
         btnDel.setOnClickListener(this);
@@ -132,8 +135,8 @@ public class Query_Return_Activity extends DecodeBaseActivity implements View.On
         tbProduct.requestFocus();
 
         //初始化单据选项列表
-        returnNumList = mQueryBill.getBillNum(Public.RETURN_MAIN_TABLE , "ReturnCode");
-        spinAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item, returnNumList);
+        checkNumList = mQueryBill.getBillNum(Public.CHECK_MAIN_TABLE, "CheckCode");
+        spinAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, checkNumList);
         spinAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         cmb_plist.setAdapter(spinAdapter);
         cmb_plist.setOnItemSelectedListener(
@@ -142,8 +145,8 @@ public class Query_Return_Activity extends DecodeBaseActivity implements View.On
                     public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
                         billNo = cmb_plist.getSelectedItem().toString().trim();
                         SetFilePath(billNo);
-                        billId = mQueryBill.getKeyValue("ReturnId" , MainFileName , "ReturnCode",billNo);
-                        tbWarehouse.setText( mQueryBill.getKeyValue("WarehouseName", MainFileName ,"ReturnCode",billNo) );
+                        billId = mQueryBill.getKeyValue("CheckId", MainFileName, "CheckCode", billNo);
+                        tbWarehouse.setText(mQueryBill.getKeyValue("WarehouseName", MainFileName, "CheckCode", billNo));
                         tbProduct.setText("");
                         tbBarcode.setText("");
                     }
@@ -156,7 +159,7 @@ public class Query_Return_Activity extends DecodeBaseActivity implements View.On
         tbProduct.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
-                if(keyCode == KeyEvent.KEYCODE_ENTER && event.getAction()==KeyEvent.ACTION_DOWN) {
+                if (keyCode == KeyEvent.KEYCODE_ENTER && event.getAction() == KeyEvent.ACTION_DOWN) {
                     //TODO:返回键按下时要执行的操作
                     queryPopInit(v);
                     return true;
@@ -168,30 +171,30 @@ public class Query_Return_Activity extends DecodeBaseActivity implements View.On
 
         //初始化条码扫码列表
         //创建SimpleAdapter适配器将数据绑定到item显示控件上
-        barAdapter = new SimpleAdapter(Query_Return_Activity.this, ScanInfoList, R.layout.query_codegrid_item,
+        barAdapter = new SimpleAdapter(Query_Check_Activity.this, ScanInfoList, R.layout.query_codegrid_item,
                 new String[]{"iBarcode", "iProduct", "iCount"}, new int[]{R.id.iBarcode, R.id.iProduct, R.id.iCount});
         dataGrid = (ListView) findViewById(R.id.query_view);
 
     }
 
     //产品选项 PopupWindow 初始化
-    private void queryPopInit(View v){
-        LayoutInflater inflater=LayoutInflater.from(v.getContext());
+    private void queryPopInit(View v) {
+        LayoutInflater inflater = LayoutInflater.from(v.getContext());
         //R.layout.scale_view 这个是里pop里放的XML文件
-        layout=inflater.inflate(R.layout.query_listview, null);
+        layout = inflater.inflate(R.layout.query_listview, null);
         //findViewById(R.id.mainlayout)   这个是你的POP要放的View,后面是宽和高
-        popupWindow = new PopupWindow(findViewById(R.id.query_return),MATCH_PARENT,MATCH_PARENT,true);
+        popupWindow = new PopupWindow(findViewById(R.id.query_check), MATCH_PARENT, MATCH_PARENT, true);
         popupWindow.setTouchable(true);
         layout.setFocusableInTouchMode(true);
         //设置pop的内容
         popupWindow.setContentView(layout);
         //这个是显示位置
-        popupWindow.showAtLocation(v, Gravity.CENTER,0,0);
+        popupWindow.showAtLocation(v, Gravity.CENTER, 0, 0);
 
         layout.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
-                if(keyCode == KeyEvent.KEYCODE_BACK && event.getAction()==KeyEvent.ACTION_DOWN){
+                if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
                     popupWindow.dismiss();
                     return true;
                 }
@@ -200,18 +203,19 @@ public class Query_Return_Activity extends DecodeBaseActivity implements View.On
         });
 
         ProductInfo.clear();
-        mListView = (ListView)layout.findViewById(R.id.in_list_view);
+        mListView = (ListView) layout.findViewById(R.id.in_list_view);
         //创建SimpleAdapter适配器将数据绑定到item显示控件上
-        digAdapter = new SimpleAdapter(Query_Return_Activity.this, ProductInfo, R.layout.query_list_items,
-                new String[]{"qcode", "qname" }, new int[]{R.id.qcode, R.id.qname });
+        digAdapter = new SimpleAdapter(Query_Check_Activity.this, ProductInfo, R.layout.query_list_items,
+                new String[]{"qcode", "qname"}, new int[]{R.id.qcode, R.id.qname});
 
         String keyValue = tbProduct.getText().toString();
-        List<String[]> BillInfoList = mQueryBill.getProductMessage( EntryFileName , keyValue);
-        for( String[] billInfo : BillInfoList){
+        List<String[]> BillInfoList = mQueryBill.getProductMessage(Public.B_INVENTORY_File, keyValue);
+        for (String[] billInfo : BillInfoList) {
             HashMap<String, Object> item = new HashMap<String, Object>();
             item.put("qid", billInfo[0]);
             item.put("qcode", billInfo[1]);
             item.put("qname", billInfo[2]);
+
             ProductInfo.add(item);
         }
 
@@ -219,7 +223,7 @@ public class Query_Return_Activity extends DecodeBaseActivity implements View.On
         digAdapter.notifyDataSetChanged();
         mListView.setAdapter(digAdapter);
 
-        //列表点击选项
+        //产品列表点击选项
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -227,7 +231,7 @@ public class Query_Return_Activity extends DecodeBaseActivity implements View.On
                 HashMap<String, Object> productData = (HashMap<String, Object>) listView.getItemAtPosition(position);
 
                 productId = productData.get("qid").toString();
-                tbProduct.setText( productData.get("qname").toString() );
+                tbProduct.setText(productData.get("qname").toString());
                 popupWindow.dismiss();
 
                 //清空扫码列表
@@ -241,31 +245,30 @@ public class Query_Return_Activity extends DecodeBaseActivity implements View.On
 
 
     //设置单据保存表
-    private void SetFilePath(String billNo)
-    {
-        MainFileName = Public.RETURN_MAIN_TABLE;
-        EntryFileName =  billNo  + Public.ReturnBillingType;
-        ScanFileName = billNo + Public.ReturnScanType;
+    private void SetFilePath(String billNo) {
+        MainFileName = Public.CHECK_MAIN_TABLE;
+
+        ScanFileName = billNo + Public.CheckScanType;
     }
 
     //加载扫码列表
-    public void loadBarcodeList(){
+    public void loadBarcodeList() {
         ScanInfoList.clear();
-        List<String[]>scanInfoList = mQueryBill.ScanQuery( ScanFileName);
-        for( String[] scanInfo : scanInfoList){
+        List<String[]> scanInfoList = mQueryBill.ScanQuery(ScanFileName);
+        for (String[] scanInfo : scanInfoList) {
             //加载扫码表 所选的产品id一致
-            if(productId.equals(scanInfo[1]) ) {
+            if (productId.equals(scanInfo[1])) {
                 HashMap<String, Object> item = new HashMap<String, Object>();
                 item.put("iBarcode", scanInfo[0]);                      //条形码
-                item.put("iProduct", mQueryBill.getKeyValue("ProductName", EntryFileName, "ProductId", scanInfo[1])); //产品名
+                item.put("iProduct", mQueryBill.getKeyValue("ProductName", Public.B_INVENTORY_File, "ProductId", scanInfo[1])); //产品名
                 item.put("iCount", scanInfo[2]);  //数量
                 ScanInfoList.add(item);
             }
         }
 
         int count = 0;
-        for(HashMap<String,Object> attr:ScanInfoList){
-            count +=  Integer.parseInt(attr.get("iCount").toString());
+        for (HashMap<String, Object> attr : ScanInfoList) {
+            count += Integer.parseInt(attr.get("iCount").toString());
         }
         l_bottleCount.setText(String.valueOf(count));
 
@@ -283,7 +286,7 @@ public class Query_Return_Activity extends DecodeBaseActivity implements View.On
         });
     }
 
-    Handler eHandler = new Handler(){
+    Handler eHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
@@ -310,21 +313,21 @@ public class Query_Return_Activity extends DecodeBaseActivity implements View.On
     Runnable PostDeleteRun = new Runnable() {
         @Override
         public void run() {
-            Message mess =  new Message();
+            Message mess = new Message();
             List<HashMap<String, Object>> scanInfoCopy = new ArrayList<>();
-            for(HashMap<String ,Object> scanAttr :ScanInfoList){
+            for (HashMap<String, Object> scanAttr : ScanInfoList) {
                 scanInfoCopy.add(scanAttr);
             }
-            for( HashMap<String ,Object> scanAttr :scanInfoCopy) {
+            for (HashMap<String, Object> scanAttr : scanInfoCopy) {
                 try {
                     int staffId = Config.StaffId;
                     String appSecret = Config.AppSecret;
-					String barcode = scanAttr.get("iBarcode").toString();
+                    String barcode = scanAttr.get("iBarcode").toString();
                     HashMap<String, String> query = new HashMap<String, String>();
-                    query.put("returnId", billId);
+                    query.put("checkId", billId);
                     query.put("serialno", barcode);
 
-                    ReturnScanDeleteResultMsg delResult = ApiHelper.GetHttp(ReturnScanDeleteResultMsg.class, Config.WebApiUrl + "ReturnScanDelete?",
+                    GodownScanDeleteResultMsg delResult = ApiHelper.GetHttp(GodownScanDeleteResultMsg.class, Config.WebApiUrl + "CheckScanDelete?",
                             query, staffId, appSecret, true);
                     delResult.setResult();
 
@@ -333,8 +336,8 @@ public class Query_Return_Activity extends DecodeBaseActivity implements View.On
                         continue;
                     }
                     ScanInfoList.remove(scanAttr);
-					//删除扫码表中的记录
-                    mDelBill.DeleteTheData(ScanFileName, "SerialNo" , barcode);		
+                    //删除扫码表中的记录
+                    mDelBill.DeleteTheData(ScanFileName, "SerialNo", barcode);
                 } catch (Exception ex) {
                     mess.obj = ex.getMessage();
                     eHandler.sendMessage(mess);
@@ -349,29 +352,28 @@ public class Query_Return_Activity extends DecodeBaseActivity implements View.On
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             //查询按钮事件
             case R.id.btn_query:
                 loadBarcodeList();
                 int count = Integer.parseInt(l_bottleCount.getText().toString());
-                if( count <= 0 ){
+                if (count <= 0) {
                     mAdialog.warnDialog("查询数量为0");
                 }
                 break;
             //删除按钮事件
             case R.id.btn_delete:
-                if (ScanInfoList.size() <1)
-                {
+                if (ScanInfoList.size() < 1) {
                     mAdialog.warnDialog("没有可删除的数据，请查询出你要删除的数据！");
                     break;
                 }
 
-                AlertDialog.Builder builder = new AlertDialog.Builder(Query_Return_Activity.this);
+                AlertDialog.Builder builder = new AlertDialog.Builder(Query_Check_Activity.this);
                 AlertDialog alert = builder.setIcon(R.mipmap.success)
                         .setTitle("系统提示：")
                         .setMessage("确定删除查询出来的相关数据吗?")
                         .setCancelable(false)
-                        .setNegativeButton("取消",new DialogInterface.OnClickListener() {
+                        .setNegativeButton("取消", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 return;
@@ -380,12 +382,13 @@ public class Query_Return_Activity extends DecodeBaseActivity implements View.On
                         .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                mProgersssDialog = new ProgersssDialog(Query_Return_Activity.this);
+                                mProgersssDialog = new ProgersssDialog(Query_Check_Activity.this);
                                 mProgersssDialog.setMsg("删除中");
                                 new Thread(PostDeleteRun).start();
                             }
                         }).create();             //创建AlertDialog对象
                 alert.show();                  //显示对话框
+
                 break;
             //退出按钮事件
             case R.id.btn_quit:
@@ -441,14 +444,14 @@ public class Query_Return_Activity extends DecodeBaseActivity implements View.On
     }
 
     @Override
-    public int scanResult(boolean suc,BarcodeManager.ScanResult result) {
+    public int scanResult(boolean suc, BarcodeManager.ScanResult result) {
         // TODO Auto-generated method stub
         Message m = new Message();
         m.obj = result;
-        if (suc){
+        if (suc) {
             // docode successfully
             m.what = Constants.DecoderReturnCode.RESULT_SCAN_SUCCESS;
-        }else{
+        } else {
             m.what = Constants.DecoderReturnCode.RESULT_SCAN_FAIL;
 
         }
@@ -460,11 +463,12 @@ public class Query_Return_Activity extends DecodeBaseActivity implements View.On
     protected void onResume() {
         super.onResume();
 
-        if ( mBarcodeManager == null) {
+        if (mBarcodeManager == null) {
             // initialize decodemanager
-            mBarcodeManager = new BarcodeManager(this ,this);
+            mBarcodeManager = new BarcodeManager(this, this);
+
         }
+
         mScanTouchManager.createScanTouch();
     }
 }
-

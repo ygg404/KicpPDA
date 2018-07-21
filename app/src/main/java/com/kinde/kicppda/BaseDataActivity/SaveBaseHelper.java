@@ -61,7 +61,7 @@ public class SaveBaseHelper {
                 db.execSQL("DELETE FROM "+ Public.B_INVENTORY_File  +" WHERE ProductId = '" + attr.ProductId+"'");
                 //保存主单之前删除相同单据号的主单据
                 db.execSQL("insert into "+ Public.B_INVENTORY_File+
-                        "(ProductId ,EnCode,FullName) " +"values('"+
+                        "(ProductId ,EnCode,ProductName) " +"values('"+
                         attr.ProductId+"','"+ attr.EnCode+"','"+ attr.FullName+"')"
                 );
             }
