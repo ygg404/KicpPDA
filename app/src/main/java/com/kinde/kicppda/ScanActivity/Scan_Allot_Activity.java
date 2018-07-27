@@ -194,18 +194,6 @@ public class Scan_Allot_Activity extends DecodeBaseActivity implements  View.OnC
 
     }
 
-    //重写与ContextMenu相关方法
-//    @Override
-    //重写上下文菜单的创建方法
-//    public void onCreateContextMenu(ContextMenu menu, View v,
-//                                    ContextMenu.ContextMenuInfo menuInfo) {
-//        //子菜单部分：
-//        MenuInflater inflator = new MenuInflater(this);
-//        inflator.inflate(R.menu.menu_sub, menu);
-//        super.onCreateContextMenu(menu, v, menuInfo);
-//    }
-
-
     private void ViewClear(){
         tbWarehouseIn.setText("");
         tbWarehouseOut.setText("");

@@ -24,6 +24,10 @@ import com.kinde.kicppda.Utils.SQLiteHelper.BaseTableCreateHelper;
  * Created by YGG on 2018/7/14.
  */
 
+
+/**
+ * 基础库
+ */
 public class DownBaseDataActivity extends Activity implements View.OnClickListener {
 
     private final int BASE_ALL = 0;

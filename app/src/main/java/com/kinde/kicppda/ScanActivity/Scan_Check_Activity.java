@@ -463,8 +463,8 @@ public class Scan_Check_Activity extends DecodeBaseActivity implements  View.OnC
                 insertData[2] = String.valueOf( scanResult.Qty );
                 insertData[3] = ln;
                 insertData[4] = pr;
-                insertData[5] = mQueryBill.getKeyValue("CreateDate", EntryFileName, "ProductId", productId);
-                insertData[6] = mQueryBill.getKeyValue("CreateUserId", EntryFileName, "ProductId", productId);
+                insertData[5] = mQueryBill.getKeyValue("CreateDate", MainFileName, "CheckId", billId);
+                insertData[6] = mQueryBill.getKeyValue("CreateUserId", MainFileName, "CheckId", billId);
                 mScanBill.CheckScanSave( ScanFileName , insertData);
 
                 curCount += scanResult.Qty;

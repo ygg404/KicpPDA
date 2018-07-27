@@ -254,7 +254,7 @@ public class Query_Godown_Activity extends DecodeBaseActivity implements View.On
         ScanFileName = billNo + Public.GodownScanType;
     }
 
-    //加载扫码列表
+    //查询按钮加载扫码列表
     public void loadBarcodeList(){
         ScanInfoList.clear();
         List<String[]>scanInfoList = mQueryBill.ScanQuery( ScanFileName);
@@ -287,6 +287,49 @@ public class Query_Godown_Activity extends DecodeBaseActivity implements View.On
 
             }
         });
+    }
+
+    //扫描方式加载扫码列表
+    public void ScanLoadBarcodeList(String barResult) {
+        String barcode = barResult.trim().replace("*", "").replace("http://kd315.net?b=", "").replace("http://kd315.net/?b=", "")
+                .replace("http://test.kd315.cn/mk/result?b=","").replace(" ", "").replace("Y", "").replace("X", "");
+        if (barcode.length() != 15)
+        {
+            mAdialog.warnDialog("条码长度不正确！");
+            return;
+        }
+        if (tbProduct.getText().toString().isEmpty())
+        {
+            mAdialog.warnDialog( "产品不能为空，请重新选择产品！" );
+            return;
+        }
+        barcode = barcode.substring(0, 14);
+        tbBarcode.setText(barcode);
+
+        ScanInfoList.clear();
+        List<String[]>scanInfoList = mQueryBill.ScanQuery( ScanFileName);
+        for( String[] scanInfo : scanInfoList){
+            //加载扫码表 所选的产品id一致
+            if(barcode.equals(scanInfo[0]) ) {
+                HashMap<String, Object> item = new HashMap<String, Object>();
+                item.put("iBarcode", scanInfo[0]);                      //条形码
+                item.put("iProduct", mQueryBill.getKeyValue("ProductName", EntryFileName, "ProductId", scanInfo[1])); //产品名
+                item.put("iCount", scanInfo[2]);  //数量
+                ScanInfoList.add(item);
+            }
+        }
+
+        int count = 0;
+        for(HashMap<String,Object> attr:ScanInfoList){
+            count +=  Integer.parseInt(attr.get("iCount").toString());
+        }
+        l_bottleCount.setText(String.valueOf(count));
+
+        mAdialog.warnDialog("查询数量:"+ String.valueOf(count));
+
+        //实现列表的显示
+        barAdapter.notifyDataSetChanged();
+        dataGrid.setAdapter(barAdapter);
     }
 
     Handler eHandler = new Handler(){
@@ -409,8 +452,8 @@ public class Query_Godown_Activity extends DecodeBaseActivity implements View.On
                 case Constants.DecoderReturnCode.RESULT_SCAN_SUCCESS:
                     mScanAccount++;
                     BarcodeManager.ScanResult decodeResult = (BarcodeManager.ScanResult) msg.obj;
-                    tbBarcode.setText(decodeResult.result);
-//                    billBarcode.setText(decodeResult.result);
+                  //  tbBarcode.setText(decodeResult.result);
+                    ScanLoadBarcodeList(decodeResult.result);
                     if (mBarcodeManager != null) {
                         mBarcodeManager.beepScanSuccess();
                     }

@@ -1,7 +1,7 @@
 package com.kinde.kicppda.Utils;
 
 /**
- * Created by Lenovo on 2018/7/2.
+ * Created by YGG on 2018/7/2.
  */
 
 import android.app.AlertDialog;

@@ -1,6 +1,8 @@
 package com.kinde.kicppda;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.os.Handler;
@@ -36,6 +38,7 @@ public class LoginActivity extends AppCompatActivity {
     private Button button_login;
     private ProgersssDialog mProgersssDialog;
     private Adialog mAdialog;
+    private Context mContext;
 
     Handler eHandler = new Handler(){
         @Override
@@ -62,10 +65,13 @@ public class LoginActivity extends AppCompatActivity {
         public void run() {
 
             // TODO Auto-generated method stub
+            String username = id_login.getText().toString().trim();
+            String pwd      = password_login.getText().toString().trim();
+
             Message message = new Message();
             HashMap<String,String> query = new HashMap<String, String>();
-            query.put("account",id_login.getText().toString());
-            query.put("password",password_login.getText().toString());
+            query.put("account",username);
+            query.put("password",pwd);
             try{
                 //登录
                 HttpResponseMsg msgc = ApiHelper.GetHttp(HttpResponseMsg.class, Config.WebApiUrl + "PdaLogin?", query, Config.StaffId ,"" ,false);
@@ -91,6 +97,8 @@ public class LoginActivity extends AppCompatActivity {
                 return;
             }
 
+            //保存用户和密码
+            saveUserInfo(mContext , username ,pwd);
 
             //登录加载dialog关闭
             mProgersssDialog.cancel();
@@ -123,6 +131,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void bindViews() {
+        mContext = this.getApplication();
         mAdialog = new Adialog(LoginActivity.this);
         LimitsEditEnter(id_login);
         LimitsEditEnter(password_login);
@@ -137,6 +146,13 @@ public class LoginActivity extends AppCompatActivity {
 
             }
         });
+
+        //显示用户此前录入的数据
+        SharedPreferences sPreferences=getSharedPreferences("config", MODE_PRIVATE);
+        String username=sPreferences.getString("username", "");
+        String password =sPreferences.getString("password", "");
+        id_login.setText(username);
+        password_login.setText(password);
     }
 
     /**
@@ -154,5 +170,26 @@ public class LoginActivity extends AppCompatActivity {
                 return false;
             }
         });
+    }
+
+    /**
+     * 保存用户名 密码的业务方法
+     * @param context 上下文
+     * @param username 用户名
+     * @param pas 密码
+     * @return true 保存成功  false 保存失败
+     */
+    public void saveUserInfo(Context context, String username, String pas){
+        /**
+         * SharedPreferences将用户的数据存储到该包下的shared_prefs/config.xml文件中，
+         * 并且设置该文件的读取方式为私有，即只有该软件自身可以访问该文件
+         */
+        SharedPreferences sPreferences=context.getSharedPreferences("config", context.MODE_PRIVATE);
+        SharedPreferences.Editor editor=sPreferences.edit();
+        //当然sharepreference会对一些特殊的字符进行转义，使得读取的时候更加准确
+        editor.putString("username", username);
+        editor.putString("password", pas);
+        //切记最后要使用commit方法将数据写入文件
+        editor.commit();
     }
 }
