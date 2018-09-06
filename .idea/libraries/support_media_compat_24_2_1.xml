@@ -1,13 +1,13 @@
 <component name="libraryTable">
   <library name="support-media-compat-24.2.1">
     <CLASSES>
-      <root url="file://$USER_HOME$/.android/build-cache/af80b80f82b2b0d39e6fd0af1c37a6b2c0eb590f/output/res" />
-      <root url="jar://$USER_HOME$/.android/build-cache/af80b80f82b2b0d39e6fd0af1c37a6b2c0eb590f/output/jars/libs/internal_impl-24.2.1.jar!/" />
-      <root url="jar://$USER_HOME$/.android/build-cache/af80b80f82b2b0d39e6fd0af1c37a6b2c0eb590f/output/jars/classes.jar!/" />
+      <root url="jar://$USER_HOME$/.android/build-cache/15e206e0d0a07541ac33972904ea3590bcc5a816/output/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.android/build-cache/15e206e0d0a07541ac33972904ea3590bcc5a816/output/res" />
+      <root url="jar://$USER_HOME$/.android/build-cache/15e206e0d0a07541ac33972904ea3590bcc5a816/output/jars/libs/internal_impl-24.2.1.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>
-      <root url="jar://D:/Android/sdk/extras/android/m2repository/com/android/support/support-media-compat/24.2.1/support-media-compat-24.2.1-sources.jar!/" />
+      <root url="jar://E:/Java/adt-bundle-windows-x86_64-20140702/adt-bundle-windows-x86_64-20140702/sdk/extras/android/m2repository/com/android/support/support-media-compat/24.2.1/support-media-compat-24.2.1-sources.jar!/" />
     </SOURCES>
   </library>
 </component>

@@ -1,6 +1,7 @@
 package com.kinde.kicppda.BaseDataActivity;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.os.Handler;
@@ -10,6 +11,12 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import com.kinde.kicppda.MDAO.AgentEntityDAO;
+import com.kinde.kicppda.MDAO.ProductEntityDAO;
+import com.kinde.kicppda.MDAO.WarehouseEntityDAO;
+import com.kinde.kicppda.Models.AgentEntity;
+import com.kinde.kicppda.Models.ProductEntity;
+import com.kinde.kicppda.Models.WarehouseEntity;
 import com.kinde.kicppda.R;
 import com.kinde.kicppda.Utils.Adialog;
 import com.kinde.kicppda.Utils.ApiHelper;
@@ -18,7 +25,6 @@ import com.kinde.kicppda.Utils.Models.AgentListResultMsg;
 import com.kinde.kicppda.Utils.Models.ProductResultMsg;
 import com.kinde.kicppda.Utils.Models.WarehouseListResultMsg;
 import com.kinde.kicppda.Utils.ProgersssDialog;
-import com.kinde.kicppda.Utils.SQLiteHelper.BaseTableCreateHelper;
 
 /**
  * Created by YGG on 2018/7/14.
@@ -43,8 +49,7 @@ public class DownBaseDataActivity extends Activity implements View.OnClickListen
 
     private Adialog mAdialog;
     private ProgersssDialog mProgersssDialog;
-    private BaseTableCreateHelper mBaseCreateHelper;   //基础库创建
-    private SaveBaseHelper mSaveHelper;
+    private Context mContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,8 +63,7 @@ public class DownBaseDataActivity extends Activity implements View.OnClickListen
 
     private void bindView(){
         mAdialog = new Adialog(this);
-        mBaseCreateHelper = new BaseTableCreateHelper(this);
-        mSaveHelper = new SaveBaseHelper(this);
+        mContext = this.getApplicationContext();
 
         downAllBtn = (Button)findViewById(R.id.downAllBtn);
         downAgentBtn = (Button)findViewById(R.id.downAgentBtn);
@@ -215,9 +219,10 @@ public class DownBaseDataActivity extends Activity implements View.OnClickListen
             AgentListResultMsg AgentList = ApiHelper.GetHttp(AgentListResultMsg.class,
                     Config.WebApiUrl + "GetAgentList?", null, Config.StaffId , Config.AppSecret ,true);
             AgentList.setResult();
-            //创建客户表
-            mBaseCreateHelper.BaseAgentCreate();
-            mSaveHelper.SaveCustomerDataFile(AgentList.Result);
+            //插入客户表 数据
+            for(AgentEntity entity : AgentList.Result){
+                new AgentEntityDAO(mContext).insert(entity);
+            }
 
         }catch (Exception ex){
             throw new Exception(ex.getMessage());
@@ -229,9 +234,10 @@ public class DownBaseDataActivity extends Activity implements View.OnClickListen
             ProductResultMsg  ProductResult = ApiHelper.GetHttp(ProductResultMsg.class,
                     Config.WebApiUrl + "GetProductList?", null, Config.StaffId , Config.AppSecret ,true);
             ProductResult.setResult();
-            //创建产品表
-            mBaseCreateHelper.BaseProductCreate();
-            mSaveHelper.SaveProductDataFile(ProductResult.Result);
+            //插入产品表 数据
+            for(ProductEntity entity : ProductResult.Result){
+                new ProductEntityDAO(mContext).insert(entity);
+            }
         }catch (Exception ex){
             throw new Exception( ex.getMessage());
         }
@@ -242,9 +248,10 @@ public class DownBaseDataActivity extends Activity implements View.OnClickListen
             WarehouseListResultMsg WarehouseList = ApiHelper.GetHttp(WarehouseListResultMsg.class,
                     Config.WebApiUrl + "GetWarehouseList?", null, Config.StaffId , Config.AppSecret ,true);
             WarehouseList.setResult();
-            //创建仓库表
-            mBaseCreateHelper.BaseWarehouseCreate();
-            mSaveHelper.SaveStockDataFile(WarehouseList.Result);
+            //插入仓库表 数据
+            for(WarehouseEntity entity : WarehouseList.Result){
+                new WarehouseEntityDAO(mContext).insert(entity);
+            }
         }catch (Exception ex){
             throw new Exception( ex.getMessage());
         }

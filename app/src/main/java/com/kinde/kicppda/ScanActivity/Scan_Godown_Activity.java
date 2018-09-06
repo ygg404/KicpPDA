@@ -1,5 +1,6 @@
 package com.kinde.kicppda.ScanActivity;
 
+import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.os.Handler;
@@ -22,23 +23,26 @@ import com.imscs.barcodemanager.BarcodeManager;
 import com.imscs.barcodemanager.BarcodeManager.OnEngineStatus;
 import com.imscs.barcodemanager.Constants;
 import com.imscs.barcodemanager.ScanTouchManager;
+import com.j256.ormlite.dao.ForeignCollection;
+import com.kinde.kicppda.MDAO.GodownBillingEntityDAO;
+import com.kinde.kicppda.MDAO.GodownEntityDAO;
+import com.kinde.kicppda.MDAO.GodownScanDAO;
 import com.kinde.kicppda.Models.GodownBillingEntity;
+import com.kinde.kicppda.Models.GodownEntity;
+import com.kinde.kicppda.Models.GodownScanEntity;
 import com.kinde.kicppda.R;
 import com.kinde.kicppda.Utils.Adialog;
 import com.kinde.kicppda.Utils.ApiHelper;
 import com.kinde.kicppda.Utils.Config;
 import com.kinde.kicppda.Utils.Models.GodownScanSaveResultMsg;
 import com.kinde.kicppda.Utils.ProgersssDialog;
-import com.kinde.kicppda.Utils.Public;
-import com.kinde.kicppda.Utils.SQLiteHelper.DeleteBillHelper;
-import com.kinde.kicppda.Utils.SQLiteHelper.ScanCreateHelper;
-import com.kinde.kicppda.Utils.SQLiteHelper.TableQueryHelper;
 import com.kinde.kicppda.decodeLib.DecodeBaseActivity;
 import com.kinde.kicppda.decodeLib.DecodeSampleApplication;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -68,8 +72,9 @@ public class Scan_Godown_Activity extends DecodeBaseActivity implements  View.On
     private Button btnDelBill;              //删除按钮
     private String productId = "";      //入库产品ID
     private List<GodownBillingEntity> godownbillingList = new ArrayList<GodownBillingEntity>();//入库单据明细
+    private GodownEntity godownEntity;    //选定的主单
+    private GodownBillingEntity billingEntity;  //选定的明细
     private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-    private String barCode = "";         //扫码获取到的数据
     private ProgersssDialog mProgersssDialog;
 
     private int curPreSet = 0;          //当前预设
@@ -82,15 +87,8 @@ public class Scan_Godown_Activity extends DecodeBaseActivity implements  View.On
     private TextView lbCurCount;
     private TextView lbBillCount;
 
-    private String MainFileName = "";//主单表
-    private String EntryFileName = "";//明细表
-    private String ScanFileName = "";//扫描表
-
-    private DeleteBillHelper mDelBill;      //删除单据
-    private ScanCreateHelper mCreateBill;   //创建单据
-    private TableQueryHelper mQueryBill;     //查询单据
-    private ScanBillingHelper mScanBill;     //扫码单据
     private List<String> godownNumList;         //入库单据编号列表
+    private Context mContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -112,25 +110,14 @@ public class Scan_Godown_Activity extends DecodeBaseActivity implements  View.On
         });
         mScanTouchManager.setVisibility(View.INVISIBLE);
 
-        mDelBill = new DeleteBillHelper(Scan_Godown_Activity.this);
-        mCreateBill = new ScanCreateHelper(Scan_Godown_Activity.this);
-        mQueryBill = new TableQueryHelper(Scan_Godown_Activity.this);
-        mScanBill  =  new ScanBillingHelper(Scan_Godown_Activity.this);
         initView();
 
         mDoDecodeThread = new DoDecodeThread();
         mDoDecodeThread.start();
     }
 
-    //设置单据保存文件
-    private void SetFilePath(String billNo)
-    {
-        MainFileName  = Public.GODOWN_MAIN_TABLE;
-        EntryFileName = billNo  + Public.GodownBillingType;
-        ScanFileName  =  billNo +  Public.GodownScanType;
-    }
-
     private void initView(){
+        mContext = this.getApplicationContext();
         aDialog = new Adialog(Scan_Godown_Activity.this);
 
         bLockMode = false;
@@ -139,15 +126,15 @@ public class Scan_Godown_Activity extends DecodeBaseActivity implements  View.On
         btnDelBill = (Button)findViewById(R.id.btn_DelBill);
 
         cmb_plist = (Spinner)findViewById(R.id.num_spinner);
-        tbBillDate = (EditText)findViewById(R.id.bill_date);
-        tbWarehouse = (EditText)findViewById(R.id.in_warehouse);
-        tbProduct = (EditText)findViewById(R.id.in_product);
-        tbPR = (EditText)findViewById(R.id.in_pr);
-        tbLN = (EditText)findViewById(R.id.in_ln);
+        tbBillDate = (EditText)findViewById(R.id.tbBillDate);
+        tbWarehouse = (EditText)findViewById(R.id.tbWarehouse);
+        tbProduct = (EditText)findViewById(R.id.tbProduct);
+        tbPR = (EditText)findViewById(R.id.tbPR);
+        tbLN = (EditText)findViewById(R.id.tbLN);
         mListView = (ListView)findViewById(R.id.in_list_view);
         mGoback = (ImageView)findViewById(R.id.go_back);
         mHorizontalScrollView =(HorizontalScrollView)findViewById(R.id.HorizontalScrollView);
-        tbBarcode = (EditText)findViewById(R.id.bar_code);
+        tbBarcode = (EditText)findViewById(R.id.tbBarcode);
         lbCurPreset = (TextView)findViewById(R.id.lbCurPreset);
         lbBillPreset = (TextView)findViewById(R.id.lbBillPreset);
         lbCurCount = (TextView)findViewById(R.id.lbCurCount);
@@ -159,8 +146,8 @@ public class Scan_Godown_Activity extends DecodeBaseActivity implements  View.On
         btnUpload.setOnClickListener(this);
         ViewClear();
 
-        //初始化单据选项列表
-        godownNumList = mQueryBill.getBillNum(Public.GODOWN_MAIN_TABLE , "GodownCode");
+        //初始化单据选项列表(单据号)
+        godownNumList = new GodownEntityDAO(mContext).GetGodownCodeList();
         spinAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item, godownNumList);
         spinAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         cmb_plist.setAdapter(spinAdapter);
@@ -170,12 +157,7 @@ public class Scan_Godown_Activity extends DecodeBaseActivity implements  View.On
                     public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
                         ViewClear();
                         billNo = cmb_plist.getSelectedItem().toString().trim();
-                        SetFilePath(billNo);
-                        BillingLoad( EntryFileName );
-                        mCreateBill.Godown_Scan_Create( billNo );  //创建扫码表
-                        billId = mQueryBill.getKeyValue("GodownId" , MainFileName , "GodownCode",billNo);
-                        tbBillDate.setText( mQueryBill.getKeyValue("GodownDate", MainFileName ,"GodownCode",billNo) );
-                        tbWarehouse.setText( mQueryBill.getKeyValue("WarehouseName", MainFileName ,"GodownCode",billNo) );
+                        BillingLoad();
                     }
 
                     @Override
@@ -219,18 +201,6 @@ public class Scan_Godown_Activity extends DecodeBaseActivity implements  View.On
         });
     }
 
-    //重写与ContextMenu相关方法
-//    @Override
-    //重写上下文菜单的创建方法
-//    public void onCreateContextMenu(ContextMenu menu, View v,
-//                                    ContextMenu.ContextMenuInfo menuInfo) {
-//        //子菜单部分：
-//        MenuInflater inflator = new MenuInflater(this);
-//        inflator.inflate(R.menu.menu_sub, menu);
-//        super.onCreateContextMenu(menu, v, menuInfo);
-//    }
-
-
     private void ViewClear(){
         tbWarehouse.setText("");
         tbBillDate.setText("");
@@ -245,16 +215,27 @@ public class Scan_Godown_Activity extends DecodeBaseActivity implements  View.On
     }
 
     //加载明细信息
-    private void BillingLoad(String EntryFileName){
+    private void BillingLoad(){
         billPreset = 0;
         billCount = 0;
-        godownbillingList = mQueryBill.queryGodownBilling(EntryFileName);
-        for( GodownBillingEntity entity : godownbillingList)
-        {
+
+        //获取主单信息
+        godownEntity = new GodownEntityDAO(mContext).queryForBillNo(billNo);
+        billId = godownEntity.GodownId;
+        tbBillDate.setText( godownEntity.GodownDate == null?"":formatter.format(godownEntity.GodownDate) );
+        tbWarehouse.setText( godownEntity.WarehouseName );
+        // 从主单信息中取出关联的明细列表信息
+        godownbillingList.clear();
+        ForeignCollection<GodownBillingEntity> gBills = godownEntity.bNotes;
+        Iterator<GodownBillingEntity> iterator = gBills.iterator();
+        while (iterator.hasNext()) {
+            GodownBillingEntity entity = iterator.next();
+            godownbillingList.add(entity);
+
+            //本单预设
             billPreset += entity.Qty;
-            //本单数量
-            billCount += entity.QtyFact;
         }
+
         curPreSet = 0;
         lbCurPreset.setText( String.valueOf(curPreSet) );
         lbBillPreset.setText( String.valueOf(billPreset) );
@@ -361,16 +342,27 @@ public class Scan_Godown_Activity extends DecodeBaseActivity implements  View.On
         curCount = 0;
         billCount = 0;
         int Qty = 0;
-        String curProductId;
-        List<String[]>scanInfoList = mQueryBill.ScanQuery( ScanFileName);
-        for(String[] scanInfo : scanInfoList){
-            barcode_exit.add(scanInfo[0]);
-            curProductId = scanInfo[1];
-            Qty = Integer.parseInt(scanInfo[2]);
-            if (curProductId.equals(productId) )
-            {
-                curCount += Qty;
+
+        // 从主单信息中取出关联的明细列表信息
+        ForeignCollection<GodownBillingEntity> billEntities = godownEntity.bNotes;
+        Iterator<GodownBillingEntity> billIterator = billEntities.iterator();
+        while (billIterator.hasNext()) {
+            GodownBillingEntity billEntity = billIterator.next();
+            // 从明细信息中取出关联的扫码列表信息
+            ForeignCollection<GodownScanEntity> scanEntities = billEntity.sNotes;
+            Iterator<GodownScanEntity> scanIterator = scanEntities.iterator();
+            while (scanIterator.hasNext()) {
+                GodownScanEntity scanEntity = scanIterator.next();
+                //本单扫描数量
+                billCount += scanEntity.Qty;
+                barcode_exit.add(scanEntity.SerialNo);
+                //当前扫描数量
+                if(billingEntity.GodownBillingId.equals(billEntity.GodownBillingId))
+                {
+                    curCount += scanEntity.Qty;
+                }
             }
+
         }
 
         lbCurCount.setText( String.valueOf(curCount) );
@@ -424,10 +416,9 @@ public class Scan_Godown_Activity extends DecodeBaseActivity implements  View.On
                 query.put("godownId", billId);
                 query.put("productId", productId);
 
-                String LN = mQueryBill.getKeyValue("LN", EntryFileName, "ProductId", productId);
-                String PR = mQueryBill.getKeyValue("PR", EntryFileName, "ProductId", productId);
+                String LN = tbLN.getText().toString();
                 query.put("ln", LN);
-                query.put("pr", PR);
+                query.put("pr", billingEntity.PR==null?"":formatter.format(billingEntity.PR));
                 query.put("serialNo", barcode );
 
                 GodownScanSaveResultMsg scanResult = ApiHelper.GetHttp(GodownScanSaveResultMsg.class, Config.WebApiUrl + "PostGodownSerialNo?",
@@ -444,15 +435,16 @@ public class Scan_Godown_Activity extends DecodeBaseActivity implements  View.On
                     throw new Exception("异常：入库数量为0！");
                 }
 
-                String[] insertData = new String[7];
-                insertData[0] = barcode;
-                insertData[1] = productId;
-                insertData[2] = LN;
-                insertData[3] = PR;
-                insertData[4] = String.valueOf( scanResult.Qty );
-                insertData[5] = mQueryBill.getKeyValue("CreateDate", EntryFileName, "ProductId", productId);
-                insertData[6] = mQueryBill.getKeyValue("CreateUserId", EntryFileName, "ProductId", productId);
-                mScanBill.GodownScanSave(ScanFileName , insertData);
+                GodownScanEntity scanData = new GodownScanEntity();
+                scanData.SerialNo = barcode;
+                scanData.ProductId = productId;
+                scanData.LN = LN;
+                scanData.PR = billingEntity.PR;
+                scanData.Qty = scanResult.Qty;
+                scanData.CreateUserId = godownEntity.CreateUserId;
+                //扫码单 与 明细的 对应关系
+                scanData.billEntityId = billingEntity;
+                new GodownScanDAO(mContext).insert(scanData);
 
                 curCount += scanResult.Qty;
                 billCount += scanResult.Qty;
@@ -512,14 +504,33 @@ public class Scan_Godown_Activity extends DecodeBaseActivity implements  View.On
                 break;
             //删除单据
             case R.id.btn_DelBill:
-               
-                boolean ok = mDelBill.DeleteTheData( MainFileName , "GodownCode" , billNo )
-                        && mDelBill.DeleteFile( EntryFileName )
-                        && mDelBill.DeleteFile( ScanFileName );
-                if(ok){
-                    aDialog.okDialog("删除单据成功！");
-                }else{
-                    aDialog.failDialog("删除单据失败！");
+                boolean ok = true;
+                try {
+                    // 从主单信息中取出关联的明细列表信息
+                    ForeignCollection<GodownBillingEntity> billEntities = godownEntity.bNotes;
+                    Iterator<GodownBillingEntity> billIterator = billEntities.iterator();
+                    while (billIterator.hasNext()) {
+                        GodownBillingEntity billEntity = billIterator.next();
+                        // 从明细信息中取出关联的扫码列表信息
+                        ForeignCollection<GodownScanEntity> scanEntities = billEntity.sNotes;
+                        Iterator<GodownScanEntity> scanIterator = scanEntities.iterator();
+                        while (scanIterator.hasNext()) {
+                            GodownScanEntity scanEntity = scanIterator.next();
+                            new GodownScanDAO(mContext).delete(scanEntity);
+                        }
+                        new GodownBillingEntityDAO(mContext).delete(billEntity);
+                    }
+                    new GodownEntityDAO(mContext).delete(godownEntity);
+                }
+                catch (Exception ex){
+                    ok =false;
+                }
+                finally {
+                    if(ok){
+                        aDialog.okDialog("删除单据成功！");
+                    }else{
+                        aDialog.failDialog("删除单据失败！");
+                    }
                 }
                 initView(); //重启
                 break;
@@ -543,6 +554,8 @@ public class Scan_Godown_Activity extends DecodeBaseActivity implements  View.On
             for( GodownBillingEntity gEntity : godownbillingList)
             {
                 if(gEntity.ProductId.equals(productId)){
+                    billingEntity = gEntity;               //选定的明细记录
+
                     curPreSet = gEntity.Qty;
                     lbCurPreset.setText( String.valueOf( curPreSet ) ); //当前预设
                     break;
@@ -566,16 +579,18 @@ public class Scan_Godown_Activity extends DecodeBaseActivity implements  View.On
                     //TODO:回车键按下时要执行的操作
                     ProductInfo.clear();
                     String keyValue = tbProduct.getText().toString();
-                    List<String[]> BillInfoList = mQueryBill.getProductInfo( EntryFileName , keyValue);
+                    List<GodownBillingEntity> billList = new GodownBillingEntityDAO(mContext).queryByEq("GodownId", billId );
 
-                    for( String[] billInfo : BillInfoList){
-                        HashMap<String, Object> item = new HashMap<String, Object>();
-                        item.put("pid", billInfo[0]);
-                        item.put("pcode", billInfo[1]);
-                        item.put("pname", billInfo[2]);
-                        item.put("pln", billInfo[3]);
-                        item.put("pr", billInfo[4]);
-                        ProductInfo.add(item);
+                    for( GodownBillingEntity entity : billList){
+                        if(entity.EnCode.contains(keyValue)) {
+                            HashMap<String, Object> item = new HashMap<String, Object>();
+                            item.put("pid", entity.ProductId);
+                            item.put("pcode", entity.EnCode);
+                            item.put("pname", entity.ProductName);
+                            item.put("pln", entity.LN);
+                            item.put("pr", entity.PR == null ? "" : formatter.format(entity.PR));
+                            ProductInfo.add(item);
+                        }
                     }
                     digAdapter.notifyDataSetChanged();
                     mHorizontalScrollView.setVisibility(View.VISIBLE);

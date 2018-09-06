@@ -1,5 +1,6 @@
 package com.kinde.kicppda.ScanActivity;
 
+import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.os.Handler;
@@ -22,22 +23,25 @@ import com.imscs.barcodemanager.BarcodeManager;
 import com.imscs.barcodemanager.BarcodeManager.OnEngineStatus;
 import com.imscs.barcodemanager.Constants;
 import com.imscs.barcodemanager.ScanTouchManager;
+import com.j256.ormlite.dao.ForeignCollection;
+import com.kinde.kicppda.MDAO.AllotBillingEntityDAO;
+import com.kinde.kicppda.MDAO.AllotEntityDAO;
+import com.kinde.kicppda.MDAO.AllotScanDAO;
 import com.kinde.kicppda.Models.AllotBillingEntity;
+import com.kinde.kicppda.Models.AllotEntity;
+import com.kinde.kicppda.Models.AllotScanEntity;
 import com.kinde.kicppda.R;
 import com.kinde.kicppda.Utils.Adialog;
 import com.kinde.kicppda.Utils.ApiHelper;
 import com.kinde.kicppda.Utils.Config;
 import com.kinde.kicppda.Utils.Models.AllotScanSaveResultMsg;
 import com.kinde.kicppda.Utils.ProgersssDialog;
-import com.kinde.kicppda.Utils.Public;
-import com.kinde.kicppda.Utils.SQLiteHelper.DeleteBillHelper;
-import com.kinde.kicppda.Utils.SQLiteHelper.ScanCreateHelper;
-import com.kinde.kicppda.Utils.SQLiteHelper.TableQueryHelper;
 import com.kinde.kicppda.decodeLib.DecodeBaseActivity;
 import com.kinde.kicppda.decodeLib.DecodeSampleApplication;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -66,6 +70,8 @@ public class Scan_Allot_Activity extends DecodeBaseActivity implements  View.OnC
     private Button btnDelBill;              //删除按钮
     private String productId = "";      //调拨产品ID
     private List<AllotBillingEntity> allotbillingList = new ArrayList<AllotBillingEntity>();//出库单据明细
+	private AllotEntity allotEntity;    //选定的主单
+    private AllotBillingEntity billingEntity;  //选定的明细
 	private ProgersssDialog mProgersssDialog;
 
     private int curPreSet = 0;          //当前预设
@@ -78,16 +84,9 @@ public class Scan_Allot_Activity extends DecodeBaseActivity implements  View.OnC
     private TextView lbCurCount;
     private TextView lbBillCount;
 
-    private String MainFileName = "";//主单表
-    private String EntryFileName = "";//明细表
-    private String ScanFileName = "";//扫描表
 
-    private DeleteBillHelper mDelBill;      //删除单据
-    private ScanCreateHelper mCreateBill;   //创建单据
-    private TableQueryHelper mQueryBill;     //查询单据
-	private ScanBillingHelper mScanBill;     //扫码单据
     private List<String> allotNumList;         //调拨单据编号列表
-
+	private Context mContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,25 +108,14 @@ public class Scan_Allot_Activity extends DecodeBaseActivity implements  View.OnC
         });
         mScanTouchManager.setVisibility(View.INVISIBLE);
 
-        mDelBill = new DeleteBillHelper(Scan_Allot_Activity.this);
-        mCreateBill = new ScanCreateHelper(Scan_Allot_Activity.this);
-        mQueryBill = new TableQueryHelper(Scan_Allot_Activity.this);
-		mScanBill  =  new ScanBillingHelper(Scan_Allot_Activity.this);
         initView();
 
         mDoDecodeThread = new DoDecodeThread();
         mDoDecodeThread.start();
     }
 
-    //设置单据保存文件
-    private void SetFilePath(String billNo)
-    {
-        MainFileName  = Public.ALLOT_MAIN_TABLE;
-        EntryFileName = billNo  + Public.AllotBillingType;
-        ScanFileName  =  billNo +  Public.AllotScanType;
-    }
-
     private void initView(){
+		mContext = this.getApplicationContext();
         aDialog = new Adialog(Scan_Allot_Activity.this);
 
         bLockMode = false;
@@ -155,8 +143,8 @@ public class Scan_Allot_Activity extends DecodeBaseActivity implements  View.OnC
         btnUpload.setOnClickListener(this);
         ViewClear();
 
-        //初始化单据选项列表
-        allotNumList = mQueryBill.getBillNum(Public.ALLOT_MAIN_TABLE , "AllotCode");
+        //初始化单据选项列表(单据号)
+        allotNumList = new AllotEntityDAO(mContext).GetAllotCodeList();
         spinAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item, allotNumList);
         spinAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         cmb_plist.setAdapter(spinAdapter);
@@ -166,13 +154,7 @@ public class Scan_Allot_Activity extends DecodeBaseActivity implements  View.OnC
                     public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
                         ViewClear();
                         billNo = cmb_plist.getSelectedItem().toString().trim();
-						SetFilePath(billNo);
-						BillingLoad( EntryFileName );
-                        mCreateBill.Allot_Scan_Create( billNo );  //创建扫码表
-						billId = mQueryBill.getKeyValue("AllotId" , MainFileName , "AllotCode",billNo);
-                        tbBillDate.setText(   mQueryBill.getKeyValue("AllotDate", MainFileName ,"AllotCode",billNo ) );
-                        tbWarehouseIn.setText(  mQueryBill.getKeyValue("WarehouseNameIn", MainFileName ,"AllotCode",billNo )  );
-                        tbWarehouseOut.setText(  mQueryBill.getKeyValue("WarehouseNameOut", MainFileName ,"AllotCode",billNo) );
+                        BillingLoad();
                     }
 
                     @Override
@@ -180,6 +162,7 @@ public class Scan_Allot_Activity extends DecodeBaseActivity implements  View.OnC
                     }
                 });
 
+		tbProduct.requestFocus();
         mListView.bringToFront();
         //创建SimpleAdapter适配器将数据绑定到item显示控件上
         digAdapter = new SimpleAdapter(Scan_Allot_Activity.this, ProductInfo, R.layout.item_inlist,
@@ -207,15 +190,26 @@ public class Scan_Allot_Activity extends DecodeBaseActivity implements  View.OnC
     }
 
     //加载明细信息
-    private void BillingLoad(String EntryFileName){
+    private void BillingLoad(){
         billPreset = 0;
         billCount = 0;
-        allotbillingList = mQueryBill.queryAllotBilling(EntryFileName);
-        for( AllotBillingEntity entity : allotbillingList)
-        {
+
+        //获取主单信息
+        allotEntity = new AllotEntityDAO(mContext).queryForBillNo(billNo);
+        billId = allotEntity.AllotId;
+        tbBillDate.setText( allotEntity.AllotDate == null?"":formatter.format(allotEntity.AllotDate) );
+        tbWarehouseIn.setText( allotEntity.WarehouseNameIn );
+        tbWarehouseOut.setText( allotEntity.WarehouseNameOut );
+        // 从主单信息中取出关联的明细列表信息
+        allotbillingList.clear();
+        ForeignCollection<AllotBillingEntity> aBills = allotEntity.bNotes;
+        Iterator<AllotBillingEntity> iterator = aBills.iterator();
+        while (iterator.hasNext()) {
+            AllotBillingEntity entity = iterator.next();
+            allotbillingList.add(entity);
+
+            //本单预设
             billPreset += entity.Qty;
-            //本单数量
-            billCount += entity.QtyFact;
         }
         curPreSet = 0;
         lbCurPreset.setText( String.valueOf(curPreSet) );
@@ -321,15 +315,25 @@ public class Scan_Allot_Activity extends DecodeBaseActivity implements  View.OnC
         curCount = 0;
         billCount = 0;
         int Qty = 0;
-        String curProductId;
-        List<String[]>scanInfoList = mQueryBill.ScanQuery( ScanFileName);
-        for(String[] scanInfo : scanInfoList){
-            barcode_exit.add(scanInfo[0]);
-            curProductId = scanInfo[1];
-            Qty = Integer.parseInt(scanInfo[2]);
-            if ( curProductId.equals( productId ) )
-            {
-                curCount += Qty;
+
+        // 从主单信息中取出关联的明细列表信息
+        ForeignCollection<AllotBillingEntity> billEntities = allotEntity.bNotes;
+        Iterator<AllotBillingEntity> billIterator = billEntities.iterator();
+        while (billIterator.hasNext()) {
+            AllotBillingEntity billEntity = billIterator.next();
+            // 从明细信息中取出关联的扫码列表信息
+            ForeignCollection<AllotScanEntity> scanEntities = billEntity.sNotes;
+            Iterator<AllotScanEntity> scanIterator = scanEntities.iterator();
+            while (scanIterator.hasNext()) {
+                AllotScanEntity scanEntity = scanIterator.next();
+                //本单扫描数量
+                billCount += scanEntity.Qty;
+                barcode_exit.add(scanEntity.SerialNo);
+                //当前扫描数量
+                if(billingEntity.AllotBillingId.equals(billEntity.AllotBillingId))
+                {
+                    curCount += scanEntity.Qty;
+                }
             }
             billCount += Qty;
         }
@@ -400,13 +404,14 @@ public class Scan_Allot_Activity extends DecodeBaseActivity implements  View.OnC
                     throw new Exception("异常：入库数量为0！");
                 }
 
-                String[] insertData = new String[5];
-                insertData[0] = barcode;
-                insertData[1] = productId;
-                insertData[2] = String.valueOf( scanResult.Qty );
-                insertData[3] = mQueryBill.getKeyValue("CreateDate", EntryFileName, "ProductId", productId);
-                insertData[4] = mQueryBill.getKeyValue("CreateUserId", EntryFileName, "ProductId", productId);
-                mScanBill.OrderScanSave(ScanFileName , insertData);
+                AllotScanEntity scanData = new AllotScanEntity();
+                scanData.SerialNo = barcode;
+                scanData.ProductId = productId;
+                scanData.Qty = scanResult.Qty;
+                scanData.CreateUserId = allotEntity.CreateUserId;
+                //扫码单 与 明细的 对应关系
+                scanData.billEntityId = billingEntity;
+                new AllotScanDAO(mContext).insert(scanData);
 
                 curCount += scanResult.Qty;
                 billCount += scanResult.Qty;
@@ -467,14 +472,33 @@ public class Scan_Allot_Activity extends DecodeBaseActivity implements  View.OnC
                 break;
             //删除单据
             case R.id.btn_DelBill:
-            
-                boolean ok = mDelBill.DeleteTheData( MainFileName , "AllotCode" , billNo)
-                        && mDelBill.DeleteFile( EntryFileName )
-                        && mDelBill.DeleteFile( ScanFileName );
-                if(ok){
-                    aDialog.okDialog("删除单据成功！");
-                }else{
-                    aDialog.failDialog("删除单据失败！");
+                boolean ok = true;
+                try {
+                    // 从主单信息中取出关联的明细列表信息
+                    ForeignCollection<AllotBillingEntity> billEntities = allotEntity.bNotes;
+                    Iterator<AllotBillingEntity> billIterator = billEntities.iterator();
+                    while (billIterator.hasNext()) {
+                        AllotBillingEntity billEntity = billIterator.next();
+                        // 从明细信息中取出关联的扫码列表信息
+                        ForeignCollection<AllotScanEntity> scanEntities = billEntity.sNotes;
+                        Iterator<AllotScanEntity> scanIterator = scanEntities.iterator();
+                        while (scanIterator.hasNext()) {
+                            AllotScanEntity scanEntity = scanIterator.next();
+                            new AllotScanDAO(mContext).delete(scanEntity);
+                        }
+                        new AllotBillingEntityDAO(mContext).delete(billEntity);
+                    }
+                    new AllotEntityDAO(mContext).delete(allotEntity);
+                }
+                catch (Exception ex){
+                    ok =false;
+                }
+                finally {
+                    if(ok){
+                        aDialog.okDialog("删除单据成功！");
+                    }else{
+                        aDialog.failDialog("删除单据失败！");
+                    }
                 }
                 initView();
                 break;
@@ -497,6 +521,8 @@ public class Scan_Allot_Activity extends DecodeBaseActivity implements  View.OnC
             for( AllotBillingEntity aEntity : allotbillingList)
             {
                 if(aEntity.ProductId.equals(productId)){
+					billingEntity = aEntity;               //选定的明细记录
+					
                     curPreSet = aEntity.Qty;
                     lbCurPreset.setText( String.valueOf( curPreSet ) ); //当前预设
                     break;
@@ -520,14 +546,16 @@ public class Scan_Allot_Activity extends DecodeBaseActivity implements  View.OnC
                     //TODO:回车键按下时要执行的操作
                     ProductInfo.clear();
                     String keyValue = tbProduct.getText().toString();
-                    List<String[]> BillInfoList = mQueryBill.getProductMessage( EntryFileName , keyValue);
+                    List<AllotBillingEntity> billList = new AllotBillingEntityDAO(mContext).queryByEq("AllotId", billId );
 
-                    for( String[] billInfo : BillInfoList){
-                        HashMap<String, Object> item = new HashMap<String, Object>();
-                        item.put("pid", billInfo[0]);
-                        item.put("pcode", billInfo[1]);
-                        item.put("pname", billInfo[2]);
-                        ProductInfo.add(item);
+                    for( AllotBillingEntity entity : billList){
+                        if(entity.EnCode.contains(keyValue)) {
+                            HashMap<String, Object> item = new HashMap<String, Object>();
+                            item.put("pid", entity.ProductId);
+                            item.put("pcode", entity.EnCode);
+                            item.put("pname", entity.ProductName);
+                            ProductInfo.add(item);
+                        }
                     }
                     digAdapter.notifyDataSetChanged();
                     mHorizontalScrollView.setVisibility(View.VISIBLE);

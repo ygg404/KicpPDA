@@ -13,6 +13,7 @@ import com.imscs.barcodemanager.BarcodeManager;
 import com.imscs.barcodemanager.ScanTouchManager;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 
 /**
  * Created by YGG on 2018/7/16.
@@ -24,6 +25,7 @@ import java.io.IOException;
  */
 public class DecodeBaseActivity extends Activity {
 
+    public SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
     public boolean bLockMode = false;         //锁定模式
 
     public BarcodeManager mBarcodeManager = null;

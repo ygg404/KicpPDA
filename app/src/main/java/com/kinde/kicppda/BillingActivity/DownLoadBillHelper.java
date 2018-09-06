@@ -1,6 +1,9 @@
 package com.kinde.kicppda.BillingActivity;
 
+import com.j256.ormlite.dao.ForeignCollection;
+import com.kinde.kicppda.MDAO.GodownEntityDAO;
 import com.kinde.kicppda.Models.AllotEntity;
+import com.kinde.kicppda.Models.GodownBillingEntity;
 import com.kinde.kicppda.Models.GodownEntity;
 import com.kinde.kicppda.Models.GodownXEntity;
 import com.kinde.kicppda.Models.OrderEntity;
@@ -22,6 +25,8 @@ import com.kinde.kicppda.Utils.Models.ReturnListResultMsg;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 
 import static com.kinde.kicppda.Utils.ApiHelper.checkDateValid;
 
@@ -82,9 +87,11 @@ public class DownLoadBillHelper {
                     continue;
                 }
 
-                gBillHelper.SaveGoDownBillingDataFile(godEntity.GodownCode , godBillListc.Result);
+                gBillHelper.SaveGoDownBillingDataFile(godEntity , godBillListc.Result);
 
             }
+
+
         }catch (Exception ex){
             throw new Exception( ex.getMessage());
         }
@@ -132,9 +139,8 @@ public class DownLoadBillHelper {
                 query.put("orderId" , orderEntity.OrderId);
                 OrderBillingListResultMsg ordBillListc = ApiHelper.GetHttp(OrderBillingListResultMsg.class,
                         Config.WebApiUrl + "GetOrderBillingListByOrderId?", query, Config.StaffId , Config.AppSecret ,true);
-
-
                 ordBillListc.setResult();
+
                 if(ordBillListc.StatusCode != 200)
                 {
                     throw new Exception( ordBillListc.Info );
@@ -144,7 +150,7 @@ public class DownLoadBillHelper {
                     continue;
                 }
 
-                gBillHelper.SaveOrderBillingDataFile(orderEntity.OrderCode , ordBillListc.Result);
+                gBillHelper.SaveOrderBillingDataFile(orderEntity , ordBillListc.Result);
             }
         }catch (Exception ex){
             throw new Exception( ex.getMessage() );
@@ -202,7 +208,7 @@ public class DownLoadBillHelper {
                     continue;
                 }
 
-                gBillHelper.SaveReturnBillingDataFile(returnEntity.ReturnCode , returnBillListc.Result);
+                gBillHelper.SaveReturnBillingDataFile(returnEntity , returnBillListc.Result);
             }
         }catch (Exception ex){
             throw new Exception( ex.getMessage() );
@@ -258,7 +264,7 @@ public class DownLoadBillHelper {
                 {
                     continue;
                 }
-                gBillHelper.SaveAllotBillingDataFile(allotEntity.AllotCode , allotBillListc.Result);
+                gBillHelper.SaveAllotBillingDataFile(allotEntity , allotBillListc.Result);
 
             }
         }catch (Exception ex){

@@ -1,5 +1,6 @@
 package com.kinde.kicppda.ScanActivity;
 
+import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.os.Handler;
@@ -24,16 +25,19 @@ import com.imscs.barcodemanager.BarcodeManager;
 import com.imscs.barcodemanager.BarcodeManager.OnEngineStatus;
 import com.imscs.barcodemanager.Constants;
 import com.imscs.barcodemanager.ScanTouchManager;
+import com.j256.ormlite.dao.ForeignCollection;
+import com.kinde.kicppda.MDAO.CheckEntityDAO;
+import com.kinde.kicppda.MDAO.CheckScanDAO;
+import com.kinde.kicppda.MDAO.ProductEntityDAO;
+import com.kinde.kicppda.Models.CheckEntity;
+import com.kinde.kicppda.Models.CheckScanEntity;
+import com.kinde.kicppda.Models.ProductEntity;
 import com.kinde.kicppda.R;
 import com.kinde.kicppda.Utils.Adialog;
 import com.kinde.kicppda.Utils.ApiHelper;
 import com.kinde.kicppda.Utils.Config;
 import com.kinde.kicppda.Utils.Models.CheckScanSaveResultMsg;
 import com.kinde.kicppda.Utils.ProgersssDialog;
-import com.kinde.kicppda.Utils.Public;
-import com.kinde.kicppda.Utils.SQLiteHelper.DeleteBillHelper;
-import com.kinde.kicppda.Utils.SQLiteHelper.ScanCreateHelper;
-import com.kinde.kicppda.Utils.SQLiteHelper.TableQueryHelper;
 import com.kinde.kicppda.decodeLib.DecodeBaseActivity;
 import com.kinde.kicppda.decodeLib.DecodeSampleApplication;
 
@@ -41,6 +45,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
@@ -69,6 +74,8 @@ public class Scan_Check_Activity extends DecodeBaseActivity implements  View.OnC
     private Button btnDelBill;              //删除按钮
     private String productId = "";      //盘点产品ID
     //private List<OrderBillingEntity> orderbillingList = new ArrayList<OrderBillingEntity>();//出库单据明细
+    private CheckEntity checkEntity;    //选定的主单
+
 	private ProgersssDialog mProgersssDialog;
 
 //    private int curPreSet = 0;          //当前预设
@@ -81,16 +88,8 @@ public class Scan_Check_Activity extends DecodeBaseActivity implements  View.OnC
     private TextView lbCurCount;
     private TextView lbBillCount;
 
-    private String MainFileName = "";//主单表
-    private String EntryFileName = "";//明细表
-    private String ScanFileName = "";//扫描表
-
-    private DeleteBillHelper mDelBill;      //删除单据
-    private ScanCreateHelper mCreateBill;   //创建单据
-    private TableQueryHelper mQueryBill;     //查询单据
-    private ScanBillingHelper mScanBill;     //扫码单据
     private List<String> checkNumList;         //盘点单据编号列表
-
+	private Context mContext;
     private View layout;
     private PopupWindow popupWindow;
     private ListView mListView;
@@ -119,25 +118,17 @@ public class Scan_Check_Activity extends DecodeBaseActivity implements  View.OnC
         });
         mScanTouchManager.setVisibility(View.INVISIBLE);
 
-        mDelBill = new DeleteBillHelper(Scan_Check_Activity.this);
-        mCreateBill = new ScanCreateHelper(Scan_Check_Activity.this);
-        mQueryBill = new TableQueryHelper(Scan_Check_Activity.this);
-		mScanBill  =  new ScanBillingHelper(Scan_Check_Activity.this);
+
         initView();
 
         mDoDecodeThread = new DoDecodeThread();
         mDoDecodeThread.start();
     }
 
-    //设置单据保存文件
-    private void SetFilePath(String billNo)
-    {
-        MainFileName  = Public.CHECK_MAIN_TABLE;
-      //  EntryFileName = billNo  + Public.ReturnBillingType;
-        ScanFileName  =  billNo +  Public.CheckScanType;
-    }
+
 
     private void initView(){
+		mContext = this.getApplicationContext();
         aDialog = new Adialog(Scan_Check_Activity.this);
 
         bLockMode = false;
@@ -152,7 +143,7 @@ public class Scan_Check_Activity extends DecodeBaseActivity implements  View.OnC
         tbLN = (EditText)findViewById(R.id.tbLN);
         tbPR = (EditText)findViewById(R.id.tbPR);
         mGoback = (ImageView)findViewById(R.id.go_back);
-        tbBarcode = (EditText)findViewById(R.id.bar_code);
+        tbBarcode = (EditText)findViewById(R.id.tbBarcode);
 //        lbCurPreset = (TextView)findViewById(R.id.lbCurPreset);
 //        lbBillPreset = (TextView)findViewById(R.id.lbBillPreset);
         lbCurCount = (TextView)findViewById(R.id.lbCurCount);
@@ -165,7 +156,7 @@ public class Scan_Check_Activity extends DecodeBaseActivity implements  View.OnC
         ViewClear();
 
         //初始化单据选项列表
-        checkNumList = mQueryBill.getBillNum(Public.CHECK_MAIN_TABLE , "CheckCode");
+        checkNumList = new CheckEntityDAO(mContext).GetCheckCodeList();
         spinAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item, checkNumList);
         spinAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         cmb_plist.setAdapter(spinAdapter);
@@ -175,15 +166,7 @@ public class Scan_Check_Activity extends DecodeBaseActivity implements  View.OnC
                     public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
                         ViewClear();
                         billNo = cmb_plist.getSelectedItem().toString().trim();
-                        SetFilePath(billNo);
-                        mCreateBill.Check_Scan_Create( billNo );  //创建扫码表
-                        billId =  mQueryBill.getKeyValue("CheckId", MainFileName ,
-                                "CheckCode",billNo );
-                        tbBillDate.setText(   mQueryBill.getKeyValue("CheckDate", MainFileName ,
-                                "CheckCode",billNo ) );
-                        tbWarehouse.setText(  mQueryBill.getKeyValue("WarehouseName", MainFileName,
-                                "CheckCode",billNo )  );
-                        LoadBarcodes();
+                        BillingLoad();
                     }
 
                     @Override
@@ -227,13 +210,16 @@ public class Scan_Check_Activity extends DecodeBaseActivity implements  View.OnC
                 new String[]{"qcode", "qname" }, new int[]{R.id.qcode, R.id.qname});
 
         String keyValue = tbProduct.getText().toString();
-        List<String[]> InfoList = mQueryBill.getProductMessage( Public.B_INVENTORY_File , keyValue);
-        for( String[] billInfo : InfoList){
-            HashMap<String, Object> item = new HashMap<String, Object>();
-            item.put("qid", billInfo[0]);
-            item.put("qcode", billInfo[1]);
-            item.put("qname", billInfo[2]);
-            ProductInfo.add(item);
+		List<ProductEntity> productList = new ProductEntityDAO(mContext).queryForAll();
+        for( ProductEntity product : productList){
+			if(product.EnCode.contains(keyValue) || product.FullName.contains(keyValue)){
+			    HashMap<String, Object> item = new HashMap<String, Object>();
+	            item.put("qid", product.ProductId);
+	            item.put("qcode", product.EnCode);
+	            item.put("qname", product.FullName);
+	            ProductInfo.add(item);
+			}
+
         }
 
         //实现列表的显示
@@ -257,7 +243,15 @@ public class Scan_Check_Activity extends DecodeBaseActivity implements  View.OnC
         });
     }
 
+    //明细加载
+    private void BillingLoad(){
 
+        //获取主单信息
+        checkEntity = new CheckEntityDAO(mContext).queryForBillNo(billNo);
+        billId = checkEntity.CheckId;
+        tbBillDate.setText( checkEntity.CheckDate == null?"":formatter.format(checkEntity.CheckDate) );
+        tbWarehouse.setText( checkEntity.WarehouseName );
+    }
     private void ViewClear(){
         tbWarehouse.setText("");
         tbBillDate.setText("");
@@ -358,11 +352,11 @@ public class Scan_Check_Activity extends DecodeBaseActivity implements  View.OnC
         billCount = 0;
         int Qty = 0;
         String curProductId;
-        List<String[]>scanInfoList = mQueryBill.ScanQuery( ScanFileName );
-        for(String[] scanInfo : scanInfoList){
-            barcode_exit.add(scanInfo[0]);
-            curProductId = scanInfo[1];
-            Qty = Integer.parseInt(scanInfo[2]);
+        List<CheckScanEntity> scanInfoList = new CheckScanDAO(mContext).queryForAll();
+        for(CheckScanEntity scanInfo : scanInfoList){
+            barcode_exit.add(scanInfo.SerialNo);
+            curProductId = scanInfo.ProductId;
+            Qty = scanInfo.Qty;
             if ( curProductId.equals( productId ) )
             {
                 curCount += Qty;
@@ -457,15 +451,16 @@ public class Scan_Check_Activity extends DecodeBaseActivity implements  View.OnC
                     throw new Exception("异常：入库数量为0！");
                 }
 
-                String[] insertData = new String[7];
-                insertData[0] = barcode;
-                insertData[1] = productId;
-                insertData[2] = String.valueOf( scanResult.Qty );
-                insertData[3] = ln;
-                insertData[4] = pr;
-                insertData[5] = mQueryBill.getKeyValue("CreateDate", MainFileName, "CheckId", billId);
-                insertData[6] = mQueryBill.getKeyValue("CreateUserId", MainFileName, "CheckId", billId);
-                mScanBill.CheckScanSave( ScanFileName , insertData);
+                CheckScanEntity scanData = new CheckScanEntity();
+                scanData.SerialNo = barcode;
+                scanData.ProductId = productId;
+                scanData.LN = ln;
+                scanData.PR = datePR;
+                scanData.Qty = scanResult.Qty;
+                scanData.CreateUserId = checkEntity.CreateUserId;
+                //扫码单 与 主单的 对应关系
+                scanData.chId = checkEntity;
+                new CheckScanDAO(mContext).insert(scanData);
 
                 curCount += scanResult.Qty;
                 billCount += scanResult.Qty;
@@ -526,13 +521,26 @@ public class Scan_Check_Activity extends DecodeBaseActivity implements  View.OnC
                 break;
             //删除单据
             case R.id.btn_DelBill:
-            
-                boolean ok = mDelBill.DeleteTheData( MainFileName , "CheckCode" , billNo )
-                        && mDelBill.DeleteFile( ScanFileName );
-                if(ok){
-                    aDialog.okDialog("删除单据成功！");
-                }else{
-                    aDialog.failDialog("删除单据失败！");
+                boolean ok = true;
+                try {
+                    // 从主单信息中取出关联的扫码列表信息
+                    ForeignCollection<CheckScanEntity> scanEntities = checkEntity.sNotes;
+                    Iterator<CheckScanEntity> scanIterator = scanEntities.iterator();
+                    while (scanIterator.hasNext()) {
+                            CheckScanEntity scanEntity = scanIterator.next();
+                            new CheckScanDAO(mContext).delete(scanEntity);
+                    }
+                    new CheckEntityDAO(mContext).delete(checkEntity);
+                }
+                catch (Exception ex){
+                    ok =false;
+                }
+                finally {
+                    if(ok){
+                        aDialog.okDialog("删除单据成功！");
+                    }else{
+                        aDialog.failDialog("删除单据失败！");
+                    }
                 }
                 initView(); //重启
                 break;

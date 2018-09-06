@@ -32,7 +32,6 @@ import com.kinde.kicppda.ScanActivity.Scan_Godown_Activity;
 import com.kinde.kicppda.ScanActivity.Scan_Order_Activity;
 import com.kinde.kicppda.ScanActivity.Scan_Return_Activity;
 import com.kinde.kicppda.Utils.Adialog;
-import com.kinde.kicppda.Utils.SQLiteHelper.DeleteBillHelper;
 
 
 public class MainActivity extends Activity implements View.OnClickListener {
@@ -80,7 +79,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
     //系统管理项
     private TextView deleteBtn;
-    private DeleteBillHelper dBillHelper;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -363,12 +362,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
             //删除
             case R.id.delete_all_channel:
                 fTransaction.show(fg_sys);
-                if(dBillHelper.DeleteAllDataFile())
-                {
-                    aDialog.deleteOkDialog();
-                }else{
-                    aDialog.deleteFailDialog();
-                }
+
             default:
                 break;
         }
@@ -437,7 +431,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
     public void sysFragmentBind(View view){
         deleteBtn = (TextView)view.findViewById(R.id.delete_all_channel);
         deleteBtn.setOnClickListener(this);
-        dBillHelper = new DeleteBillHelper(this);
+
     }
     /**
      * 初始化 数据管理 Fragment

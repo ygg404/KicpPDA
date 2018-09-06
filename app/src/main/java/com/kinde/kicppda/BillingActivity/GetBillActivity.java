@@ -16,6 +16,10 @@ import com.imscs.barcodemanager.BarcodeManager;
 import com.imscs.barcodemanager.BarcodeManager.OnEngineStatus;
 import com.imscs.barcodemanager.Constants;
 import com.imscs.barcodemanager.ScanTouchManager;
+import com.j256.ormlite.dao.ForeignCollection;
+import com.kinde.kicppda.MDAO.GodownEntityDAO;
+import com.kinde.kicppda.Models.GodownBillingEntity;
+import com.kinde.kicppda.Models.GodownEntity;
 import com.kinde.kicppda.R;
 import com.kinde.kicppda.Utils.Adialog;
 import com.kinde.kicppda.Utils.Enum.BillTypeEnum;
@@ -25,6 +29,8 @@ import com.kinde.kicppda.decodeLib.DecodeSampleApplication;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
 
 import static com.kinde.kicppda.BillingActivity.DownLoadBillHelper.downLoadAllotBill;
 import static com.kinde.kicppda.BillingActivity.DownLoadBillHelper.downLoadCheckBill;

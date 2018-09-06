@@ -1,6 +1,7 @@
 package com.kinde.kicppda.QueryActivity;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
@@ -25,29 +26,35 @@ import com.imscs.barcodemanager.BarcodeManager;
 import com.imscs.barcodemanager.BarcodeManager.OnEngineStatus;
 import com.imscs.barcodemanager.Constants;
 import com.imscs.barcodemanager.ScanTouchManager;
+import com.j256.ormlite.dao.ForeignCollection;
+import com.kinde.kicppda.MDAO.CheckEntityDAO;
+import com.kinde.kicppda.MDAO.CheckScanDAO;
+import com.kinde.kicppda.MDAO.ProductEntityDAO;
+import com.kinde.kicppda.Models.CheckEntity;
+import com.kinde.kicppda.Models.CheckScanEntity;
 import com.kinde.kicppda.Models.GodownBillingEntity;
+import com.kinde.kicppda.Models.GodownScanEntity;
+import com.kinde.kicppda.Models.ProductEntity;
 import com.kinde.kicppda.R;
-import com.kinde.kicppda.ScanActivity.ScanBillingHelper;
 import com.kinde.kicppda.Utils.Adialog;
 import com.kinde.kicppda.Utils.ApiHelper;
 import com.kinde.kicppda.Utils.Config;
 import com.kinde.kicppda.Utils.Models.GodownScanDeleteResultMsg;
 import com.kinde.kicppda.Utils.ProgersssDialog;
 import com.kinde.kicppda.Utils.Public;
-import com.kinde.kicppda.Utils.SQLiteHelper.DeleteBillHelper;
-import com.kinde.kicppda.Utils.SQLiteHelper.ScanCreateHelper;
-import com.kinde.kicppda.Utils.SQLiteHelper.TableQueryHelper;
+
 import com.kinde.kicppda.decodeLib.DecodeBaseActivity;
 import com.kinde.kicppda.decodeLib.DecodeSampleApplication;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 
 /**
- * Created by Lenovo on 2018/7/21.
+ * Created by YGG on 2018/7/21.
  */
 
 public class Query_Check_Activity extends DecodeBaseActivity implements View.OnClickListener,OnEngineStatus {
@@ -55,10 +62,8 @@ public class Query_Check_Activity extends DecodeBaseActivity implements View.OnC
     private String billNo = "";           //单号
     private String billId = "";           //单据id
     private String productId = "";          //产品id
-    private List<GodownBillingEntity> godownbillingList = new ArrayList<>();//入库单据明细
-    private String MainFileName = "";//主单文件
-    private String EntryFileName = "";//明细文件
-    private String ScanFileName = "";//扫描文件
+    private List<ProductEntity> productbillingList = new ArrayList<>();//产品列表
+
 
     private Adialog mAdialog;            //警告提示窗口
     private Spinner cmb_plist;              //单据号选择项
@@ -72,12 +77,11 @@ public class Query_Check_Activity extends DecodeBaseActivity implements View.OnC
 
     private ProgersssDialog mProgersssDialog;
     private ArrayAdapter<String> spinAdapter;       //单据号spinner的适配器
-    private DeleteBillHelper mDelBill;      //删除单据
-    private ScanCreateHelper mCreateBill;   //创建单据
-    private TableQueryHelper mQueryBill;     //查询单据
-    private ScanBillingHelper mScanBill;     //扫码单据
-    private List<String> checkNumList;      //单据编号列表
 
+    private List<String> checkNumList;      //单据编号列表
+    private CheckEntity checkEntity;       //选中的主单
+	private ProductEntity productEntity;    //选中的产品
+	
     private View layout;
     private PopupWindow popupWindow;
     private ListView mListView;
@@ -86,7 +90,7 @@ public class Query_Check_Activity extends DecodeBaseActivity implements View.OnC
     private List<HashMap<String, Object>> ProductInfo = new ArrayList<HashMap<String, Object>>();   //产品信息
     private List<HashMap<String, Object>> ScanInfoList = new ArrayList<HashMap<String, Object>>();   //扫码表信息
     private TextView l_bottleCount;
-
+    private Context mContext;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -111,13 +115,13 @@ public class Query_Check_Activity extends DecodeBaseActivity implements View.OnC
         bindView();
     }
 
-    private void bindView() {
-        bLockMode = true;
+    private void bindView()
+    {
+        mContext = this.getApplicationContext();
+
+        bLockMode =true;
         mAdialog = new Adialog(this);
-        mDelBill = new DeleteBillHelper(Query_Check_Activity.this);
-        mCreateBill = new ScanCreateHelper(Query_Check_Activity.this);
-        mQueryBill = new TableQueryHelper(Query_Check_Activity.this);
-        mScanBill = new ScanBillingHelper(Query_Check_Activity.this);
+
 
         cmb_plist = (Spinner) findViewById(R.id.num_spinner);
         tbWarehouse = (EditText) findViewById(R.id.tbWarehouse);
@@ -135,7 +139,7 @@ public class Query_Check_Activity extends DecodeBaseActivity implements View.OnC
         tbProduct.requestFocus();
 
         //初始化单据选项列表
-        checkNumList = mQueryBill.getBillNum(Public.CHECK_MAIN_TABLE, "CheckCode");
+        checkNumList = new CheckEntityDAO(mContext).GetCheckCodeList();
         spinAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, checkNumList);
         spinAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         cmb_plist.setAdapter(spinAdapter);
@@ -144,9 +148,9 @@ public class Query_Check_Activity extends DecodeBaseActivity implements View.OnC
                     @Override
                     public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
                         billNo = cmb_plist.getSelectedItem().toString().trim();
-                        SetFilePath(billNo);
-                        billId = mQueryBill.getKeyValue("CheckId", MainFileName, "CheckCode", billNo);
-                        tbWarehouse.setText(mQueryBill.getKeyValue("WarehouseName", MainFileName, "CheckCode", billNo));
+                        checkEntity = new CheckEntityDAO(mContext).queryForBillNo(billNo);
+                        billId = checkEntity.CheckCode;
+                        tbWarehouse.setText( checkEntity.WarehouseName );
                         tbProduct.setText("");
                         tbBarcode.setText("");
                     }
@@ -209,15 +213,20 @@ public class Query_Check_Activity extends DecodeBaseActivity implements View.OnC
                 new String[]{"qcode", "qname"}, new int[]{R.id.qcode, R.id.qname});
 
         String keyValue = tbProduct.getText().toString();
-        List<String[]> BillInfoList = mQueryBill.getProductMessage(Public.B_INVENTORY_File, keyValue);
-        for (String[] billInfo : BillInfoList) {
-            HashMap<String, Object> item = new HashMap<String, Object>();
-            item.put("qid", billInfo[0]);
-            item.put("qcode", billInfo[1]);
-            item.put("qname", billInfo[2]);
+		productbillingList = new ProductEntityDAO(mContext).queryForAll();
+		for( ProductEntity entity : productbillingList)
+		{
+			if(entity.EnCode.contains(keyValue) || entity.FullName.contains(keyValue)) {
+                HashMap<String, Object> item = new HashMap<String, Object>();
+                item.put("qid", entity.ProductId);
+                item.put("qcode", entity.EnCode);
+                item.put("qname", entity.FullName);
 
-            ProductInfo.add(item);
-        }
+                ProductInfo.add(item);
+            }
+		}
+		
+
 
         //实现列表的显示
         digAdapter.notifyDataSetChanged();
@@ -231,6 +240,8 @@ public class Query_Check_Activity extends DecodeBaseActivity implements View.OnC
                 HashMap<String, Object> productData = (HashMap<String, Object>) listView.getItemAtPosition(position);
 
                 productId = productData.get("qid").toString();
+				//选中的产品
+				productEntity = new ProductEntityDAO(mContext).queryForID(productId);
                 tbProduct.setText(productData.get("qname").toString());
                 popupWindow.dismiss();
 
@@ -244,27 +255,25 @@ public class Query_Check_Activity extends DecodeBaseActivity implements View.OnC
     }
 
 
-    //设置单据保存表
-    private void SetFilePath(String billNo) {
-        MainFileName = Public.CHECK_MAIN_TABLE;
 
-        ScanFileName = billNo + Public.CheckScanType;
-    }
 
-    //加载扫码列表
+    //查询按钮加载扫码列表
     public void loadBarcodeList() {
         ScanInfoList.clear();
-        List<String[]> scanInfoList = mQueryBill.ScanQuery(ScanFileName);
-        for (String[] scanInfo : scanInfoList) {
-            //加载扫码表 所选的产品id一致
-            if (productId.equals(scanInfo[1])) {
-                HashMap<String, Object> item = new HashMap<String, Object>();
-                item.put("iBarcode", scanInfo[0]);                      //条形码
-                item.put("iProduct", mQueryBill.getKeyValue("ProductName", Public.B_INVENTORY_File, "ProductId", scanInfo[1])); //产品名
-                item.put("iCount", scanInfo[2]);  //数量
-                ScanInfoList.add(item);
-            }
+        ForeignCollection<CheckScanEntity> scanEntities = checkEntity.sNotes;
+        Iterator<CheckScanEntity> scanIterator = scanEntities.iterator();
+        while(scanIterator.hasNext()){
+            CheckScanEntity scanEntity = scanIterator.next();
+			if(scanEntity.ProductId.equals(productId)){
+			    HashMap<String, Object> item = new HashMap<String, Object>();
+	            item.put("iBarcode", scanEntity.SerialNo);                      //条形码
+	            item.put("iProduct", productEntity.FullName); //产品名
+	            item.put("iCount", scanEntity.Qty);  //数量
+	            ScanInfoList.add(item);
+			}
+
         }
+
 
         int count = 0;
         for (HashMap<String, Object> attr : ScanInfoList) {
@@ -304,14 +313,15 @@ public class Query_Check_Activity extends DecodeBaseActivity implements View.OnC
         tbBarcode.setText(barcode);
 
         ScanInfoList.clear();
-        List<String[]>scanInfoList = mQueryBill.ScanQuery( ScanFileName);
-        for( String[] scanInfo : scanInfoList){
-            //加载扫码表 所选的产品id一致
-            if(barcode.equals(scanInfo[0]) ) {
+        ForeignCollection<CheckScanEntity> scanEntities = checkEntity.sNotes;
+        Iterator<CheckScanEntity> scanIterator = scanEntities.iterator();
+        while(scanIterator.hasNext()){
+            CheckScanEntity scanEntity = scanIterator.next();
+            if(barcode.equals(scanEntity.SerialNo)){
                 HashMap<String, Object> item = new HashMap<String, Object>();
-                item.put("iBarcode", scanInfo[0]);                      //条形码
-                item.put("iProduct", mQueryBill.getKeyValue("ProductName", Public.B_INVENTORY_File, "ProductId", scanInfo[1])); //产品名
-                item.put("iCount", scanInfo[2]);  //数量
+                item.put("iBarcode", scanEntity.SerialNo);                      //条形码
+                item.put("iProduct", productEntity.FullName); //产品名
+                item.put("iCount", scanEntity.Qty);  //数量
                 ScanInfoList.add(item);
             }
         }
@@ -379,8 +389,15 @@ public class Query_Check_Activity extends DecodeBaseActivity implements View.OnC
                         continue;
                     }
                     ScanInfoList.remove(scanAttr);
-                    //删除扫码表中的记录
-                    mDelBill.DeleteTheData(ScanFileName, "SerialNo", barcode);
+ 					//删除扫码表中的记录
+                    ForeignCollection<CheckScanEntity> scanEntities = checkEntity.sNotes;
+                    Iterator<CheckScanEntity> scanIterator = scanEntities.iterator();
+                    while(scanIterator.hasNext()) {
+                        CheckScanEntity scanEntity = scanIterator.next();
+                        if (barcode.equals(scanEntity.SerialNo)) {
+                            new CheckScanDAO(mContext).delete(scanEntity);
+                        }
+                    }
                 } catch (Exception ex) {
                     mess.obj = ex.getMessage();
                     eHandler.sendMessage(mess);

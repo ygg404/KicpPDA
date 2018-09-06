@@ -1,5 +1,6 @@
 package com.kinde.kicppda.ScanActivity;
 
+import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.os.Handler;
@@ -22,22 +23,25 @@ import com.imscs.barcodemanager.BarcodeManager;
 import com.imscs.barcodemanager.BarcodeManager.OnEngineStatus;
 import com.imscs.barcodemanager.Constants;
 import com.imscs.barcodemanager.ScanTouchManager;
+import com.j256.ormlite.dao.ForeignCollection;
+import com.kinde.kicppda.MDAO.ReturnBillingEntityDAO;
+import com.kinde.kicppda.MDAO.ReturnEntityDAO;
+import com.kinde.kicppda.MDAO.ReturnScanDAO;
 import com.kinde.kicppda.Models.ReturnBillingEntity;
+import com.kinde.kicppda.Models.ReturnEntity;
+import com.kinde.kicppda.Models.ReturnScanEntity;
 import com.kinde.kicppda.R;
 import com.kinde.kicppda.Utils.Adialog;
 import com.kinde.kicppda.Utils.ApiHelper;
 import com.kinde.kicppda.Utils.Config;
 import com.kinde.kicppda.Utils.Models.ReturnScanSaveResultMsg;
 import com.kinde.kicppda.Utils.ProgersssDialog;
-import com.kinde.kicppda.Utils.Public;
-import com.kinde.kicppda.Utils.SQLiteHelper.DeleteBillHelper;
-import com.kinde.kicppda.Utils.SQLiteHelper.ScanCreateHelper;
-import com.kinde.kicppda.Utils.SQLiteHelper.TableQueryHelper;
 import com.kinde.kicppda.decodeLib.DecodeBaseActivity;
 import com.kinde.kicppda.decodeLib.DecodeSampleApplication;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -65,6 +69,8 @@ public class Scan_Return_Activity extends DecodeBaseActivity implements  View.On
     private Button btnDelBill;              //删除按钮
     private String productId = "";      //退货产品ID
     private List<ReturnBillingEntity> returnbillingList = new ArrayList<ReturnBillingEntity>();//退货单据明细
+	private ReturnEntity returnEntity;    //选定的主单
+    private ReturnBillingEntity billingEntity;  //选定的明细
 	private ProgersssDialog mProgersssDialog;
 
     private int curPreSet = 0;          //当前预设
@@ -77,16 +83,8 @@ public class Scan_Return_Activity extends DecodeBaseActivity implements  View.On
     private TextView lbCurCount;
     private TextView lbBillCount;
 
-    private String MainFileName = "";//主单表
-    private String EntryFileName = "";//明细表
-    private String ScanFileName = "";//扫描表
-
-    private DeleteBillHelper mDelBill;      //删除单据
-    private ScanCreateHelper mCreateBill;   //创建单据
-    private TableQueryHelper mQueryBill;     //查询单据
-	private ScanBillingHelper mScanBill;     //扫码单据
-    private List<String> returnNumList;         //发货单据编号列表
-
+    private List<String> returnNumList;         //入库单据编号列表
+    private Context mContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,25 +106,14 @@ public class Scan_Return_Activity extends DecodeBaseActivity implements  View.On
         });
         mScanTouchManager.setVisibility(View.INVISIBLE);
 
-        mDelBill = new DeleteBillHelper(Scan_Return_Activity.this);
-        mCreateBill = new ScanCreateHelper(Scan_Return_Activity.this);
-        mQueryBill = new TableQueryHelper(Scan_Return_Activity.this);
-		mScanBill  =  new ScanBillingHelper(Scan_Return_Activity.this);
         initView();
 
         mDoDecodeThread = new DoDecodeThread();
         mDoDecodeThread.start();
     }
 
-    //设置单据保存文件
-    private void SetFilePath(String billNo)
-    {
-        MainFileName  = Public.RETURN_MAIN_TABLE;
-        EntryFileName = billNo  + Public.ReturnBillingType;
-        ScanFileName  =  billNo +  Public.ReturnScanType;
-    }
-
     private void initView(){
+		mContext = this.getApplicationContext();
         aDialog = new Adialog(Scan_Return_Activity.this);
 
         bLockMode = false;
@@ -154,7 +141,7 @@ public class Scan_Return_Activity extends DecodeBaseActivity implements  View.On
         ViewClear();
 
         //初始化单据选项列表
-        returnNumList = mQueryBill.getBillNum(Public.RETURN_MAIN_TABLE , "ReturnCode");
+        returnNumList = new ReturnEntityDAO(mContext).GetReturnCodeList();
         spinAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item, returnNumList);
         spinAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         cmb_plist.setAdapter(spinAdapter);
@@ -164,12 +151,8 @@ public class Scan_Return_Activity extends DecodeBaseActivity implements  View.On
                     public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
                         ViewClear();
 						billNo = cmb_plist.getSelectedItem().toString().trim();
-                        SetFilePath(billNo);
-                        BillingLoad( EntryFileName );
-						mCreateBill.Return_Scan_Create( billNo );  //创建扫码表
-						billId = mQueryBill.getKeyValue("ReturnId" , MainFileName , "ReturnCode",billNo);
-                        tbBillDate.setText(   mQueryBill.getKeyValue("ReturnDate", MainFileName ,"ReturnCode",billNo ) );
-                        tbWarehouse.setText(  mQueryBill.getKeyValue("WarehouseName", MainFileName , "ReturnCode",billNo )  );
+						
+                        BillingLoad(  );
                     }
 
                     @Override
@@ -177,6 +160,7 @@ public class Scan_Return_Activity extends DecodeBaseActivity implements  View.On
                     }
                 });
 
+		tbProduct.requestFocus();
         mListView.bringToFront();
         //创建SimpleAdapter适配器将数据绑定到item显示控件上
         digAdapter = new SimpleAdapter(Scan_Return_Activity.this, ProductInfo, R.layout.item_inlist,
@@ -189,16 +173,6 @@ public class Scan_Return_Activity extends DecodeBaseActivity implements  View.On
 
     }
 
-    //重写与ContextMenu相关方法
-//    @Override
-    //重写上下文菜单的创建方法
-//    public void onCreateContextMenu(ContextMenu menu, View v,
-//                                    ContextMenu.ContextMenuInfo menuInfo) {
-//        //子菜单部分：
-//        MenuInflater inflator = new MenuInflater(this);
-//        inflator.inflate(R.menu.menu_sub, menu);
-//        super.onCreateContextMenu(menu, v, menuInfo);
-//    }
 
 
     private void ViewClear(){
@@ -213,15 +187,25 @@ public class Scan_Return_Activity extends DecodeBaseActivity implements  View.On
     }
 
     //加载明细信息
-    private void BillingLoad(String EntryFileName){
+    private void BillingLoad(){
         billPreset = 0;
         billCount = 0;
-        returnbillingList = mQueryBill.queryReturnBilling(EntryFileName);
-        for( ReturnBillingEntity entity : returnbillingList)
-        {
+        //获取主单信息
+        returnEntity = new ReturnEntityDAO(mContext).queryForBillNo(billNo);
+        billId = returnEntity.ReturnId;
+        tbBillDate.setText( returnEntity.ReturnDate == null?"":formatter.format(returnEntity.ReturnDate) );
+        tbWarehouse.setText( returnEntity.WarehouseName );
+        // 从主单信息中取出关联的明细列表信息
+        returnbillingList.clear();
+        ForeignCollection<ReturnBillingEntity> rBills = returnEntity.bNotes;
+        Iterator<ReturnBillingEntity> iterator = rBills.iterator();
+        while (iterator.hasNext()) {
+            ReturnBillingEntity entity = iterator.next();
+            returnbillingList.add(entity);
+
+            //本单预设
             billPreset += entity.Qty;
-            //本单数量
-            billCount += entity.QtyFact;
+
         }
         curPreSet = 0;
         lbCurPreset.setText( String.valueOf(curPreSet) );
@@ -324,15 +308,25 @@ public class Scan_Return_Activity extends DecodeBaseActivity implements  View.On
         curCount = 0;
         billCount = 0;
         int Qty = 0;
-        String curProductId;
-        List<String[]>scanInfoList = mQueryBill.ScanQuery( ScanFileName );
-        for(String[] scanInfo : scanInfoList){
-            barcode_exit.add(scanInfo[0]);
-            curProductId = scanInfo[1];
-            Qty = Integer.parseInt(scanInfo[2]);
-            if ( curProductId.equals( productId ) )
-            {
-                curCount += Qty;
+
+        // 从主单信息中取出关联的明细列表信息
+        ForeignCollection<ReturnBillingEntity> billEntities = returnEntity.bNotes;
+        Iterator<ReturnBillingEntity> billIterator = billEntities.iterator();
+        while (billIterator.hasNext()) {
+            ReturnBillingEntity billEntity = billIterator.next();
+            // 从明细信息中取出关联的扫码列表信息
+            ForeignCollection<ReturnScanEntity> scanEntities = billEntity.sNotes;
+            Iterator<ReturnScanEntity> scanIterator = scanEntities.iterator();
+            while (scanIterator.hasNext()) {
+                ReturnScanEntity scanEntity = scanIterator.next();
+                //本单扫描数量
+                billCount += scanEntity.Qty;
+                barcode_exit.add(scanEntity.SerialNo);
+                //当前扫描数量
+                if(billingEntity.ReturnBillingId.equals(billEntity.ReturnBillingId))
+                {
+                    curCount += scanEntity.Qty;
+                }
             }
         }
 
@@ -402,13 +396,15 @@ public class Scan_Return_Activity extends DecodeBaseActivity implements  View.On
                     throw new Exception("异常：入库数量为0！");
                 }
 
-                String[] insertData = new String[5];
-                insertData[0] = barcode;
-                insertData[1] = productId;
-                insertData[2] = String.valueOf( scanResult.Qty );
-                insertData[3] = mQueryBill.getKeyValue("CreateDate", EntryFileName, "ProductId", productId);
-                insertData[4] = mQueryBill.getKeyValue("CreateUserId", EntryFileName, "ProductId", productId);
-                mScanBill.OrderScanSave( ScanFileName , insertData);
+                ReturnScanEntity scanData = new ReturnScanEntity();
+                scanData.SerialNo = barcode;
+                scanData.ProductId = productId;
+
+                scanData.Qty = scanResult.Qty;
+                scanData.CreateUserId = returnEntity.CreateUserId;
+                //扫码单 与 明细的 对应关系
+                scanData.billEntityId = billingEntity;
+                new ReturnScanDAO(mContext).insert(scanData);
 
                 curCount += scanResult.Qty;
                 billCount += scanResult.Qty;
@@ -468,14 +464,33 @@ public class Scan_Return_Activity extends DecodeBaseActivity implements  View.On
                 break;
             //删除单据
             case R.id.btn_DelBill:
-            
-                boolean ok = mDelBill.DeleteTheData( MainFileName , "ReturnCode" , billNo )
-                        && mDelBill.DeleteFile( EntryFileName )
-                        && mDelBill.DeleteFile( ScanFileName );
-                if(ok){
-                    aDialog.okDialog("删除单据成功！");
-                }else{
-                    aDialog.failDialog("删除单据失败！");
+                boolean ok = true;
+                try {
+                    // 从主单信息中取出关联的明细列表信息
+                    ForeignCollection<ReturnBillingEntity> billEntities = returnEntity.bNotes;
+                    Iterator<ReturnBillingEntity> billIterator = billEntities.iterator();
+                    while (billIterator.hasNext()) {
+                        ReturnBillingEntity billEntity = billIterator.next();
+                        // 从明细信息中取出关联的扫码列表信息
+                        ForeignCollection<ReturnScanEntity> scanEntities = billEntity.sNotes;
+                        Iterator<ReturnScanEntity> scanIterator = scanEntities.iterator();
+                        while (scanIterator.hasNext()) {
+                            ReturnScanEntity scanEntity = scanIterator.next();
+                            new ReturnScanDAO(mContext).delete(scanEntity);
+                        }
+                        new ReturnBillingEntityDAO(mContext).delete(billEntity);
+                    }
+                    new ReturnEntityDAO(mContext).delete(returnEntity);
+                }
+                catch (Exception ex){
+                    ok =false;
+                }
+                finally {
+                    if(ok){
+                        aDialog.okDialog("删除单据成功！");
+                    }else{
+                        aDialog.failDialog("删除单据失败！");
+                    }
                 }
                 initView(); //重启
                 break;
@@ -498,6 +513,7 @@ public class Scan_Return_Activity extends DecodeBaseActivity implements  View.On
             for( ReturnBillingEntity rEntity : returnbillingList)
             {
                 if(rEntity.ProductId.equals(productId)){
+					billingEntity = rEntity;               //选定的明细记录
                     curPreSet = rEntity.Qty;
                     lbCurPreset.setText( String.valueOf( curPreSet ) ); //当前预设
                     break;
@@ -520,14 +536,16 @@ public class Scan_Return_Activity extends DecodeBaseActivity implements  View.On
                     //TODO:回车键按下时要执行的操作
                     ProductInfo.clear();
                     String keyValue = tbProduct.getText().toString();
-                    List<String[]> BillInfoList = mQueryBill.getProductMessage( EntryFileName , keyValue);
+                    List<ReturnBillingEntity> billList = new ReturnBillingEntityDAO(mContext).queryByEq("ReturnId", billId );
 
-                    for( String[] billInfo : BillInfoList){
-                        HashMap<String, Object> item = new HashMap<String, Object>();
-                        item.put("pid", billInfo[0]);
-                        item.put("pcode", billInfo[1]);
-                        item.put("pname", billInfo[2]);
-                        ProductInfo.add(item);
+                    for( ReturnBillingEntity entity : billList){
+                        if(entity.EnCode.contains(keyValue)) {
+                            HashMap<String, Object> item = new HashMap<String, Object>();
+                            item.put("pid", entity.ProductId);
+                            item.put("pcode", entity.EnCode);
+                            item.put("pname", entity.ProductName);
+                            ProductInfo.add(item);
+                        }
                     }
                     digAdapter.notifyDataSetChanged();
                     mHorizontalScrollView.setVisibility(View.VISIBLE);

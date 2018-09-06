@@ -1,13 +1,13 @@
 <component name="libraryTable">
   <library name="support-core-ui-24.2.1">
     <CLASSES>
-      <root url="file://$USER_HOME$/.android/build-cache/51287a7db89f912dc7ff908582c3db45793ee83d/output/res" />
-      <root url="jar://$USER_HOME$/.android/build-cache/51287a7db89f912dc7ff908582c3db45793ee83d/output/jars/classes.jar!/" />
-      <root url="jar://$USER_HOME$/.android/build-cache/51287a7db89f912dc7ff908582c3db45793ee83d/output/jars/libs/internal_impl-24.2.1.jar!/" />
+      <root url="file://$USER_HOME$/.android/build-cache/b7fe082d56668e3acc3ec891c0590ed3540ad84f/output/res" />
+      <root url="jar://$USER_HOME$/.android/build-cache/b7fe082d56668e3acc3ec891c0590ed3540ad84f/output/jars/classes.jar!/" />
+      <root url="jar://$USER_HOME$/.android/build-cache/b7fe082d56668e3acc3ec891c0590ed3540ad84f/output/jars/libs/internal_impl-24.2.1.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>
-      <root url="jar://D:/Android/sdk/extras/android/m2repository/com/android/support/support-core-ui/24.2.1/support-core-ui-24.2.1-sources.jar!/" />
+      <root url="jar://E:/Java/adt-bundle-windows-x86_64-20140702/adt-bundle-windows-x86_64-20140702/sdk/extras/android/m2repository/com/android/support/support-core-ui/24.2.1/support-core-ui-24.2.1-sources.jar!/" />
     </SOURCES>
   </library>
 </component>

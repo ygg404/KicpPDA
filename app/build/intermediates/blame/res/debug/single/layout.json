@@ -1,5 +1,245 @@
 [
     {
+        "merged": "E:\\Java\\AndroidProject\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_popup_menu_header_item_layout.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\a35b4ebce9c7cac9d0c76d95df4be8b7610596c2\\output\\res\\layout\\abc_popup_menu_header_item_layout.xml"
+    },
+    {
+        "merged": "E:\\Java\\AndroidProject\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\scan_godown.xml",
+        "source": "E:\\Java\\AndroidProject\\KicpPDA\\app\\src\\main\\res\\layout\\scan_godown.xml"
+    },
+    {
+        "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\activity_login.xml",
+        "source": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\src\\main\\res\\layout\\activity_login.xml"
+    },
+    {
+        "merged": "E:\\project\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_list_menu_item_checkbox.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\a35b4ebce9c7cac9d0c76d95df4be8b7610596c2\\output\\res\\layout\\abc_list_menu_item_checkbox.xml"
+    },
+    {
+        "merged": "E:\\Java\\AndroidProject\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_action_mode_close_item_material.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\a35b4ebce9c7cac9d0c76d95df4be8b7610596c2\\output\\res\\layout\\abc_action_mode_close_item_material.xml"
+    },
+    {
+        "merged": "E:\\Java\\AndroidProject\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\query_return.xml",
+        "source": "E:\\Java\\AndroidProject\\KicpPDA\\app\\src\\main\\res\\layout\\query_return.xml"
+    },
+    {
+        "merged": "E:\\project\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\notification_template_lines.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\a35b4ebce9c7cac9d0c76d95df4be8b7610596c2\\output\\res\\layout\\notification_template_lines.xml"
+    },
+    {
+        "merged": "E:\\project\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\query_codegrid_item.xml",
+        "source": "E:\\project\\KicpPDA\\app\\src\\main\\res\\layout\\query_codegrid_item.xml"
+    },
+    {
+        "merged": "E:\\Java\\AndroidProject\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_action_mode_bar.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\a35b4ebce9c7cac9d0c76d95df4be8b7610596c2\\output\\res\\layout\\abc_action_mode_bar.xml"
+    },
+    {
+        "merged": "E:\\project\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_screen_toolbar.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\a35b4ebce9c7cac9d0c76d95df4be8b7610596c2\\output\\res\\layout\\abc_screen_toolbar.xml"
+    },
+    {
+        "merged": "E:\\Java\\AndroidProject\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\notification_template_lines.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\a35b4ebce9c7cac9d0c76d95df4be8b7610596c2\\output\\res\\layout\\notification_template_lines.xml"
+    },
+    {
+        "merged": "E:\\project\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_action_bar_title_item.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\a35b4ebce9c7cac9d0c76d95df4be8b7610596c2\\output\\res\\layout\\abc_action_bar_title_item.xml"
+    },
+    {
+        "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\item_inlist.xml",
+        "source": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\src\\main\\res\\layout\\item_inlist.xml"
+    },
+    {
+        "merged": "E:\\project\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_action_bar_view_list_nav_layout.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\a35b4ebce9c7cac9d0c76d95df4be8b7610596c2\\output\\res\\layout\\abc_action_bar_view_list_nav_layout.xml"
+    },
+    {
+        "merged": "E:\\Java\\AndroidProject\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\select_dialog_multichoice_material.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\a35b4ebce9c7cac9d0c76d95df4be8b7610596c2\\output\\res\\layout\\select_dialog_multichoice_material.xml"
+    },
+    {
+        "merged": "E:\\Java\\AndroidProject\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_action_bar_up_container.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\a35b4ebce9c7cac9d0c76d95df4be8b7610596c2\\output\\res\\layout\\abc_action_bar_up_container.xml"
+    },
+    {
+        "merged": "E:\\project\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\notification_template_part_chronometer.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\a35b4ebce9c7cac9d0c76d95df4be8b7610596c2\\output\\res\\layout\\notification_template_part_chronometer.xml"
+    },
+    {
+        "merged": "E:\\project\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_screen_content_include.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\a35b4ebce9c7cac9d0c76d95df4be8b7610596c2\\output\\res\\layout\\abc_screen_content_include.xml"
+    },
+    {
+        "merged": "E:\\Java\\AndroidProject\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\fg_pm.xml",
+        "source": "E:\\Java\\AndroidProject\\KicpPDA\\app\\src\\main\\res\\layout\\fg_pm.xml"
+    },
+    {
+        "merged": "E:\\project\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\notification_media_action.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\a35b4ebce9c7cac9d0c76d95df4be8b7610596c2\\output\\res\\layout\\notification_media_action.xml"
+    },
+    {
+        "merged": "E:\\project\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\fg_data_btn.xml",
+        "source": "E:\\project\\KicpPDA\\app\\src\\main\\res\\layout\\fg_data_btn.xml"
+    },
+    {
+        "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\activity_main.xml",
+        "source": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\src\\main\\res\\layout\\activity_main.xml"
+    },
+    {
+        "merged": "E:\\Java\\AndroidProject\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\scan_return.xml",
+        "source": "E:\\Java\\AndroidProject\\KicpPDA\\app\\src\\main\\res\\layout\\scan_return.xml"
+    },
+    {
+        "merged": "E:\\project\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_action_menu_layout.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\a35b4ebce9c7cac9d0c76d95df4be8b7610596c2\\output\\res\\layout\\abc_action_menu_layout.xml"
+    },
+    {
+        "merged": "E:\\Java\\AndroidProject\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\activity_login.xml",
+        "source": "E:\\Java\\AndroidProject\\KicpPDA\\app\\src\\main\\res\\layout\\activity_login.xml"
+    },
+    {
+        "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\notification_template_big_media_narrow.xml",
+        "source": "C:\\Users\\Lenovo\\.android\\build-cache\\b4439afb2c14e37ecb63a89ca2da1b3d93b4351e\\output\\res\\layout\\notification_template_big_media_narrow.xml"
+    },
+    {
+        "merged": "E:\\Java\\AndroidProject\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_search_dropdown_item_icons_2line.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\a35b4ebce9c7cac9d0c76d95df4be8b7610596c2\\output\\res\\layout\\abc_search_dropdown_item_icons_2line.xml"
+    },
+    {
+        "merged": "E:\\project\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_popup_menu_header_item_layout.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\a35b4ebce9c7cac9d0c76d95df4be8b7610596c2\\output\\res\\layout\\abc_popup_menu_header_item_layout.xml"
+    },
+    {
+        "merged": "E:\\Java\\AndroidProject\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\notification_template_part_chronometer.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\a35b4ebce9c7cac9d0c76d95df4be8b7610596c2\\output\\res\\layout\\notification_template_part_chronometer.xml"
+    },
+    {
+        "merged": "E:\\Java\\AndroidProject\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\notification_template_big_media.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\a35b4ebce9c7cac9d0c76d95df4be8b7610596c2\\output\\res\\layout\\notification_template_big_media.xml"
+    },
+    {
+        "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_screen_content_include.xml",
+        "source": "C:\\Users\\Lenovo\\.android\\build-cache\\b4439afb2c14e37ecb63a89ca2da1b3d93b4351e\\output\\res\\layout\\abc_screen_content_include.xml"
+    },
+    {
+        "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\select_dialog_multichoice_material.xml",
+        "source": "C:\\Users\\Lenovo\\.android\\build-cache\\b4439afb2c14e37ecb63a89ca2da1b3d93b4351e\\output\\res\\layout\\select_dialog_multichoice_material.xml"
+    },
+    {
+        "merged": "E:\\Java\\AndroidProject\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_screen_simple_overlay_action_mode.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\a35b4ebce9c7cac9d0c76d95df4be8b7610596c2\\output\\res\\layout\\abc_screen_simple_overlay_action_mode.xml"
+    },
+    {
+        "merged": "E:\\project\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_alert_dialog_material.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\a35b4ebce9c7cac9d0c76d95df4be8b7610596c2\\output\\res\\layout\\abc_alert_dialog_material.xml"
+    },
+    {
+        "merged": "E:\\project\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\notification_template_media.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\a35b4ebce9c7cac9d0c76d95df4be8b7610596c2\\output\\res\\layout\\notification_template_media.xml"
+    },
+    {
+        "merged": "E:\\project\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_list_menu_item_radio.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\a35b4ebce9c7cac9d0c76d95df4be8b7610596c2\\output\\res\\layout\\abc_list_menu_item_radio.xml"
+    },
+    {
+        "merged": "E:\\Java\\AndroidProject\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\notification_template_media.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\a35b4ebce9c7cac9d0c76d95df4be8b7610596c2\\output\\res\\layout\\notification_template_media.xml"
+    },
+    {
+        "merged": "E:\\Java\\AndroidProject\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\query_list_items.xml",
+        "source": "E:\\Java\\AndroidProject\\KicpPDA\\app\\src\\main\\res\\layout\\query_list_items.xml"
+    },
+    {
+        "merged": "E:\\Java\\AndroidProject\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\query_godown.xml",
+        "source": "E:\\Java\\AndroidProject\\KicpPDA\\app\\src\\main\\res\\layout\\query_godown.xml"
+    },
+    {
+        "merged": "E:\\Java\\AndroidProject\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\support_simple_spinner_dropdown_item.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\a35b4ebce9c7cac9d0c76d95df4be8b7610596c2\\output\\res\\layout\\support_simple_spinner_dropdown_item.xml"
+    },
+    {
+        "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_action_mode_bar.xml",
+        "source": "C:\\Users\\Lenovo\\.android\\build-cache\\b4439afb2c14e37ecb63a89ca2da1b3d93b4351e\\output\\res\\layout\\abc_action_mode_bar.xml"
+    },
+    {
+        "merged": "E:\\project\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_dialog_title_material.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\a35b4ebce9c7cac9d0c76d95df4be8b7610596c2\\output\\res\\layout\\abc_dialog_title_material.xml"
+    },
+    {
+        "merged": "E:\\Java\\AndroidProject\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_popup_menu_item_layout.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\a35b4ebce9c7cac9d0c76d95df4be8b7610596c2\\output\\res\\layout\\abc_popup_menu_item_layout.xml"
+    },
+    {
+        "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_action_menu_item_layout.xml",
+        "source": "C:\\Users\\Lenovo\\.android\\build-cache\\b4439afb2c14e37ecb63a89ca2da1b3d93b4351e\\output\\res\\layout\\abc_action_menu_item_layout.xml"
+    },
+    {
+        "merged": "E:\\project\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\fg_datamanager.xml",
+        "source": "E:\\project\\KicpPDA\\app\\src\\main\\res\\layout\\fg_datamanager.xml"
+    },
+    {
+        "merged": "E:\\project\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_action_bar_up_container.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\a35b4ebce9c7cac9d0c76d95df4be8b7610596c2\\output\\res\\layout\\abc_action_bar_up_container.xml"
+    },
+    {
+        "merged": "E:\\project\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_select_dialog_material.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\a35b4ebce9c7cac9d0c76d95df4be8b7610596c2\\output\\res\\layout\\abc_select_dialog_material.xml"
+    },
+    {
+        "merged": "E:\\project\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\scan_gx.xml",
+        "source": "E:\\project\\KicpPDA\\app\\src\\main\\res\\layout\\scan_gx.xml"
+    },
+    {
+        "merged": "E:\\Java\\AndroidProject\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_action_menu_layout.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\a35b4ebce9c7cac9d0c76d95df4be8b7610596c2\\output\\res\\layout\\abc_action_menu_layout.xml"
+    },
+    {
+        "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_screen_toolbar.xml",
+        "source": "C:\\Users\\Lenovo\\.android\\build-cache\\b4439afb2c14e37ecb63a89ca2da1b3d93b4351e\\output\\res\\layout\\abc_screen_toolbar.xml"
+    },
+    {
+        "merged": "E:\\Java\\AndroidProject\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_list_menu_item_checkbox.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\a35b4ebce9c7cac9d0c76d95df4be8b7610596c2\\output\\res\\layout\\abc_list_menu_item_checkbox.xml"
+    },
+    {
+        "merged": "E:\\project\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_expanded_menu_layout.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\a35b4ebce9c7cac9d0c76d95df4be8b7610596c2\\output\\res\\layout\\abc_expanded_menu_layout.xml"
+    },
+    {
+        "merged": "E:\\Java\\AndroidProject\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_search_view.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\a35b4ebce9c7cac9d0c76d95df4be8b7610596c2\\output\\res\\layout\\abc_search_view.xml"
+    },
+    {
+        "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_activity_chooser_view_list_item.xml",
+        "source": "C:\\Users\\Lenovo\\.android\\build-cache\\b4439afb2c14e37ecb63a89ca2da1b3d93b4351e\\output\\res\\layout\\abc_activity_chooser_view_list_item.xml"
+    },
+    {
+        "merged": "E:\\project\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_activity_chooser_view.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\a35b4ebce9c7cac9d0c76d95df4be8b7610596c2\\output\\res\\layout\\abc_activity_chooser_view.xml"
+    },
+    {
+        "merged": "E:\\project\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\query_check.xml",
+        "source": "E:\\project\\KicpPDA\\app\\src\\main\\res\\layout\\query_check.xml"
+    },
+    {
+        "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_select_dialog_material.xml",
+        "source": "C:\\Users\\Lenovo\\.android\\build-cache\\b4439afb2c14e37ecb63a89ca2da1b3d93b4351e\\output\\res\\layout\\abc_select_dialog_material.xml"
+    },
+    {
+        "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_expanded_menu_layout.xml",
+        "source": "C:\\Users\\Lenovo\\.android\\build-cache\\b4439afb2c14e37ecb63a89ca2da1b3d93b4351e\\output\\res\\layout\\abc_expanded_menu_layout.xml"
+    },
+    {
+        "merged": "E:\\Java\\AndroidProject\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\fg_datamanager.xml",
+        "source": "E:\\Java\\AndroidProject\\KicpPDA\\app\\src\\main\\res\\layout\\fg_datamanager.xml"
+    },
+    {
+        "merged": "E:\\Java\\AndroidProject\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\query_list_item.xml",
+        "source": "E:\\Java\\AndroidProject\\KicpPDA\\app\\src\\main\\res\\layout\\query_list_item.xml"
+    },
+    {
         "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\notification_media_cancel_action.xml",
         "source": "C:\\Users\\Lenovo\\.android\\build-cache\\b4439afb2c14e37ecb63a89ca2da1b3d93b4351e\\output\\res\\layout\\notification_media_cancel_action.xml"
     },
@@ -8,28 +248,36 @@
         "source": "C:\\Users\\Lenovo\\.android\\build-cache\\b4439afb2c14e37ecb63a89ca2da1b3d93b4351e\\output\\res\\layout\\abc_screen_simple_overlay_action_mode.xml"
     },
     {
-        "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\activity_login.xml",
-        "source": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\src\\main\\res\\layout\\activity_login.xml"
-    },
-    {
         "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\get_bill.xml",
         "source": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\src\\main\\res\\layout\\get_bill.xml"
     },
     {
-        "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\fg_data_btn.xml",
-        "source": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\src\\main\\res\\layout\\fg_data_btn.xml"
+        "merged": "E:\\project\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_screen_simple.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\a35b4ebce9c7cac9d0c76d95df4be8b7610596c2\\output\\res\\layout\\abc_screen_simple.xml"
     },
     {
-        "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_action_mode_close_item_material.xml",
-        "source": "C:\\Users\\Lenovo\\.android\\build-cache\\b4439afb2c14e37ecb63a89ca2da1b3d93b4351e\\output\\res\\layout\\abc_action_mode_close_item_material.xml"
+        "merged": "E:\\Java\\AndroidProject\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\scan_order.xml",
+        "source": "E:\\Java\\AndroidProject\\KicpPDA\\app\\src\\main\\res\\layout\\scan_order.xml"
     },
     {
         "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_action_bar_title_item.xml",
         "source": "C:\\Users\\Lenovo\\.android\\build-cache\\b4439afb2c14e37ecb63a89ca2da1b3d93b4351e\\output\\res\\layout\\abc_action_bar_title_item.xml"
     },
     {
-        "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_alert_dialog_button_bar_material.xml",
-        "source": "C:\\Users\\Lenovo\\.android\\build-cache\\b4439afb2c14e37ecb63a89ca2da1b3d93b4351e\\output\\res\\layout\\abc_alert_dialog_button_bar_material.xml"
+        "merged": "E:\\project\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\get_bill.xml",
+        "source": "E:\\project\\KicpPDA\\app\\src\\main\\res\\layout\\get_bill.xml"
+    },
+    {
+        "merged": "E:\\project\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\progress_dialog.xml",
+        "source": "E:\\project\\KicpPDA\\app\\src\\main\\res\\layout\\progress_dialog.xml"
+    },
+    {
+        "merged": "E:\\Java\\AndroidProject\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_list_menu_item_radio.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\a35b4ebce9c7cac9d0c76d95df4be8b7610596c2\\output\\res\\layout\\abc_list_menu_item_radio.xml"
+    },
+    {
+        "merged": "E:\\Java\\AndroidProject\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_activity_chooser_view.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\a35b4ebce9c7cac9d0c76d95df4be8b7610596c2\\output\\res\\layout\\abc_activity_chooser_view.xml"
     },
     {
         "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_search_dropdown_item_icons_2line.xml",
@@ -40,16 +288,148 @@
         "source": "C:\\Users\\Lenovo\\.android\\build-cache\\b4439afb2c14e37ecb63a89ca2da1b3d93b4351e\\output\\res\\layout\\abc_search_view.xml"
     },
     {
-        "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\item_inlist.xml",
-        "source": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\src\\main\\res\\layout\\item_inlist.xml"
+        "merged": "E:\\project\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_action_menu_item_layout.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\a35b4ebce9c7cac9d0c76d95df4be8b7610596c2\\output\\res\\layout\\abc_action_menu_item_layout.xml"
     },
     {
-        "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\notification_template_media.xml",
-        "source": "C:\\Users\\Lenovo\\.android\\build-cache\\b4439afb2c14e37ecb63a89ca2da1b3d93b4351e\\output\\res\\layout\\notification_template_media.xml"
+        "merged": "E:\\project\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\query_godown.xml",
+        "source": "E:\\project\\KicpPDA\\app\\src\\main\\res\\layout\\query_godown.xml"
     },
     {
-        "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\fg_datamanager.xml",
-        "source": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\src\\main\\res\\layout\\fg_datamanager.xml"
+        "merged": "E:\\Java\\AndroidProject\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\notification_template_part_time.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\a35b4ebce9c7cac9d0c76d95df4be8b7610596c2\\output\\res\\layout\\notification_template_part_time.xml"
+    },
+    {
+        "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_list_menu_item_checkbox.xml",
+        "source": "C:\\Users\\Lenovo\\.android\\build-cache\\b4439afb2c14e37ecb63a89ca2da1b3d93b4351e\\output\\res\\layout\\abc_list_menu_item_checkbox.xml"
+    },
+    {
+        "merged": "E:\\project\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\scan_order.xml",
+        "source": "E:\\project\\KicpPDA\\app\\src\\main\\res\\layout\\scan_order.xml"
+    },
+    {
+        "merged": "E:\\project\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\scan_return.xml",
+        "source": "E:\\project\\KicpPDA\\app\\src\\main\\res\\layout\\scan_return.xml"
+    },
+    {
+        "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\notification_template_part_time.xml",
+        "source": "C:\\Users\\Lenovo\\.android\\build-cache\\b4439afb2c14e37ecb63a89ca2da1b3d93b4351e\\output\\res\\layout\\notification_template_part_time.xml"
+    },
+    {
+        "merged": "E:\\Java\\AndroidProject\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\query_allot.xml",
+        "source": "E:\\Java\\AndroidProject\\KicpPDA\\app\\src\\main\\res\\layout\\query_allot.xml"
+    },
+    {
+        "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_alert_dialog_material.xml",
+        "source": "C:\\Users\\Lenovo\\.android\\build-cache\\b4439afb2c14e37ecb63a89ca2da1b3d93b4351e\\output\\res\\layout\\abc_alert_dialog_material.xml"
+    },
+    {
+        "merged": "E:\\project\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\scan_godown.xml",
+        "source": "E:\\project\\KicpPDA\\app\\src\\main\\res\\layout\\scan_godown.xml"
+    },
+    {
+        "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\notification_template_lines.xml",
+        "source": "C:\\Users\\Lenovo\\.android\\build-cache\\b4439afb2c14e37ecb63a89ca2da1b3d93b4351e\\output\\res\\layout\\notification_template_lines.xml"
+    },
+    {
+        "merged": "E:\\Java\\AndroidProject\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_screen_simple.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\a35b4ebce9c7cac9d0c76d95df4be8b7610596c2\\output\\res\\layout\\abc_screen_simple.xml"
+    },
+    {
+        "merged": "E:\\project\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\activity_login.xml",
+        "source": "E:\\project\\KicpPDA\\app\\src\\main\\res\\layout\\activity_login.xml"
+    },
+    {
+        "merged": "E:\\Java\\AndroidProject\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\query_codegrid_item.xml",
+        "source": "E:\\Java\\AndroidProject\\KicpPDA\\app\\src\\main\\res\\layout\\query_codegrid_item.xml"
+    },
+    {
+        "merged": "E:\\Java\\AndroidProject\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\notification_media_cancel_action.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\a35b4ebce9c7cac9d0c76d95df4be8b7610596c2\\output\\res\\layout\\notification_media_cancel_action.xml"
+    },
+    {
+        "merged": "E:\\project\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\query_return.xml",
+        "source": "E:\\project\\KicpPDA\\app\\src\\main\\res\\layout\\query_return.xml"
+    },
+    {
+        "merged": "E:\\project\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\select_dialog_item_material.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\a35b4ebce9c7cac9d0c76d95df4be8b7610596c2\\output\\res\\layout\\select_dialog_item_material.xml"
+    },
+    {
+        "merged": "E:\\project\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_action_mode_bar.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\a35b4ebce9c7cac9d0c76d95df4be8b7610596c2\\output\\res\\layout\\abc_action_mode_bar.xml"
+    },
+    {
+        "merged": "E:\\project\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_popup_menu_item_layout.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\a35b4ebce9c7cac9d0c76d95df4be8b7610596c2\\output\\res\\layout\\abc_popup_menu_item_layout.xml"
+    },
+    {
+        "merged": "E:\\Java\\AndroidProject\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\query_order.xml",
+        "source": "E:\\Java\\AndroidProject\\KicpPDA\\app\\src\\main\\res\\layout\\query_order.xml"
+    },
+    {
+        "merged": "E:\\project\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_alert_dialog_button_bar_material.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\a35b4ebce9c7cac9d0c76d95df4be8b7610596c2\\output\\res\\layout\\abc_alert_dialog_button_bar_material.xml"
+    },
+    {
+        "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\support_simple_spinner_dropdown_item.xml",
+        "source": "C:\\Users\\Lenovo\\.android\\build-cache\\b4439afb2c14e37ecb63a89ca2da1b3d93b4351e\\output\\res\\layout\\support_simple_spinner_dropdown_item.xml"
+    },
+    {
+        "merged": "E:\\project\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\query_list_items.xml",
+        "source": "E:\\project\\KicpPDA\\app\\src\\main\\res\\layout\\query_list_items.xml"
+    },
+    {
+        "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\select_dialog_singlechoice_material.xml",
+        "source": "C:\\Users\\Lenovo\\.android\\build-cache\\b4439afb2c14e37ecb63a89ca2da1b3d93b4351e\\output\\res\\layout\\select_dialog_singlechoice_material.xml"
+    },
+    {
+        "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_action_bar_view_list_nav_layout.xml",
+        "source": "C:\\Users\\Lenovo\\.android\\build-cache\\b4439afb2c14e37ecb63a89ca2da1b3d93b4351e\\output\\res\\layout\\abc_action_bar_view_list_nav_layout.xml"
+    },
+    {
+        "merged": "E:\\Java\\AndroidProject\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\progress_dialog.xml",
+        "source": "E:\\Java\\AndroidProject\\KicpPDA\\app\\src\\main\\res\\layout\\progress_dialog.xml"
+    },
+    {
+        "merged": "E:\\Java\\AndroidProject\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\select_dialog_singlechoice_material.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\a35b4ebce9c7cac9d0c76d95df4be8b7610596c2\\output\\res\\layout\\select_dialog_singlechoice_material.xml"
+    },
+    {
+        "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_action_bar_up_container.xml",
+        "source": "C:\\Users\\Lenovo\\.android\\build-cache\\b4439afb2c14e37ecb63a89ca2da1b3d93b4351e\\output\\res\\layout\\abc_action_bar_up_container.xml"
+    },
+    {
+        "merged": "E:\\Java\\AndroidProject\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_action_bar_view_list_nav_layout.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\a35b4ebce9c7cac9d0c76d95df4be8b7610596c2\\output\\res\\layout\\abc_action_bar_view_list_nav_layout.xml"
+    },
+    {
+        "merged": "E:\\Java\\AndroidProject\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\notification_template_big_media_narrow.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\a35b4ebce9c7cac9d0c76d95df4be8b7610596c2\\output\\res\\layout\\notification_template_big_media_narrow.xml"
+    },
+    {
+        "merged": "E:\\Java\\AndroidProject\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\down_basedata.xml",
+        "source": "E:\\Java\\AndroidProject\\KicpPDA\\app\\src\\main\\res\\layout\\down_basedata.xml"
+    },
+    {
+        "merged": "E:\\project\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\query_listview.xml",
+        "source": "E:\\project\\KicpPDA\\app\\src\\main\\res\\layout\\query_listview.xml"
+    },
+    {
+        "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_action_mode_close_item_material.xml",
+        "source": "C:\\Users\\Lenovo\\.android\\build-cache\\b4439afb2c14e37ecb63a89ca2da1b3d93b4351e\\output\\res\\layout\\abc_action_mode_close_item_material.xml"
+    },
+    {
+        "merged": "E:\\project\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_search_view.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\a35b4ebce9c7cac9d0c76d95df4be8b7610596c2\\output\\res\\layout\\abc_search_view.xml"
+    },
+    {
+        "merged": "E:\\project\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\fg_sys.xml",
+        "source": "E:\\project\\KicpPDA\\app\\src\\main\\res\\layout\\fg_sys.xml"
+    },
+    {
+        "merged": "E:\\Java\\AndroidProject\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\query_check.xml",
+        "source": "E:\\Java\\AndroidProject\\KicpPDA\\app\\src\\main\\res\\layout\\query_check.xml"
     },
     {
         "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_action_menu_layout.xml",
@@ -60,131 +440,255 @@
         "source": "C:\\Users\\Lenovo\\.android\\build-cache\\b4439afb2c14e37ecb63a89ca2da1b3d93b4351e\\output\\res\\layout\\abc_popup_menu_item_layout.xml"
     },
     {
-        "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\activity_main.xml",
-        "source": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\src\\main\\res\\layout\\activity_main.xml"
+        "merged": "E:\\project\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\select_dialog_singlechoice_material.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\a35b4ebce9c7cac9d0c76d95df4be8b7610596c2\\output\\res\\layout\\select_dialog_singlechoice_material.xml"
     },
     {
-        "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_activity_chooser_view.xml",
-        "source": "C:\\Users\\Lenovo\\.android\\build-cache\\b4439afb2c14e37ecb63a89ca2da1b3d93b4351e\\output\\res\\layout\\abc_activity_chooser_view.xml"
+        "merged": "E:\\project\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_activity_chooser_view_list_item.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\a35b4ebce9c7cac9d0c76d95df4be8b7610596c2\\output\\res\\layout\\abc_activity_chooser_view_list_item.xml"
     },
     {
-        "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_list_menu_item_checkbox.xml",
-        "source": "C:\\Users\\Lenovo\\.android\\build-cache\\b4439afb2c14e37ecb63a89ca2da1b3d93b4351e\\output\\res\\layout\\abc_list_menu_item_checkbox.xml"
+        "merged": "E:\\project\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\down_basedata.xml",
+        "source": "E:\\project\\KicpPDA\\app\\src\\main\\res\\layout\\down_basedata.xml"
     },
     {
         "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\progress_dialog.xml",
         "source": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\src\\main\\res\\layout\\progress_dialog.xml"
     },
     {
-        "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\fg_sys.xml",
-        "source": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\src\\main\\res\\layout\\fg_sys.xml"
+        "merged": "E:\\Java\\AndroidProject\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_alert_dialog_button_bar_material.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\a35b4ebce9c7cac9d0c76d95df4be8b7610596c2\\output\\res\\layout\\abc_alert_dialog_button_bar_material.xml"
     },
     {
-        "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\notification_template_big_media_narrow.xml",
-        "source": "C:\\Users\\Lenovo\\.android\\build-cache\\b4439afb2c14e37ecb63a89ca2da1b3d93b4351e\\output\\res\\layout\\notification_template_big_media_narrow.xml"
-    },
-    {
-        "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\select_dialog_multichoice_material.xml",
-        "source": "C:\\Users\\Lenovo\\.android\\build-cache\\b4439afb2c14e37ecb63a89ca2da1b3d93b4351e\\output\\res\\layout\\select_dialog_multichoice_material.xml"
-    },
-    {
-        "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_screen_content_include.xml",
-        "source": "C:\\Users\\Lenovo\\.android\\build-cache\\b4439afb2c14e37ecb63a89ca2da1b3d93b4351e\\output\\res\\layout\\abc_screen_content_include.xml"
-    },
-    {
-        "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\select_dialog_item_material.xml",
-        "source": "C:\\Users\\Lenovo\\.android\\build-cache\\b4439afb2c14e37ecb63a89ca2da1b3d93b4351e\\output\\res\\layout\\select_dialog_item_material.xml"
-    },
-    {
-        "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\notification_template_part_time.xml",
-        "source": "C:\\Users\\Lenovo\\.android\\build-cache\\b4439afb2c14e37ecb63a89ca2da1b3d93b4351e\\output\\res\\layout\\notification_template_part_time.xml"
-    },
-    {
-        "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_alert_dialog_material.xml",
-        "source": "C:\\Users\\Lenovo\\.android\\build-cache\\b4439afb2c14e37ecb63a89ca2da1b3d93b4351e\\output\\res\\layout\\abc_alert_dialog_material.xml"
+        "merged": "E:\\Java\\AndroidProject\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\fg_data_btn.xml",
+        "source": "E:\\Java\\AndroidProject\\KicpPDA\\app\\src\\main\\res\\layout\\fg_data_btn.xml"
     },
     {
         "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\notification_template_big_media.xml",
         "source": "C:\\Users\\Lenovo\\.android\\build-cache\\b4439afb2c14e37ecb63a89ca2da1b3d93b4351e\\output\\res\\layout\\notification_template_big_media.xml"
     },
     {
-        "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_list_menu_item_layout.xml",
-        "source": "C:\\Users\\Lenovo\\.android\\build-cache\\b4439afb2c14e37ecb63a89ca2da1b3d93b4351e\\output\\res\\layout\\abc_list_menu_item_layout.xml"
+        "merged": "E:\\project\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\support_simple_spinner_dropdown_item.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\a35b4ebce9c7cac9d0c76d95df4be8b7610596c2\\output\\res\\layout\\support_simple_spinner_dropdown_item.xml"
     },
     {
-        "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\notification_template_lines.xml",
-        "source": "C:\\Users\\Lenovo\\.android\\build-cache\\b4439afb2c14e37ecb63a89ca2da1b3d93b4351e\\output\\res\\layout\\notification_template_lines.xml"
+        "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_list_menu_item_layout.xml",
+        "source": "C:\\Users\\Lenovo\\.android\\build-cache\\b4439afb2c14e37ecb63a89ca2da1b3d93b4351e\\output\\res\\layout\\abc_list_menu_item_layout.xml"
     },
     {
         "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_list_menu_item_icon.xml",
         "source": "C:\\Users\\Lenovo\\.android\\build-cache\\b4439afb2c14e37ecb63a89ca2da1b3d93b4351e\\output\\res\\layout\\abc_list_menu_item_icon.xml"
     },
     {
-        "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_dialog_title_material.xml",
-        "source": "C:\\Users\\Lenovo\\.android\\build-cache\\b4439afb2c14e37ecb63a89ca2da1b3d93b4351e\\output\\res\\layout\\abc_dialog_title_material.xml"
+        "merged": "E:\\project\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\notification_template_big_media_narrow.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\a35b4ebce9c7cac9d0c76d95df4be8b7610596c2\\output\\res\\layout\\notification_template_big_media_narrow.xml"
     },
     {
-        "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_action_mode_bar.xml",
-        "source": "C:\\Users\\Lenovo\\.android\\build-cache\\b4439afb2c14e37ecb63a89ca2da1b3d93b4351e\\output\\res\\layout\\abc_action_mode_bar.xml"
+        "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_dialog_title_material.xml",
+        "source": "C:\\Users\\Lenovo\\.android\\build-cache\\b4439afb2c14e37ecb63a89ca2da1b3d93b4351e\\output\\res\\layout\\abc_dialog_title_material.xml"
     },
     {
         "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\notification_template_part_chronometer.xml",
         "source": "C:\\Users\\Lenovo\\.android\\build-cache\\b4439afb2c14e37ecb63a89ca2da1b3d93b4351e\\output\\res\\layout\\notification_template_part_chronometer.xml"
     },
     {
-        "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_action_menu_item_layout.xml",
-        "source": "C:\\Users\\Lenovo\\.android\\build-cache\\b4439afb2c14e37ecb63a89ca2da1b3d93b4351e\\output\\res\\layout\\abc_action_menu_item_layout.xml"
+        "merged": "E:\\Java\\AndroidProject\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_select_dialog_material.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\a35b4ebce9c7cac9d0c76d95df4be8b7610596c2\\output\\res\\layout\\abc_select_dialog_material.xml"
     },
     {
-        "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_screen_toolbar.xml",
-        "source": "C:\\Users\\Lenovo\\.android\\build-cache\\b4439afb2c14e37ecb63a89ca2da1b3d93b4351e\\output\\res\\layout\\abc_screen_toolbar.xml"
+        "merged": "E:\\Java\\AndroidProject\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\select_dialog_item_material.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\a35b4ebce9c7cac9d0c76d95df4be8b7610596c2\\output\\res\\layout\\select_dialog_item_material.xml"
     },
     {
-        "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\support_simple_spinner_dropdown_item.xml",
-        "source": "C:\\Users\\Lenovo\\.android\\build-cache\\b4439afb2c14e37ecb63a89ca2da1b3d93b4351e\\output\\res\\layout\\support_simple_spinner_dropdown_item.xml"
+        "merged": "E:\\Java\\AndroidProject\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_dialog_title_material.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\a35b4ebce9c7cac9d0c76d95df4be8b7610596c2\\output\\res\\layout\\abc_dialog_title_material.xml"
     },
     {
-        "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_activity_chooser_view_list_item.xml",
-        "source": "C:\\Users\\Lenovo\\.android\\build-cache\\b4439afb2c14e37ecb63a89ca2da1b3d93b4351e\\output\\res\\layout\\abc_activity_chooser_view_list_item.xml"
+        "merged": "E:\\project\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\scan_allot.xml",
+        "source": "E:\\project\\KicpPDA\\app\\src\\main\\res\\layout\\scan_allot.xml"
     },
     {
-        "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\select_dialog_singlechoice_material.xml",
-        "source": "C:\\Users\\Lenovo\\.android\\build-cache\\b4439afb2c14e37ecb63a89ca2da1b3d93b4351e\\output\\res\\layout\\select_dialog_singlechoice_material.xml"
+        "merged": "E:\\project\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_search_dropdown_item_icons_2line.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\a35b4ebce9c7cac9d0c76d95df4be8b7610596c2\\output\\res\\layout\\abc_search_dropdown_item_icons_2line.xml"
     },
     {
         "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_list_menu_item_radio.xml",
         "source": "C:\\Users\\Lenovo\\.android\\build-cache\\b4439afb2c14e37ecb63a89ca2da1b3d93b4351e\\output\\res\\layout\\abc_list_menu_item_radio.xml"
     },
     {
-        "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_select_dialog_material.xml",
-        "source": "C:\\Users\\Lenovo\\.android\\build-cache\\b4439afb2c14e37ecb63a89ca2da1b3d93b4351e\\output\\res\\layout\\abc_select_dialog_material.xml"
+        "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\notification_media_action.xml",
+        "source": "C:\\Users\\Lenovo\\.android\\build-cache\\b4439afb2c14e37ecb63a89ca2da1b3d93b4351e\\output\\res\\layout\\notification_media_action.xml"
+    },
+    {
+        "merged": "E:\\Java\\AndroidProject\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\scan_allot.xml",
+        "source": "E:\\Java\\AndroidProject\\KicpPDA\\app\\src\\main\\res\\layout\\scan_allot.xml"
+    },
+    {
+        "merged": "E:\\project\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\query_order.xml",
+        "source": "E:\\project\\KicpPDA\\app\\src\\main\\res\\layout\\query_order.xml"
+    },
+    {
+        "merged": "E:\\project\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\fg_pm.xml",
+        "source": "E:\\project\\KicpPDA\\app\\src\\main\\res\\layout\\fg_pm.xml"
+    },
+    {
+        "merged": "E:\\Java\\AndroidProject\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_action_menu_item_layout.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\a35b4ebce9c7cac9d0c76d95df4be8b7610596c2\\output\\res\\layout\\abc_action_menu_item_layout.xml"
+    },
+    {
+        "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\fg_data_btn.xml",
+        "source": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\src\\main\\res\\layout\\fg_data_btn.xml"
+    },
+    {
+        "merged": "E:\\project\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_action_mode_close_item_material.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\a35b4ebce9c7cac9d0c76d95df4be8b7610596c2\\output\\res\\layout\\abc_action_mode_close_item_material.xml"
+    },
+    {
+        "merged": "E:\\project\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\activity_main.xml",
+        "source": "E:\\project\\KicpPDA\\app\\src\\main\\res\\layout\\activity_main.xml"
+    },
+    {
+        "merged": "E:\\Java\\AndroidProject\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\notification_media_action.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\a35b4ebce9c7cac9d0c76d95df4be8b7610596c2\\output\\res\\layout\\notification_media_action.xml"
+    },
+    {
+        "merged": "E:\\Java\\AndroidProject\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\get_bill.xml",
+        "source": "E:\\Java\\AndroidProject\\KicpPDA\\app\\src\\main\\res\\layout\\get_bill.xml"
+    },
+    {
+        "merged": "E:\\project\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\query_allot.xml",
+        "source": "E:\\project\\KicpPDA\\app\\src\\main\\res\\layout\\query_allot.xml"
+    },
+    {
+        "merged": "E:\\Java\\AndroidProject\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_expanded_menu_layout.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\a35b4ebce9c7cac9d0c76d95df4be8b7610596c2\\output\\res\\layout\\abc_expanded_menu_layout.xml"
+    },
+    {
+        "merged": "E:\\Java\\AndroidProject\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_activity_chooser_view_list_item.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\a35b4ebce9c7cac9d0c76d95df4be8b7610596c2\\output\\res\\layout\\abc_activity_chooser_view_list_item.xml"
+    },
+    {
+        "merged": "E:\\project\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\notification_media_cancel_action.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\a35b4ebce9c7cac9d0c76d95df4be8b7610596c2\\output\\res\\layout\\notification_media_cancel_action.xml"
+    },
+    {
+        "merged": "E:\\project\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\select_dialog_multichoice_material.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\a35b4ebce9c7cac9d0c76d95df4be8b7610596c2\\output\\res\\layout\\select_dialog_multichoice_material.xml"
+    },
+    {
+        "merged": "E:\\project\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\item_inlist.xml",
+        "source": "E:\\project\\KicpPDA\\app\\src\\main\\res\\layout\\item_inlist.xml"
+    },
+    {
+        "merged": "E:\\Java\\AndroidProject\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\scan_check.xml",
+        "source": "E:\\Java\\AndroidProject\\KicpPDA\\app\\src\\main\\res\\layout\\scan_check.xml"
+    },
+    {
+        "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_alert_dialog_button_bar_material.xml",
+        "source": "C:\\Users\\Lenovo\\.android\\build-cache\\b4439afb2c14e37ecb63a89ca2da1b3d93b4351e\\output\\res\\layout\\abc_alert_dialog_button_bar_material.xml"
+    },
+    {
+        "merged": "E:\\Java\\AndroidProject\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\fg_sys.xml",
+        "source": "E:\\Java\\AndroidProject\\KicpPDA\\app\\src\\main\\res\\layout\\fg_sys.xml"
+    },
+    {
+        "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\fg_datamanager.xml",
+        "source": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\src\\main\\res\\layout\\fg_datamanager.xml"
+    },
+    {
+        "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\notification_template_media.xml",
+        "source": "C:\\Users\\Lenovo\\.android\\build-cache\\b4439afb2c14e37ecb63a89ca2da1b3d93b4351e\\output\\res\\layout\\notification_template_media.xml"
+    },
+    {
+        "merged": "E:\\Java\\AndroidProject\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_alert_dialog_material.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\a35b4ebce9c7cac9d0c76d95df4be8b7610596c2\\output\\res\\layout\\abc_alert_dialog_material.xml"
+    },
+    {
+        "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_activity_chooser_view.xml",
+        "source": "C:\\Users\\Lenovo\\.android\\build-cache\\b4439afb2c14e37ecb63a89ca2da1b3d93b4351e\\output\\res\\layout\\abc_activity_chooser_view.xml"
+    },
+    {
+        "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\fg_sys.xml",
+        "source": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\src\\main\\res\\layout\\fg_sys.xml"
+    },
+    {
+        "merged": "E:\\Java\\AndroidProject\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\item_inlist.xml",
+        "source": "E:\\Java\\AndroidProject\\KicpPDA\\app\\src\\main\\res\\layout\\item_inlist.xml"
+    },
+    {
+        "merged": "E:\\Java\\AndroidProject\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_list_menu_item_layout.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\a35b4ebce9c7cac9d0c76d95df4be8b7610596c2\\output\\res\\layout\\abc_list_menu_item_layout.xml"
+    },
+    {
+        "merged": "E:\\Java\\AndroidProject\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_list_menu_item_icon.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\a35b4ebce9c7cac9d0c76d95df4be8b7610596c2\\output\\res\\layout\\abc_list_menu_item_icon.xml"
+    },
+    {
+        "merged": "E:\\project\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\scan_check.xml",
+        "source": "E:\\project\\KicpPDA\\app\\src\\main\\res\\layout\\scan_check.xml"
+    },
+    {
+        "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\select_dialog_item_material.xml",
+        "source": "C:\\Users\\Lenovo\\.android\\build-cache\\b4439afb2c14e37ecb63a89ca2da1b3d93b4351e\\output\\res\\layout\\select_dialog_item_material.xml"
+    },
+    {
+        "merged": "E:\\project\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_screen_simple_overlay_action_mode.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\a35b4ebce9c7cac9d0c76d95df4be8b7610596c2\\output\\res\\layout\\abc_screen_simple_overlay_action_mode.xml"
+    },
+    {
+        "merged": "E:\\project\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\notification_template_part_time.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\a35b4ebce9c7cac9d0c76d95df4be8b7610596c2\\output\\res\\layout\\notification_template_part_time.xml"
+    },
+    {
+        "merged": "E:\\project\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_list_menu_item_layout.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\a35b4ebce9c7cac9d0c76d95df4be8b7610596c2\\output\\res\\layout\\abc_list_menu_item_layout.xml"
+    },
+    {
+        "merged": "E:\\Java\\AndroidProject\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_screen_toolbar.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\a35b4ebce9c7cac9d0c76d95df4be8b7610596c2\\output\\res\\layout\\abc_screen_toolbar.xml"
+    },
+    {
+        "merged": "E:\\Java\\AndroidProject\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_screen_content_include.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\a35b4ebce9c7cac9d0c76d95df4be8b7610596c2\\output\\res\\layout\\abc_screen_content_include.xml"
+    },
+    {
+        "merged": "E:\\project\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_list_menu_item_icon.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\a35b4ebce9c7cac9d0c76d95df4be8b7610596c2\\output\\res\\layout\\abc_list_menu_item_icon.xml"
+    },
+    {
+        "merged": "E:\\Java\\AndroidProject\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\query_listview.xml",
+        "source": "E:\\Java\\AndroidProject\\KicpPDA\\app\\src\\main\\res\\layout\\query_listview.xml"
+    },
+    {
+        "merged": "E:\\Java\\AndroidProject\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_action_bar_title_item.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\a35b4ebce9c7cac9d0c76d95df4be8b7610596c2\\output\\res\\layout\\abc_action_bar_title_item.xml"
+    },
+    {
+        "merged": "E:\\project\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\query_list_item.xml",
+        "source": "E:\\project\\KicpPDA\\app\\src\\main\\res\\layout\\query_list_item.xml"
     },
     {
         "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_popup_menu_header_item_layout.xml",
         "source": "C:\\Users\\Lenovo\\.android\\build-cache\\b4439afb2c14e37ecb63a89ca2da1b3d93b4351e\\output\\res\\layout\\abc_popup_menu_header_item_layout.xml"
     },
     {
-        "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\notification_media_action.xml",
-        "source": "C:\\Users\\Lenovo\\.android\\build-cache\\b4439afb2c14e37ecb63a89ca2da1b3d93b4351e\\output\\res\\layout\\notification_media_action.xml"
-    },
-    {
-        "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_expanded_menu_layout.xml",
-        "source": "C:\\Users\\Lenovo\\.android\\build-cache\\b4439afb2c14e37ecb63a89ca2da1b3d93b4351e\\output\\res\\layout\\abc_expanded_menu_layout.xml"
-    },
-    {
-        "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_action_bar_view_list_nav_layout.xml",
-        "source": "C:\\Users\\Lenovo\\.android\\build-cache\\b4439afb2c14e37ecb63a89ca2da1b3d93b4351e\\output\\res\\layout\\abc_action_bar_view_list_nav_layout.xml"
-    },
-    {
-        "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_action_bar_up_container.xml",
-        "source": "C:\\Users\\Lenovo\\.android\\build-cache\\b4439afb2c14e37ecb63a89ca2da1b3d93b4351e\\output\\res\\layout\\abc_action_bar_up_container.xml"
+        "merged": "E:\\Java\\AndroidProject\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\activity_main.xml",
+        "source": "E:\\Java\\AndroidProject\\KicpPDA\\app\\src\\main\\res\\layout\\activity_main.xml"
     },
     {
         "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_screen_simple.xml",
         "source": "C:\\Users\\Lenovo\\.android\\build-cache\\b4439afb2c14e37ecb63a89ca2da1b3d93b4351e\\output\\res\\layout\\abc_screen_simple.xml"
     },
     {
+        "merged": "E:\\project\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\notification_template_big_media.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\a35b4ebce9c7cac9d0c76d95df4be8b7610596c2\\output\\res\\layout\\notification_template_big_media.xml"
+    },
+    {
         "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\scan_godown.xml",
         "source": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\src\\main\\res\\layout\\scan_godown.xml"
+    },
+    {
+        "merged": "E:\\Java\\AndroidProject\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\scan_gx.xml",
+        "source": "E:\\Java\\AndroidProject\\KicpPDA\\app\\src\\main\\res\\layout\\scan_gx.xml"
     }
 ]

@@ -3,12 +3,210 @@
 
     <item
         is-multidex="false"
-        jar="E:\ygg\AndroidProjects\KicpPDA\app\libs\fastjson-1.1.33.jar"
+        jar="C:\Users\Administrator\.android\build-cache\15e206e0d0a07541ac33972904ea3590bcc5a816\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="09b462bbcb77650284bd6614f1a32f360ef369f8">
+        <dex dex="E:\Java\AndroidProject\KicpPDA\app\build\intermediates\pre-dexed\debug\classes_da29a9fae49c0b1010d1c67682703785415b74c0.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Administrator\.android\build-cache\9ce06069291ab1ed830e2db51cfa9c2c2230920e\output\jars\libs\internal_impl-24.2.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="7e4389bd133359a2ff88623ff1e4ff93d6e6f780">
+        <dex dex="E:\Java\AndroidProject\KicpPDA\app\build\intermediates\pre-dexed\debug\internal_impl-24.2.1_d18d1d777fdaa8dd00d525ac6e1b713f1e3a5fdb.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Administrator\.android\build-cache\a35b4ebce9c7cac9d0c76d95df4be8b7610596c2\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="43b2dba6b5a0b14527961b75329d0b90025f15ea">
+        <dex dex="E:\Java\AndroidProject\KicpPDA\app\build\intermediates\pre-dexed\debug\classes_5a363daa29c01ae55073c2472f3ea3fa55389e7b.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="E:\Java\adt-bundle-windows-x86_64-20140702\adt-bundle-windows-x86_64-20140702\sdk\extras\android\m2repository\com\android\support\support-annotations\24.2.1\support-annotations-24.2.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="8de3aafecbdf98a61db6427f008f2d515bcd2544">
+        <dex dex="E:\Java\AndroidProject\KicpPDA\app\build\intermediates\pre-dexed\debug\support-annotations-24.2.1_ce1d51982c6ef0ea2a52a563769cf4a7fa124deb.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="E:\Java\AndroidProject\KicpPDA\app\libs\fastjson-1.1.33.jar"
         jumboMode="false"
         optimize="true"
         revision="25.0.1"
         sha1="43b49a6933e68564ddc291d941db1bd1bd4166fc">
-        <dex dex="E:\ygg\AndroidProjects\KicpPDA\app\build\intermediates\pre-dexed\debug\fastjson-1.1.33_a09522044858ea630929b4d9c2a300e00327da2d.jar" />
+        <dex dex="E:\Java\AndroidProject\KicpPDA\app\build\intermediates\pre-dexed\debug\fastjson-1.1.33_af5150e5e3513cf7d60855f645c77ed4e6e849f1.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="E:\project\KicpPDA\app\libs\imscsmanager_1.5.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="b940582838bf64755ad1e68405bc3345340384fa">
+        <dex dex="E:\project\KicpPDA\app\build\intermediates\pre-dexed\debug\imscsmanager_1.5_36e15698fb6bfe4150b472e9e645be9a7aa3f9be.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Administrator\.android\build-cache\b7fe082d56668e3acc3ec891c0590ed3540ad84f\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="e7f3132168957eefc46229fc32c3bd464642b71e">
+        <dex dex="E:\Java\AndroidProject\KicpPDA\app\build\intermediates\pre-dexed\debug\classes_a0db720e5801c2fe28286b4abe0d4f06c8ee61be.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Administrator\.android\build-cache\9ce06069291ab1ed830e2db51cfa9c2c2230920e\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="0ecb4b595fa0f0f8018a149ace3ea6525624f94e">
+        <dex dex="E:\Java\AndroidProject\KicpPDA\app\build\intermediates\pre-dexed\debug\classes_940d45738412a379fac14e484f720f7f7809e022.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Administrator\.android\build-cache\65eedb99b22650b6f62e02bb387f6e48f6373b84\output\jars\libs\internal_impl-24.2.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="5f64d657e838e8375135c0f6057a7ff8fab6a50e">
+        <dex dex="E:\Java\AndroidProject\KicpPDA\app\build\intermediates\pre-dexed\debug\internal_impl-24.2.1_d680926b5b793904a6daab708557c17a525169b6.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Administrator\.android\build-cache\a5c90edbff81ef35dd98ec2555666a2207347002\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="9c4c3bc902450c39ed54de170db4fb12aea20a35">
+        <dex dex="E:\Java\AndroidProject\KicpPDA\app\build\intermediates\pre-dexed\debug\classes_f2bd6c60148e7813ccf6d752084a8691afe95b0c.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Administrator\.android\build-cache\b7fe082d56668e3acc3ec891c0590ed3540ad84f\output\jars\libs\internal_impl-24.2.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="867dad63c33388ff8c7644b236579355036d075f">
+        <dex dex="E:\Java\AndroidProject\KicpPDA\app\build\intermediates\pre-dexed\debug\internal_impl-24.2.1_ade7d6a2ad5fdc73c4099c10b53154eff085defe.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Administrator\.android\build-cache\65eedb99b22650b6f62e02bb387f6e48f6373b84\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="b9a1ac78ad7ef3abedc4a4b30cd92bcacb939d1f">
+        <dex dex="E:\Java\AndroidProject\KicpPDA\app\build\intermediates\pre-dexed\debug\classes_4c347c4dd89e4b25d778586d81d08db9809e11c4.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Administrator\.android\build-cache\d25792d0ba7f0c2087dc3ce4413f3c48fbddd94e\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="44ee06abb66da30f5855e6bf54574e64cdcd982a">
+        <dex dex="E:\Java\AndroidProject\KicpPDA\app\build\intermediates\pre-dexed\debug\classes_8ade5b8ea1168d8235884664e562410e72de5a29.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Administrator\.android\build-cache\24b57c93f11a2a340c0b4832790761e42dd2876c\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
+        <dex dex="E:\Java\AndroidProject\KicpPDA\app\build\intermediates\pre-dexed\debug\classes_c7fed67a174eef01fad14308c79c19d7d07267ad.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="E:\Java\adt-bundle-windows-x86_64-20140702\adt-bundle-windows-x86_64-20140702\sdk\extras\m2repository\com\android\support\constraint\constraint-layout-solver\1.0.2\constraint-layout-solver-1.0.2.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="b9cd8fc6bd15cb915735d34535db30ece0c44603">
+        <dex dex="E:\Java\AndroidProject\KicpPDA\app\build\intermediates\pre-dexed\debug\constraint-layout-solver-1.0.2_dbd85f07f8dd683d20f1543bcf28c561fa104fee.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Administrator\.android\build-cache\dbcded56ea01a95ad4258144438c93de3584cd7d\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="94bc1dfb84dcc8b6f6f8f7cc726d7b2dd39c1574">
+        <dex dex="E:\Java\AndroidProject\KicpPDA\app\build\intermediates\pre-dexed\debug\classes_fb3d2d132fd275f476be02bc3c597faaa5d2f528.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="E:\project\KicpPDA\app\libs\fastjson-1.1.33.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="43b49a6933e68564ddc291d941db1bd1bd4166fc">
+        <dex dex="E:\project\KicpPDA\app\build\intermediates\pre-dexed\debug\fastjson-1.1.33_0a84416d3197949607b62d8a3e205bea1db4c0e5.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="E:\project\KicpPDA\app\libs\ormlite-android-4.48.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="afa06f539a4026c10b247386312aa67404b80a16">
+        <dex dex="E:\project\KicpPDA\app\build\intermediates\pre-dexed\debug\ormlite-android-4.48_84124d9b9d7d6cae2671a141b12acaef11facce5.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Administrator\.android\build-cache\a5c90edbff81ef35dd98ec2555666a2207347002\output\jars\libs\internal_impl-24.2.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="935a969265b2a166b2d20415423f5f6e90fe16e0">
+        <dex dex="E:\Java\AndroidProject\KicpPDA\app\build\intermediates\pre-dexed\debug\internal_impl-24.2.1_a3909928500167d74eb9e4a0a41eae0a2f6d6451.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="E:\project\KicpPDA\app\libs\ormlite-core-4.48.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="e579bd2905d0399af5029aaaf9817d5fa0ca88a5">
+        <dex dex="E:\project\KicpPDA\app\build\intermediates\pre-dexed\debug\ormlite-core-4.48_a772a78c1cf1d0de9ab767948297331dd9521630.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Administrator\.android\build-cache\67ff68a8dbe160ca00395bf3405db1ed23811a13\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="d5c731fc64c03dfe04d51134955b483551c35849">
+        <dex dex="E:\Java\AndroidProject\KicpPDA\app\build\intermediates\pre-dexed\debug\classes_f180db86684f40dff9ec13ab0d779ce8b3bbdc76.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Administrator\.android\build-cache\15e206e0d0a07541ac33972904ea3590bcc5a816\output\jars\libs\internal_impl-24.2.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="fbf8da429efd5ad21e02e3e5ecaa1efc4167878d">
+        <dex dex="E:\Java\AndroidProject\KicpPDA\app\build\intermediates\pre-dexed\debug\internal_impl-24.2.1_1fd84f3554f489bacf58ac19de608769981b7666.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="E:\Java\AndroidProject\KicpPDA\app\libs\imscsmanager_1.5.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="b940582838bf64755ad1e68405bc3345340384fa">
+        <dex dex="E:\Java\AndroidProject\KicpPDA\app\build\intermediates\pre-dexed\debug\imscsmanager_1.5_fcdd55a77a324f483765ccdfd11f5c6338810b66.jar" />
     </item>
 
 </items>

@@ -29,4 +29,6 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile files('libs/fastjson-1.1.33.jar')
     compile files('libs/imscsmanager_1.5.jar')
+    compile files('libs/ormlite-android-4.48.jar')
+    compile files('libs/ormlite-core-4.48.jar')
 }

@@ -8,36 +8,52 @@
         "source": "C:\\Users\\Lenovo\\.android\\build-cache\\b4439afb2c14e37ecb63a89ca2da1b3d93b4351e\\output\\res\\drawable\\abc_seekbar_track_material.xml"
     },
     {
+        "merged": "E:\\project\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ic_arrow_drop_right_black_24dp.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\a35b4ebce9c7cac9d0c76d95df4be8b7610596c2\\output\\res\\drawable\\abc_ic_arrow_drop_right_black_24dp.xml"
+    },
+    {
+        "merged": "E:\\project\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_btn_check_material.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\a35b4ebce9c7cac9d0c76d95df4be8b7610596c2\\output\\res\\drawable\\abc_btn_check_material.xml"
+    },
+    {
+        "merged": "E:\\Java\\AndroidProject\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_dialog_material_background.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\a35b4ebce9c7cac9d0c76d95df4be8b7610596c2\\output\\res\\drawable\\abc_dialog_material_background.xml"
+    },
+    {
         "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\dialogshape.xml",
         "source": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\src\\main\\res\\drawable\\dialogshape.xml"
     },
     {
-        "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\fg_order_channel.xml",
-        "source": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\src\\main\\res\\drawable\\fg_order_channel.xml"
+        "merged": "E:\\Java\\AndroidProject\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_seekbar_tick_mark_material.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\a35b4ebce9c7cac9d0c76d95df4be8b7610596c2\\output\\res\\drawable\\abc_seekbar_tick_mark_material.xml"
     },
     {
         "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_text_cursor_material.xml",
         "source": "C:\\Users\\Lenovo\\.android\\build-cache\\b4439afb2c14e37ecb63a89ca2da1b3d93b4351e\\output\\res\\drawable\\abc_text_cursor_material.xml"
     },
     {
-        "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\textview_rborder.xml",
-        "source": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\src\\main\\res\\drawable\\textview_rborder.xml"
+        "merged": "E:\\project\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_seekbar_tick_mark_material.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\a35b4ebce9c7cac9d0c76d95df4be8b7610596c2\\output\\res\\drawable\\abc_seekbar_tick_mark_material.xml"
     },
     {
-        "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_cab_background_internal_bg.xml",
-        "source": "C:\\Users\\Lenovo\\.android\\build-cache\\b4439afb2c14e37ecb63a89ca2da1b3d93b4351e\\output\\res\\drawable\\abc_cab_background_internal_bg.xml"
+        "merged": "E:\\Java\\AndroidProject\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_spinner_textfield_background_material.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\a35b4ebce9c7cac9d0c76d95df4be8b7610596c2\\output\\res\\drawable\\abc_spinner_textfield_background_material.xml"
     },
     {
-        "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_btn_check_material.xml",
-        "source": "C:\\Users\\Lenovo\\.android\\build-cache\\b4439afb2c14e37ecb63a89ca2da1b3d93b4351e\\output\\res\\drawable\\abc_btn_check_material.xml"
+        "merged": "E:\\Java\\AndroidProject\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\textview_border.xml",
+        "source": "E:\\Java\\AndroidProject\\KicpPDA\\app\\src\\main\\res\\drawable\\textview_border.xml"
+    },
+    {
+        "merged": "E:\\Java\\AndroidProject\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\fg_text_channel.xml",
+        "source": "E:\\Java\\AndroidProject\\KicpPDA\\app\\src\\main\\res\\drawable\\fg_text_channel.xml"
     },
     {
         "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_btn_default_mtrl_shape.xml",
         "source": "C:\\Users\\Lenovo\\.android\\build-cache\\b4439afb2c14e37ecb63a89ca2da1b3d93b4351e\\output\\res\\drawable\\abc_btn_default_mtrl_shape.xml"
     },
     {
-        "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\tab_data_channel.xml",
-        "source": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\src\\main\\res\\drawable\\tab_data_channel.xml"
+        "merged": "E:\\project\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_list_selector_holo_light.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\a35b4ebce9c7cac9d0c76d95df4be8b7610596c2\\output\\res\\drawable\\abc_list_selector_holo_light.xml"
     },
     {
         "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_list_selector_background_transition_holo_light.xml",
@@ -48,6 +64,34 @@
         "source": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\src\\main\\res\\drawable\\tab_prod_channel.xml"
     },
     {
+        "merged": "E:\\project\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ic_ab_back_material.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\a35b4ebce9c7cac9d0c76d95df4be8b7610596c2\\output\\res\\drawable\\abc_ic_ab_back_material.xml"
+    },
+    {
+        "merged": "E:\\Java\\AndroidProject\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\fg_order_channel.xml",
+        "source": "E:\\Java\\AndroidProject\\KicpPDA\\app\\src\\main\\res\\drawable\\fg_order_channel.xml"
+    },
+    {
+        "merged": "E:\\Java\\AndroidProject\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_list_selector_holo_light.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\a35b4ebce9c7cac9d0c76d95df4be8b7610596c2\\output\\res\\drawable\\abc_list_selector_holo_light.xml"
+    },
+    {
+        "merged": "E:\\Java\\AndroidProject\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ic_clear_material.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\a35b4ebce9c7cac9d0c76d95df4be8b7610596c2\\output\\res\\drawable\\abc_ic_clear_material.xml"
+    },
+    {
+        "merged": "E:\\project\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\fg_text_channel.xml",
+        "source": "E:\\project\\KicpPDA\\app\\src\\main\\res\\drawable\\fg_text_channel.xml"
+    },
+    {
+        "merged": "E:\\project\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_text_cursor_material.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\a35b4ebce9c7cac9d0c76d95df4be8b7610596c2\\output\\res\\drawable\\abc_text_cursor_material.xml"
+    },
+    {
+        "merged": "E:\\Java\\AndroidProject\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\dialogshape.xml",
+        "source": "E:\\Java\\AndroidProject\\KicpPDA\\app\\src\\main\\res\\drawable\\dialogshape.xml"
+    },
+    {
         "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\btnshape.xml",
         "source": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\src\\main\\res\\drawable\\btnshape.xml"
     },
@@ -56,12 +100,12 @@
         "source": "C:\\Users\\Lenovo\\.android\\build-cache\\b4439afb2c14e37ecb63a89ca2da1b3d93b4351e\\output\\res\\drawable\\abc_dialog_material_background.xml"
     },
     {
-        "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ratingbar_small_material.xml",
-        "source": "C:\\Users\\Lenovo\\.android\\build-cache\\b4439afb2c14e37ecb63a89ca2da1b3d93b4351e\\output\\res\\drawable\\abc_ratingbar_small_material.xml"
-    },
-    {
         "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\tab_sys_channel.xml",
         "source": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\src\\main\\res\\drawable\\tab_sys_channel.xml"
+    },
+    {
+        "merged": "E:\\Java\\AndroidProject\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ic_voice_search_api_material.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\a35b4ebce9c7cac9d0c76d95df4be8b7610596c2\\output\\res\\drawable\\abc_ic_voice_search_api_material.xml"
     },
     {
         "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ratingbar_indicator_material.xml",
@@ -72,12 +116,20 @@
         "source": "C:\\Users\\Lenovo\\.android\\build-cache\\b4439afb2c14e37ecb63a89ca2da1b3d93b4351e\\output\\res\\drawable\\abc_cab_background_top_material.xml"
     },
     {
+        "merged": "E:\\project\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\tab_sys_channel.xml",
+        "source": "E:\\project\\KicpPDA\\app\\src\\main\\res\\drawable\\tab_sys_channel.xml"
+    },
+    {
         "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_tab_indicator_material.xml",
         "source": "C:\\Users\\Lenovo\\.android\\build-cache\\b4439afb2c14e37ecb63a89ca2da1b3d93b4351e\\output\\res\\drawable\\abc_tab_indicator_material.xml"
     },
     {
-        "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ic_ab_back_material.xml",
-        "source": "C:\\Users\\Lenovo\\.android\\build-cache\\b4439afb2c14e37ecb63a89ca2da1b3d93b4351e\\output\\res\\drawable\\abc_ic_ab_back_material.xml"
+        "merged": "E:\\Java\\AndroidProject\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\tab_sys_channel.xml",
+        "source": "E:\\Java\\AndroidProject\\KicpPDA\\app\\src\\main\\res\\drawable\\tab_sys_channel.xml"
+    },
+    {
+        "merged": "E:\\project\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\contentview_border.xml",
+        "source": "E:\\project\\KicpPDA\\app\\src\\main\\res\\drawable\\contentview_border.xml"
     },
     {
         "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\tab_bg.xml",
@@ -88,32 +140,396 @@
         "source": "C:\\Users\\Lenovo\\.android\\build-cache\\b4439afb2c14e37ecb63a89ca2da1b3d93b4351e\\output\\res\\drawable\\abc_list_selector_holo_light.xml"
     },
     {
-        "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_switch_thumb_material.xml",
-        "source": "C:\\Users\\Lenovo\\.android\\build-cache\\b4439afb2c14e37ecb63a89ca2da1b3d93b4351e\\output\\res\\drawable\\abc_switch_thumb_material.xml"
+        "merged": "E:\\project\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\tab_channel_bg.xml",
+        "source": "E:\\project\\KicpPDA\\app\\src\\main\\res\\drawable\\tab_channel_bg.xml"
+    },
+    {
+        "merged": "E:\\Java\\AndroidProject\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\fg_allot_channel.xml",
+        "source": "E:\\Java\\AndroidProject\\KicpPDA\\app\\src\\main\\res\\drawable\\fg_allot_channel.xml"
+    },
+    {
+        "merged": "E:\\project\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\tab_prod_channel.xml",
+        "source": "E:\\project\\KicpPDA\\app\\src\\main\\res\\drawable\\tab_prod_channel.xml"
+    },
+    {
+        "merged": "E:\\project\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\textview_border.xml",
+        "source": "E:\\project\\KicpPDA\\app\\src\\main\\res\\drawable\\textview_border.xml"
+    },
+    {
+        "merged": "E:\\project\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\fg_check_channel.xml",
+        "source": "E:\\project\\KicpPDA\\app\\src\\main\\res\\drawable\\fg_check_channel.xml"
     },
     {
         "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_vector_test.xml",
         "source": "C:\\Users\\Lenovo\\.android\\build-cache\\b4439afb2c14e37ecb63a89ca2da1b3d93b4351e\\output\\res\\drawable\\abc_vector_test.xml"
     },
     {
-        "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_item_background_holo_dark.xml",
-        "source": "C:\\Users\\Lenovo\\.android\\build-cache\\b4439afb2c14e37ecb63a89ca2da1b3d93b4351e\\output\\res\\drawable\\abc_item_background_holo_dark.xml"
-    },
-    {
         "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_seekbar_thumb_material.xml",
         "source": "C:\\Users\\Lenovo\\.android\\build-cache\\b4439afb2c14e37ecb63a89ca2da1b3d93b4351e\\output\\res\\drawable\\abc_seekbar_thumb_material.xml"
+    },
+    {
+        "merged": "E:\\project\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\tab_bg.xml",
+        "source": "E:\\project\\KicpPDA\\app\\src\\main\\res\\drawable\\tab_bg.xml"
+    },
+    {
+        "merged": "E:\\Java\\AndroidProject\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_list_selector_background_transition_holo_dark.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\a35b4ebce9c7cac9d0c76d95df4be8b7610596c2\\output\\res\\drawable\\abc_list_selector_background_transition_holo_dark.xml"
+    },
+    {
+        "merged": "E:\\Java\\AndroidProject\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_btn_default_mtrl_shape.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\a35b4ebce9c7cac9d0c76d95df4be8b7610596c2\\output\\res\\drawable\\abc_btn_default_mtrl_shape.xml"
+    },
+    {
+        "merged": "E:\\Java\\AndroidProject\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\contentview_border.xml",
+        "source": "E:\\Java\\AndroidProject\\KicpPDA\\app\\src\\main\\res\\drawable\\contentview_border.xml"
+    },
+    {
+        "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_list_selector_holo_dark.xml",
+        "source": "C:\\Users\\Lenovo\\.android\\build-cache\\b4439afb2c14e37ecb63a89ca2da1b3d93b4351e\\output\\res\\drawable\\abc_list_selector_holo_dark.xml"
+    },
+    {
+        "merged": "E:\\Java\\AndroidProject\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\tab_channel_bg.xml",
+        "source": "E:\\Java\\AndroidProject\\KicpPDA\\app\\src\\main\\res\\drawable\\tab_channel_bg.xml"
+    },
+    {
+        "merged": "E:\\project\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_seekbar_thumb_material.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\a35b4ebce9c7cac9d0c76d95df4be8b7610596c2\\output\\res\\drawable\\abc_seekbar_thumb_material.xml"
+    },
+    {
+        "merged": "E:\\Java\\AndroidProject\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ic_ab_back_material.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\a35b4ebce9c7cac9d0c76d95df4be8b7610596c2\\output\\res\\drawable\\abc_ic_ab_back_material.xml"
+    },
+    {
+        "merged": "E:\\Java\\AndroidProject\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\tab_data_channel.xml",
+        "source": "E:\\Java\\AndroidProject\\KicpPDA\\app\\src\\main\\res\\drawable\\tab_data_channel.xml"
+    },
+    {
+        "merged": "E:\\project\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\tab_txtbg.xml",
+        "source": "E:\\project\\KicpPDA\\app\\src\\main\\res\\drawable\\tab_txtbg.xml"
+    },
+    {
+        "merged": "E:\\Java\\AndroidProject\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_switch_thumb_material.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\a35b4ebce9c7cac9d0c76d95df4be8b7610596c2\\output\\res\\drawable\\abc_switch_thumb_material.xml"
+    },
+    {
+        "merged": "E:\\project\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\fg_delete_channel.xml",
+        "source": "E:\\project\\KicpPDA\\app\\src\\main\\res\\drawable\\fg_delete_channel.xml"
+    },
+    {
+        "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_btn_colored_material.xml",
+        "source": "C:\\Users\\Lenovo\\.android\\build-cache\\b4439afb2c14e37ecb63a89ca2da1b3d93b4351e\\output\\res\\drawable\\abc_btn_colored_material.xml"
+    },
+    {
+        "merged": "E:\\project\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_btn_colored_material.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\a35b4ebce9c7cac9d0c76d95df4be8b7610596c2\\output\\res\\drawable\\abc_btn_colored_material.xml"
+    },
+    {
+        "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ic_search_api_material.xml",
+        "source": "C:\\Users\\Lenovo\\.android\\build-cache\\b4439afb2c14e37ecb63a89ca2da1b3d93b4351e\\output\\res\\drawable\\abc_ic_search_api_material.xml"
+    },
+    {
+        "merged": "E:\\project\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\fg_groupx_channel.xml",
+        "source": "E:\\project\\KicpPDA\\app\\src\\main\\res\\drawable\\fg_groupx_channel.xml"
+    },
+    {
+        "merged": "E:\\project\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_item_background_holo_dark.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\a35b4ebce9c7cac9d0c76d95df4be8b7610596c2\\output\\res\\drawable\\abc_item_background_holo_dark.xml"
+    },
+    {
+        "merged": "E:\\Java\\AndroidProject\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ic_go_search_api_material.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\a35b4ebce9c7cac9d0c76d95df4be8b7610596c2\\output\\res\\drawable\\abc_ic_go_search_api_material.xml"
+    },
+    {
+        "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\fg_return_channel.xml",
+        "source": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\src\\main\\res\\drawable\\fg_return_channel.xml"
+    },
+    {
+        "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\contentview_border.xml",
+        "source": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\src\\main\\res\\drawable\\contentview_border.xml"
+    },
+    {
+        "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_spinner_textfield_background_material.xml",
+        "source": "C:\\Users\\Lenovo\\.android\\build-cache\\b4439afb2c14e37ecb63a89ca2da1b3d93b4351e\\output\\res\\drawable\\abc_spinner_textfield_background_material.xml"
+    },
+    {
+        "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ic_go_search_api_material.xml",
+        "source": "C:\\Users\\Lenovo\\.android\\build-cache\\b4439afb2c14e37ecb63a89ca2da1b3d93b4351e\\output\\res\\drawable\\abc_ic_go_search_api_material.xml"
+    },
+    {
+        "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\fg_text_channel.xml",
+        "source": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\src\\main\\res\\drawable\\fg_text_channel.xml"
+    },
+    {
+        "merged": "E:\\Java\\AndroidProject\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ratingbar_indicator_material.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\a35b4ebce9c7cac9d0c76d95df4be8b7610596c2\\output\\res\\drawable\\abc_ratingbar_indicator_material.xml"
+    },
+    {
+        "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_seekbar_tick_mark_material.xml",
+        "source": "C:\\Users\\Lenovo\\.android\\build-cache\\b4439afb2c14e37ecb63a89ca2da1b3d93b4351e\\output\\res\\drawable\\abc_seekbar_tick_mark_material.xml"
+    },
+    {
+        "merged": "E:\\Java\\AndroidProject\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_btn_borderless_material.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\a35b4ebce9c7cac9d0c76d95df4be8b7610596c2\\output\\res\\drawable\\abc_btn_borderless_material.xml"
+    },
+    {
+        "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ratingbar_material.xml",
+        "source": "C:\\Users\\Lenovo\\.android\\build-cache\\b4439afb2c14e37ecb63a89ca2da1b3d93b4351e\\output\\res\\drawable\\abc_ratingbar_material.xml"
+    },
+    {
+        "merged": "E:\\Java\\AndroidProject\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_cab_background_internal_bg.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\a35b4ebce9c7cac9d0c76d95df4be8b7610596c2\\output\\res\\drawable\\abc_cab_background_internal_bg.xml"
+    },
+    {
+        "merged": "E:\\Java\\AndroidProject\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_cab_background_top_material.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\a35b4ebce9c7cac9d0c76d95df4be8b7610596c2\\output\\res\\drawable\\abc_cab_background_top_material.xml"
+    },
+    {
+        "merged": "E:\\Java\\AndroidProject\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_tab_indicator_material.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\a35b4ebce9c7cac9d0c76d95df4be8b7610596c2\\output\\res\\drawable\\abc_tab_indicator_material.xml"
+    },
+    {
+        "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\tab_channel_bg.xml",
+        "source": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\src\\main\\res\\drawable\\tab_channel_bg.xml"
+    },
+    {
+        "merged": "E:\\Java\\AndroidProject\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\fg_in_channel.xml",
+        "source": "E:\\Java\\AndroidProject\\KicpPDA\\app\\src\\main\\res\\drawable\\fg_in_channel.xml"
+    },
+    {
+        "merged": "E:\\project\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_seekbar_track_material.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\a35b4ebce9c7cac9d0c76d95df4be8b7610596c2\\output\\res\\drawable\\abc_seekbar_track_material.xml"
+    },
+    {
+        "merged": "E:\\project\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ratingbar_material.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\a35b4ebce9c7cac9d0c76d95df4be8b7610596c2\\output\\res\\drawable\\abc_ratingbar_material.xml"
+    },
+    {
+        "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_btn_radio_material.xml",
+        "source": "C:\\Users\\Lenovo\\.android\\build-cache\\b4439afb2c14e37ecb63a89ca2da1b3d93b4351e\\output\\res\\drawable\\abc_btn_radio_material.xml"
+    },
+    {
+        "merged": "E:\\Java\\AndroidProject\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_btn_radio_material.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\a35b4ebce9c7cac9d0c76d95df4be8b7610596c2\\output\\res\\drawable\\abc_btn_radio_material.xml"
+    },
+    {
+        "merged": "E:\\Java\\AndroidProject\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\fg_groupx_channel.xml",
+        "source": "E:\\Java\\AndroidProject\\KicpPDA\\app\\src\\main\\res\\drawable\\fg_groupx_channel.xml"
+    },
+    {
+        "merged": "E:\\Java\\AndroidProject\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ratingbar_material.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\a35b4ebce9c7cac9d0c76d95df4be8b7610596c2\\output\\res\\drawable\\abc_ratingbar_material.xml"
+    },
+    {
+        "merged": "E:\\project\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_btn_radio_material.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\a35b4ebce9c7cac9d0c76d95df4be8b7610596c2\\output\\res\\drawable\\abc_btn_radio_material.xml"
+    },
+    {
+        "merged": "E:\\project\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\fg_in_channel.xml",
+        "source": "E:\\project\\KicpPDA\\app\\src\\main\\res\\drawable\\fg_in_channel.xml"
+    },
+    {
+        "merged": "E:\\project\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_tab_indicator_material.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\a35b4ebce9c7cac9d0c76d95df4be8b7610596c2\\output\\res\\drawable\\abc_tab_indicator_material.xml"
+    },
+    {
+        "merged": "E:\\Java\\AndroidProject\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\fg_delete_channel.xml",
+        "source": "E:\\Java\\AndroidProject\\KicpPDA\\app\\src\\main\\res\\drawable\\fg_delete_channel.xml"
+    },
+    {
+        "merged": "E:\\Java\\AndroidProject\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_seekbar_thumb_material.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\a35b4ebce9c7cac9d0c76d95df4be8b7610596c2\\output\\res\\drawable\\abc_seekbar_thumb_material.xml"
+    },
+    {
+        "merged": "E:\\project\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ic_menu_overflow_material.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\a35b4ebce9c7cac9d0c76d95df4be8b7610596c2\\output\\res\\drawable\\abc_ic_menu_overflow_material.xml"
+    },
+    {
+        "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\fg_order_channel.xml",
+        "source": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\src\\main\\res\\drawable\\fg_order_channel.xml"
+    },
+    {
+        "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\textview_rborder.xml",
+        "source": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\src\\main\\res\\drawable\\textview_rborder.xml"
+    },
+    {
+        "merged": "E:\\project\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ratingbar_small_material.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\a35b4ebce9c7cac9d0c76d95df4be8b7610596c2\\output\\res\\drawable\\abc_ratingbar_small_material.xml"
+    },
+    {
+        "merged": "E:\\Java\\AndroidProject\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_text_cursor_material.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\a35b4ebce9c7cac9d0c76d95df4be8b7610596c2\\output\\res\\drawable\\abc_text_cursor_material.xml"
+    },
+    {
+        "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_cab_background_internal_bg.xml",
+        "source": "C:\\Users\\Lenovo\\.android\\build-cache\\b4439afb2c14e37ecb63a89ca2da1b3d93b4351e\\output\\res\\drawable\\abc_cab_background_internal_bg.xml"
+    },
+    {
+        "merged": "E:\\Java\\AndroidProject\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_btn_check_material.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\a35b4ebce9c7cac9d0c76d95df4be8b7610596c2\\output\\res\\drawable\\abc_btn_check_material.xml"
+    },
+    {
+        "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_btn_check_material.xml",
+        "source": "C:\\Users\\Lenovo\\.android\\build-cache\\b4439afb2c14e37ecb63a89ca2da1b3d93b4351e\\output\\res\\drawable\\abc_btn_check_material.xml"
+    },
+    {
+        "merged": "E:\\project\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ic_search_api_material.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\a35b4ebce9c7cac9d0c76d95df4be8b7610596c2\\output\\res\\drawable\\abc_ic_search_api_material.xml"
+    },
+    {
+        "merged": "E:\\project\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\fg_order_channel.xml",
+        "source": "E:\\project\\KicpPDA\\app\\src\\main\\res\\drawable\\fg_order_channel.xml"
+    },
+    {
+        "merged": "E:\\project\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_btn_borderless_material.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\a35b4ebce9c7cac9d0c76d95df4be8b7610596c2\\output\\res\\drawable\\abc_btn_borderless_material.xml"
+    },
+    {
+        "merged": "E:\\Java\\AndroidProject\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ratingbar_small_material.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\a35b4ebce9c7cac9d0c76d95df4be8b7610596c2\\output\\res\\drawable\\abc_ratingbar_small_material.xml"
+    },
+    {
+        "merged": "E:\\project\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_spinner_textfield_background_material.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\a35b4ebce9c7cac9d0c76d95df4be8b7610596c2\\output\\res\\drawable\\abc_spinner_textfield_background_material.xml"
+    },
+    {
+        "merged": "E:\\project\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\fg_return_channel.xml",
+        "source": "E:\\project\\KicpPDA\\app\\src\\main\\res\\drawable\\fg_return_channel.xml"
+    },
+    {
+        "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\tab_data_channel.xml",
+        "source": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\src\\main\\res\\drawable\\tab_data_channel.xml"
+    },
+    {
+        "merged": "E:\\project\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_btn_default_mtrl_shape.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\a35b4ebce9c7cac9d0c76d95df4be8b7610596c2\\output\\res\\drawable\\abc_btn_default_mtrl_shape.xml"
+    },
+    {
+        "merged": "E:\\project\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_textfield_search_material.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\a35b4ebce9c7cac9d0c76d95df4be8b7610596c2\\output\\res\\drawable\\abc_textfield_search_material.xml"
+    },
+    {
+        "merged": "E:\\project\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\btnshape.xml",
+        "source": "E:\\project\\KicpPDA\\app\\src\\main\\res\\drawable\\btnshape.xml"
+    },
+    {
+        "merged": "E:\\Java\\AndroidProject\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ic_search_api_material.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\a35b4ebce9c7cac9d0c76d95df4be8b7610596c2\\output\\res\\drawable\\abc_ic_search_api_material.xml"
+    },
+    {
+        "merged": "E:\\Java\\AndroidProject\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\btnshape.xml",
+        "source": "E:\\Java\\AndroidProject\\KicpPDA\\app\\src\\main\\res\\drawable\\btnshape.xml"
+    },
+    {
+        "merged": "E:\\project\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_cab_background_top_material.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\a35b4ebce9c7cac9d0c76d95df4be8b7610596c2\\output\\res\\drawable\\abc_cab_background_top_material.xml"
+    },
+    {
+        "merged": "E:\\Java\\AndroidProject\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_textfield_search_material.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\a35b4ebce9c7cac9d0c76d95df4be8b7610596c2\\output\\res\\drawable\\abc_textfield_search_material.xml"
+    },
+    {
+        "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ratingbar_small_material.xml",
+        "source": "C:\\Users\\Lenovo\\.android\\build-cache\\b4439afb2c14e37ecb63a89ca2da1b3d93b4351e\\output\\res\\drawable\\abc_ratingbar_small_material.xml"
+    },
+    {
+        "merged": "E:\\Java\\AndroidProject\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\fg_check_channel.xml",
+        "source": "E:\\Java\\AndroidProject\\KicpPDA\\app\\src\\main\\res\\drawable\\fg_check_channel.xml"
+    },
+    {
+        "merged": "E:\\Java\\AndroidProject\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_btn_colored_material.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\a35b4ebce9c7cac9d0c76d95df4be8b7610596c2\\output\\res\\drawable\\abc_btn_colored_material.xml"
+    },
+    {
+        "merged": "E:\\Java\\AndroidProject\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_list_selector_background_transition_holo_light.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\a35b4ebce9c7cac9d0c76d95df4be8b7610596c2\\output\\res\\drawable\\abc_list_selector_background_transition_holo_light.xml"
+    },
+    {
+        "merged": "E:\\Java\\AndroidProject\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\tab_bg.xml",
+        "source": "E:\\Java\\AndroidProject\\KicpPDA\\app\\src\\main\\res\\drawable\\tab_bg.xml"
+    },
+    {
+        "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ic_ab_back_material.xml",
+        "source": "C:\\Users\\Lenovo\\.android\\build-cache\\b4439afb2c14e37ecb63a89ca2da1b3d93b4351e\\output\\res\\drawable\\abc_ic_ab_back_material.xml"
+    },
+    {
+        "merged": "E:\\project\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ic_clear_material.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\a35b4ebce9c7cac9d0c76d95df4be8b7610596c2\\output\\res\\drawable\\abc_ic_clear_material.xml"
+    },
+    {
+        "merged": "E:\\Java\\AndroidProject\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_item_background_holo_light.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\a35b4ebce9c7cac9d0c76d95df4be8b7610596c2\\output\\res\\drawable\\abc_item_background_holo_light.xml"
+    },
+    {
+        "merged": "E:\\project\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\fg_allot_channel.xml",
+        "source": "E:\\project\\KicpPDA\\app\\src\\main\\res\\drawable\\fg_allot_channel.xml"
+    },
+    {
+        "merged": "E:\\project\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_item_background_holo_light.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\a35b4ebce9c7cac9d0c76d95df4be8b7610596c2\\output\\res\\drawable\\abc_item_background_holo_light.xml"
+    },
+    {
+        "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_switch_thumb_material.xml",
+        "source": "C:\\Users\\Lenovo\\.android\\build-cache\\b4439afb2c14e37ecb63a89ca2da1b3d93b4351e\\output\\res\\drawable\\abc_switch_thumb_material.xml"
+    },
+    {
+        "merged": "E:\\project\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\tab_data_channel.xml",
+        "source": "E:\\project\\KicpPDA\\app\\src\\main\\res\\drawable\\tab_data_channel.xml"
+    },
+    {
+        "merged": "E:\\Java\\AndroidProject\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_seekbar_track_material.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\a35b4ebce9c7cac9d0c76d95df4be8b7610596c2\\output\\res\\drawable\\abc_seekbar_track_material.xml"
+    },
+    {
+        "merged": "E:\\project\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ratingbar_indicator_material.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\a35b4ebce9c7cac9d0c76d95df4be8b7610596c2\\output\\res\\drawable\\abc_ratingbar_indicator_material.xml"
+    },
+    {
+        "merged": "E:\\Java\\AndroidProject\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ic_arrow_drop_right_black_24dp.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\a35b4ebce9c7cac9d0c76d95df4be8b7610596c2\\output\\res\\drawable\\abc_ic_arrow_drop_right_black_24dp.xml"
+    },
+    {
+        "merged": "E:\\project\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\dialogshape.xml",
+        "source": "E:\\project\\KicpPDA\\app\\src\\main\\res\\drawable\\dialogshape.xml"
+    },
+    {
+        "merged": "E:\\Java\\AndroidProject\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_list_selector_holo_dark.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\a35b4ebce9c7cac9d0c76d95df4be8b7610596c2\\output\\res\\drawable\\abc_list_selector_holo_dark.xml"
+    },
+    {
+        "merged": "E:\\Java\\AndroidProject\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\tab_prod_channel.xml",
+        "source": "E:\\Java\\AndroidProject\\KicpPDA\\app\\src\\main\\res\\drawable\\tab_prod_channel.xml"
+    },
+    {
+        "merged": "E:\\project\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_edit_text_material.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\a35b4ebce9c7cac9d0c76d95df4be8b7610596c2\\output\\res\\drawable\\abc_edit_text_material.xml"
+    },
+    {
+        "merged": "E:\\Java\\AndroidProject\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\tab_txtbg.xml",
+        "source": "E:\\Java\\AndroidProject\\KicpPDA\\app\\src\\main\\res\\drawable\\tab_txtbg.xml"
+    },
+    {
+        "merged": "E:\\Java\\AndroidProject\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\fg_return_channel.xml",
+        "source": "E:\\Java\\AndroidProject\\KicpPDA\\app\\src\\main\\res\\drawable\\fg_return_channel.xml"
+    },
+    {
+        "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_item_background_holo_dark.xml",
+        "source": "C:\\Users\\Lenovo\\.android\\build-cache\\b4439afb2c14e37ecb63a89ca2da1b3d93b4351e\\output\\res\\drawable\\abc_item_background_holo_dark.xml"
     },
     {
         "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_btn_borderless_material.xml",
         "source": "C:\\Users\\Lenovo\\.android\\build-cache\\b4439afb2c14e37ecb63a89ca2da1b3d93b4351e\\output\\res\\drawable\\abc_btn_borderless_material.xml"
     },
     {
-        "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_textfield_search_material.xml",
-        "source": "C:\\Users\\Lenovo\\.android\\build-cache\\b4439afb2c14e37ecb63a89ca2da1b3d93b4351e\\output\\res\\drawable\\abc_textfield_search_material.xml"
+        "merged": "E:\\Java\\AndroidProject\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_edit_text_material.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\a35b4ebce9c7cac9d0c76d95df4be8b7610596c2\\output\\res\\drawable\\abc_edit_text_material.xml"
     },
     {
-        "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_list_selector_holo_dark.xml",
-        "source": "C:\\Users\\Lenovo\\.android\\build-cache\\b4439afb2c14e37ecb63a89ca2da1b3d93b4351e\\output\\res\\drawable\\abc_list_selector_holo_dark.xml"
+        "merged": "E:\\project\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ic_go_search_api_material.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\a35b4ebce9c7cac9d0c76d95df4be8b7610596c2\\output\\res\\drawable\\abc_ic_go_search_api_material.xml"
+    },
+    {
+        "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_textfield_search_material.xml",
+        "source": "C:\\Users\\Lenovo\\.android\\build-cache\\b4439afb2c14e37ecb63a89ca2da1b3d93b4351e\\output\\res\\drawable\\abc_textfield_search_material.xml"
     },
     {
         "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ic_clear_material.xml",
@@ -128,16 +544,12 @@
         "source": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\src\\main\\res\\drawable\\fg_in_channel.xml"
     },
     {
-        "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_btn_colored_material.xml",
-        "source": "C:\\Users\\Lenovo\\.android\\build-cache\\b4439afb2c14e37ecb63a89ca2da1b3d93b4351e\\output\\res\\drawable\\abc_btn_colored_material.xml"
-    },
-    {
-        "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ic_search_api_material.xml",
-        "source": "C:\\Users\\Lenovo\\.android\\build-cache\\b4439afb2c14e37ecb63a89ca2da1b3d93b4351e\\output\\res\\drawable\\abc_ic_search_api_material.xml"
-    },
-    {
         "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\fg_check_channel.xml",
         "source": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\src\\main\\res\\drawable\\fg_check_channel.xml"
+    },
+    {
+        "merged": "E:\\project\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_list_selector_holo_dark.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\a35b4ebce9c7cac9d0c76d95df4be8b7610596c2\\output\\res\\drawable\\abc_list_selector_holo_dark.xml"
     },
     {
         "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_item_background_holo_light.xml",
@@ -152,48 +564,48 @@
         "source": "C:\\Users\\Lenovo\\.android\\build-cache\\b4439afb2c14e37ecb63a89ca2da1b3d93b4351e\\output\\res\\drawable\\abc_ic_voice_search_api_material.xml"
     },
     {
-        "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\fg_return_channel.xml",
-        "source": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\src\\main\\res\\drawable\\fg_return_channel.xml"
-    },
-    {
-        "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\contentview_border.xml",
-        "source": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\src\\main\\res\\drawable\\contentview_border.xml"
+        "merged": "E:\\project\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_list_selector_background_transition_holo_light.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\a35b4ebce9c7cac9d0c76d95df4be8b7610596c2\\output\\res\\drawable\\abc_list_selector_background_transition_holo_light.xml"
     },
     {
         "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\textview_border.xml",
         "source": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\src\\main\\res\\drawable\\textview_border.xml"
     },
     {
-        "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_spinner_textfield_background_material.xml",
-        "source": "C:\\Users\\Lenovo\\.android\\build-cache\\b4439afb2c14e37ecb63a89ca2da1b3d93b4351e\\output\\res\\drawable\\abc_spinner_textfield_background_material.xml"
-    },
-    {
-        "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ic_go_search_api_material.xml",
-        "source": "C:\\Users\\Lenovo\\.android\\build-cache\\b4439afb2c14e37ecb63a89ca2da1b3d93b4351e\\output\\res\\drawable\\abc_ic_go_search_api_material.xml"
+        "merged": "E:\\project\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_list_selector_background_transition_holo_dark.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\a35b4ebce9c7cac9d0c76d95df4be8b7610596c2\\output\\res\\drawable\\abc_list_selector_background_transition_holo_dark.xml"
     },
     {
         "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_list_selector_background_transition_holo_dark.xml",
         "source": "C:\\Users\\Lenovo\\.android\\build-cache\\b4439afb2c14e37ecb63a89ca2da1b3d93b4351e\\output\\res\\drawable\\abc_list_selector_background_transition_holo_dark.xml"
     },
     {
-        "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\fg_text_channel.xml",
-        "source": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\src\\main\\res\\drawable\\fg_text_channel.xml"
+        "merged": "E:\\Java\\AndroidProject\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ic_menu_overflow_material.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\a35b4ebce9c7cac9d0c76d95df4be8b7610596c2\\output\\res\\drawable\\abc_ic_menu_overflow_material.xml"
     },
     {
-        "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_seekbar_tick_mark_material.xml",
-        "source": "C:\\Users\\Lenovo\\.android\\build-cache\\b4439afb2c14e37ecb63a89ca2da1b3d93b4351e\\output\\res\\drawable\\abc_seekbar_tick_mark_material.xml"
+        "merged": "E:\\project\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_switch_thumb_material.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\a35b4ebce9c7cac9d0c76d95df4be8b7610596c2\\output\\res\\drawable\\abc_switch_thumb_material.xml"
     },
     {
-        "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ratingbar_material.xml",
-        "source": "C:\\Users\\Lenovo\\.android\\build-cache\\b4439afb2c14e37ecb63a89ca2da1b3d93b4351e\\output\\res\\drawable\\abc_ratingbar_material.xml"
+        "merged": "E:\\Java\\AndroidProject\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_item_background_holo_dark.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\a35b4ebce9c7cac9d0c76d95df4be8b7610596c2\\output\\res\\drawable\\abc_item_background_holo_dark.xml"
+    },
+    {
+        "merged": "E:\\project\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ic_voice_search_api_material.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\a35b4ebce9c7cac9d0c76d95df4be8b7610596c2\\output\\res\\drawable\\abc_ic_voice_search_api_material.xml"
     },
     {
         "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ic_arrow_drop_right_black_24dp.xml",
         "source": "C:\\Users\\Lenovo\\.android\\build-cache\\b4439afb2c14e37ecb63a89ca2da1b3d93b4351e\\output\\res\\drawable\\abc_ic_arrow_drop_right_black_24dp.xml"
     },
     {
-        "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\tab_channel_bg.xml",
-        "source": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\src\\main\\res\\drawable\\tab_channel_bg.xml"
+        "merged": "E:\\project\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_dialog_material_background.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\a35b4ebce9c7cac9d0c76d95df4be8b7610596c2\\output\\res\\drawable\\abc_dialog_material_background.xml"
+    },
+    {
+        "merged": "E:\\project\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_vector_test.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\a35b4ebce9c7cac9d0c76d95df4be8b7610596c2\\output\\res\\drawable\\abc_vector_test.xml"
     },
     {
         "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\fg_delete_channel.xml",
@@ -204,11 +616,15 @@
         "source": "C:\\Users\\Lenovo\\.android\\build-cache\\b4439afb2c14e37ecb63a89ca2da1b3d93b4351e\\output\\res\\drawable\\abc_ic_menu_overflow_material.xml"
     },
     {
+        "merged": "E:\\Java\\AndroidProject\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_vector_test.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\a35b4ebce9c7cac9d0c76d95df4be8b7610596c2\\output\\res\\drawable\\abc_vector_test.xml"
+    },
+    {
         "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\fg_allot_channel.xml",
         "source": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\src\\main\\res\\drawable\\fg_allot_channel.xml"
     },
     {
-        "merged": "E:\\ygg\\AndroidProjects\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_btn_radio_material.xml",
-        "source": "C:\\Users\\Lenovo\\.android\\build-cache\\b4439afb2c14e37ecb63a89ca2da1b3d93b4351e\\output\\res\\drawable\\abc_btn_radio_material.xml"
+        "merged": "E:\\project\\KicpPDA\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_cab_background_internal_bg.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\a35b4ebce9c7cac9d0c76d95df4be8b7610596c2\\output\\res\\drawable\\abc_cab_background_internal_bg.xml"
     }
 ]
