@@ -10,5 +10,5 @@ package com.kinde.kicppda.Utils;
 public class Config {
     public static String WebApiUrl = "http://192.168.202.105:19433/api/WebApi/";
     public static int StaffId = 1000000;
-    public static String AppSecret = "7944616D0CA1095B39D8A97166975D19D3727B5200924F68B5EC28E8AA3427F8";
+    public static String AppSecret = "C09878EDC75A26436832F5724A00356CEF7D4BEF9D4A92874F08837D2C486107";
 }

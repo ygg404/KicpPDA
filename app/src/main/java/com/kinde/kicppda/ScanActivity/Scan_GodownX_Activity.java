@@ -452,17 +452,6 @@ public class Scan_GodownX_Activity extends DecodeBaseActivity implements  View.O
                     throw new Exception( scanResult.Info );
                 }
 
-//                String[] insertData = new String[7];
-//                insertData[0] = barcode;
-//                insertData[1] = productId;
-//                insertData[2] = LN;
-//                insertData[3] = PR;
-//                insertData[4] = "";
-//                insertData[5] = mQueryBill.getKeyValue("CreateDate", EntryFileName, "ProductId", productId);
-//                insertData[6] = mQueryBill.getKeyValue("CreateUserId", EntryFileName, "ProductId", productId);
-//                mScanBill.GodownXScanSave(ScanFileName , insertData);
-
-
             }catch (Exception ex){
                 mess.obj = ex.getMessage();
                 eHandler.sendMessage(mess);
@@ -558,6 +547,10 @@ public class Scan_GodownX_Activity extends DecodeBaseActivity implements  View.O
             case R.id.btn_Lock:
                 LockEvent();
                 break;
+            //整单上传
+            case R.id.btn_Upload:
+
+                break;
             //删除单据
             case R.id.btn_DelBill:
                 boolean ok = true;
@@ -611,6 +604,7 @@ public class Scan_GodownX_Activity extends DecodeBaseActivity implements  View.O
             for( GodownXBillingEntity gEntity : godownXbillingList)
             {
                 if(gEntity.ProductId.equals(productId)){
+					billingEntity = gEntity;               //选定的明细记录
                     curPreSet = gEntity.Qty;
                     lbCurPreset.setText( String.valueOf( curPreSet ) ); //当前预设
                     CurGroupXCount = gEntity.SinglePerBox;

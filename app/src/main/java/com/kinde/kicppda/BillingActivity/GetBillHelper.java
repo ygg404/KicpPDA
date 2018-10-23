@@ -36,7 +36,6 @@ import java.util.List;
 
 public class GetBillHelper {
 
-    public SQLiteDatabase db;
     public Context mContext;
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
@@ -182,9 +181,6 @@ public class GetBillHelper {
         }catch (Exception ex){
             return false;
         }
-        finally {
-            db.close();
-        }
         return true;
     }
 
@@ -199,9 +195,6 @@ public class GetBillHelper {
             }
         }catch (Exception ex){
             return false;
-        }
-        finally {
-            db.close();
         }
         return true;
     }
@@ -218,9 +211,6 @@ public class GetBillHelper {
             }
         }catch (Exception ex){
             return false;
-        }
-        finally {
-            db.close();
         }
         return true;
     }
