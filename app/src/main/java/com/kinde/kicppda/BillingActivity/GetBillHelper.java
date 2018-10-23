@@ -5,8 +5,11 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.kinde.kicppda.MDAO.AllotBillingEntityDAO;
 import com.kinde.kicppda.MDAO.AllotEntityDAO;
+import com.kinde.kicppda.MDAO.CheckEntityDAO;
 import com.kinde.kicppda.MDAO.GodownBillingEntityDAO;
 import com.kinde.kicppda.MDAO.GodownEntityDAO;
+import com.kinde.kicppda.MDAO.GodownXBillingEntityDAO;
+import com.kinde.kicppda.MDAO.GodownXEntityDAO;
 import com.kinde.kicppda.MDAO.OrderBillingEntityDAO;
 import com.kinde.kicppda.MDAO.OrderEntityDAO;
 import com.kinde.kicppda.MDAO.ReturnBillingEntityDAO;
@@ -34,7 +37,6 @@ import java.util.List;
 public class GetBillHelper {
 
     public SQLiteDatabase db;
-    public DBOpenHelper DBHelper;
     public Context mContext;
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
@@ -175,19 +177,7 @@ public class GetBillHelper {
     public boolean SaveCheckDataFile(List<CheckEntity> cEntity){
         try {
             for (CheckEntity attr : cEntity) {
-                db = DBHelper.getWritableDatabase();
-                db.execSQL("DELETE FROM "+ Public.CHECK_MAIN_TABLE  +" WHERE CheckCode= '" + attr.CheckCode+"'");
-                //保存主单之前删除相同单据号的主单据
-                db.execSQL("insert into "+ Public.CHECK_MAIN_TABLE+
-                        "(CheckId ,CheckCode,CheckDate,WarehouseId,WarehouseName,Description,CreateDate,CreateUserId,CreateUserName,Status) "
-                        +"values('"+
-                        attr.CheckId+"','"+ attr.CheckCode+"','"+(attr.CheckDate==null?"":sdf.format(attr.CheckDate))+"','"+
-                        attr.WarehouseId+"','"+attr.WarehouseName+"','"+ attr.Description+"','"+
-                        (attr.CreateDate==null?"":sdf.format(attr.CreateDate))+"','"+attr.CreateUserId+"','"
-                        +attr.CreateUserName+"',"+String.valueOf(attr.Status)+")"
-                );
-                //创建盘点明细表
-               // SqlTableCreate.Order_Billing_Create(db , attr.OrderCode);
+                new CheckEntityDAO(mContext).insert(attr);
             }
         }catch (Exception ex){
             return false;
@@ -205,18 +195,7 @@ public class GetBillHelper {
     public boolean SaveGroupXDataFile(List<GodownXEntity> gxEntity){
         try {
             for (GodownXEntity attr : gxEntity) {
-                db = DBHelper.getWritableDatabase();
-                db.execSQL("DELETE FROM "+ Public.GodownX_MAIN_TABLE  +" WHERE GodownXCode= '" + attr.GodownXCode+"'");
-                //保存主单之前删除相同单据号的主单据
-                db.execSQL("insert into "+ Public.GodownX_MAIN_TABLE+
-                        "(GodownXId ,GodownXCode,GodownXDate,Description,CreateDate,CreateUserId,CreateUserName,Status) "
-                        +"values('"+
-                        attr.GodownXId+"','"+ attr.GodownXCode+"','"+(attr.GodownXDate==null?"":sdf.format(attr.GodownXDate))+"','"
-                        + attr.Description+"','"+ (attr.CreateDate==null?"":sdf.format(attr.CreateDate))+"','"+attr.CreateUserId+"','"
-                        +attr.CreateUserName+"',"+String.valueOf(attr.Status)+")"
-                );
-                //创建关联箱明细表
-                SqlTableCreate.GroupX_Billing_Create(db , attr.GodownXCode);
+                new GodownXEntityDAO(mContext).insert(attr);
             }
         }catch (Exception ex){
             return false;
@@ -231,19 +210,11 @@ public class GetBillHelper {
      * 保存关联箱明细单文件
      * @return
      */
-    public boolean SaveGroupXBillingDataFile(String gxEntityCode, List<GodownXBillingEntity> gxBillEntity){
+    public boolean SaveGroupXBillingDataFile(GodownXEntity gxEntity, List<GodownXBillingEntity> gxBillEntity){
         try {
             for (GodownXBillingEntity attr : gxBillEntity) {
-                db = DBHelper.getWritableDatabase();
-                //保存主单之前删除相同单据号的主单据
-                db.execSQL("insert into '"+ gxEntityCode +  Public.GodownXBillingType +"'"+
-                        "(GodownXBillingId,GodownXId,ProductId,ProductName,EnCode,"
-                        +"Qty,QtyFact,SinglePerBox,SingleBoxPerBigBox,LN,PR,"
-                        +"CreateUserId,CreateUserName)" +"values('"
-                        +attr.GodownXBillingId+"','"+ attr.GodownXId+"','"+ attr.ProductId+"','"+attr.ProductName+"','"
-                        +attr.EnCode+"','" +attr.Qty+"','"+attr.QtyFact+"','"+attr.SinglePerBox+"','" +attr.SingleBoxPerBigBox+"','"
-                        +attr.LN+"','"+(attr.PR==null?"":sdf.format(attr.PR))+"','" +attr.CreateUserId+"','"+attr.CreateUserName+"')"
-                );
+                attr.gxId = gxEntity;
+                new GodownXBillingEntityDAO(mContext).insert(attr);
             }
         }catch (Exception ex){
             return false;

@@ -358,7 +358,7 @@ public class DownLoadBillHelper {
                     continue;
                 }
 
-                gBillHelper.SaveGroupXBillingDataFile(gxEntity.GodownXCode , gxBillListc.Result);
+                gBillHelper.SaveGroupXBillingDataFile(gxEntity , gxBillListc.Result);
             }
         }catch (Exception ex){
             throw new Exception( ex.getMessage() );
